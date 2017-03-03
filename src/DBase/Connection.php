@@ -12,35 +12,35 @@ class Connection
      */
     public $capsule;
     /**
-     * @var string 
+     * @var string
      */
     private $driver    = 'mysql';
     /**
-     * @var string 
+     * @var string
      */
     private $host      = 'localhost';
     /**
-     * @var string 
+     * @var string
      */
     private $database  = 'aenet_nfe';
     /**
-     * @var string 
+     * @var string
      */
     private $username  = 'root';
     /**
-     * @var string 
+     * @var string
      */
     private $password  = 'monitor5';
     /**
-     * @var string 
+     * @var string
      */
     private $charset   = 'utf8';
     /**
-     * @var string 
+     * @var string
      */
     private $collation = 'utf8_unicode_ci';
     /**
-     * @var string 
+     * @var string
      */
     private $prefix    = '';
     
@@ -135,7 +135,7 @@ class Connection
     {
         if (!empty($password)) {
             $this->password = $password;
-        }    
+        }
     }
     
     /**
@@ -147,7 +147,7 @@ class Connection
     {
         if (!empty($driver)) {
             $this->driver = $driver;
-        }    
+        }
     }
 
     /**
@@ -172,6 +172,6 @@ class Connection
     {
         if (!empty($prefix)) {
             $this->prefix = $prefix;
-        }    
+        }
     }
 }

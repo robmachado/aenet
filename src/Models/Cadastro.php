@@ -13,5 +13,4 @@ class Cadastro extends Eloquent
         'pfx',
         'senha'
     ];
-    
 }

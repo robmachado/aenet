@@ -21,5 +21,5 @@ class Event extends Eloquent
         'dhRecbto',
         'nProt',
         'content'
-    ]; 
+    ];
 }

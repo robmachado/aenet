@@ -20,7 +20,13 @@ class DFe
         
         $this->ambiente = $this->tools->ambiente;
         $this->pathNFe = $this->tools->aConfig['pathNFeFiles'];
-        $this->pathRes = $this->tools->aConfig['pathNFeFiles'].DIRECTORY_SEPARATOR.$this->ambiente.DIRECTORY_SEPARATOR.'recebidas'.DIRECTORY_SEPARATOR.'resumo';
+        $this->pathRes = $this->tools->aConfig['pathNFeFiles']
+            . DIRECTORY_SEPARATOR
+            . $this->ambiente
+            . DIRECTORY_SEPARATOR
+            . 'recebidas'
+            . DIRECTORY_SEPARATOR
+            . 'resumo';
         $this->tpAmb = $this->tools->aConfig['tpAmb'];
         $this->nsuFilePath = PATH_ROOT.'base';
         $this->getNSU();
@@ -31,7 +37,6 @@ class DFe
      */
     public function getLastNSU()
     {
-        
     }
     
     /**
@@ -40,11 +45,10 @@ class DFe
      */
     public function saveNSU()
     {
-        
     }
     
     /**
-     * Usa o webservice DistDFe da SEFAZ AN para trazer os 
+     * Usa o webservice DistDFe da SEFAZ AN para trazer os
      * documentos destinados ao CNPJ indicado e salvar as NSU retornadas
      * na base de dados
      * @param int $limit
@@ -93,7 +97,7 @@ class DFe
      * zSalva
      * Recebe um array com a chave, data e o xml das NFe destinadas
      * e grava na pasta das recebidas/<anomes>
-     * 
+     *
      * @param array $aDocs
      * @param boolean $bIncludeAnomes
      */
@@ -125,9 +129,9 @@ class DFe
     /**
      * zExtractNFe
      * Recebe o array com os documentos retornados pelo
-     * webservice e caso sejam NFe retorna outro array com 
+     * webservice e caso sejam NFe retorna outro array com
      * a chave, data e o xml
-     * 
+     *
      * @param array $docs
      * @return array
      */
@@ -324,4 +328,3 @@ class DFe
         }
     }
 }
-

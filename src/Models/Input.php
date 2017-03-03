@@ -14,9 +14,9 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  *        4 pdf gerado com sucesso
  *        5 emails enviados com sucesso
  *       99 erro nas operações anteriores ou erro SOAP com o webservice
- * 
- *      
- *        
+ *
+ *
+ *
  */
 class Input extends Eloquent
 {
