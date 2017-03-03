@@ -6,5 +6,20 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
 
 class Event extends Eloquent
 {
-    protected $table = 'events';
+    public $timestamps = false;
+    protected $table = 'dfe_events';
+    protected $fillable = [
+        'id',
+        'id_cadastro',
+        'nsu',
+        'cnp',
+        'chNFe',
+        'tpEvento',
+        'nSeqEvento',
+        'xEvento',
+        'dhEvento',
+        'dhRecbto',
+        'nProt',
+        'content'
+    ]; 
 }

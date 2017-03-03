@@ -1,19 +1,17 @@
 <?php
-
 namespace Aenet\NFe\Models;
 
 use Illuminate\Database\Eloquent\Model as Eloquent;
 
-class NFe extends Eloquent
+class Cadastro extends Eloquent
 {
     public $timestamps = false;
-    protected $table = 'nfes';
+    protected $table = 'cadastros';
     protected $fillable = [
-        'id',
-        'id_cadastro',
-        'nsu',
+        'id_empresa',
         'cnpj',
-        'chNFe',
-        'content'
+        'pfx',
+        'senha'
     ];
+    
 }

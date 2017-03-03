@@ -6,5 +6,14 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
 
 class Nsu extends Eloquent
 {
-    protected $table = 'nsus';
+    public $timestamps = false;
+    protected $table = 'dfe_nsus';
+    protected $fillable = [
+        'id',
+        'id_empresa',
+        'nsu',
+        'tipo',
+        'manifestar',
+        'content'
+    ];
 }

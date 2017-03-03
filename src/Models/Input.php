@@ -20,6 +20,18 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  */
 class Input extends Eloquent
 {
-    protected $table = 'inputs';
-    protected $fillable = ['txt', 'status', 'xml', 'pdf', 'error_cod', 'error_msg'];
+    protected $table = 'nfes_inputs';
+    protected $fillable = [
+        'id',
+        'id_empresa',
+        'id_nfe_aenet',
+        'txt',
+        'status',
+        'xml',
+        'pdf',
+        'error_cod',
+        'error_msg',
+        'created_at',
+        'updated_at'
+    ];
 }

@@ -29,7 +29,7 @@ Insira os comandos
 # *   = todos os dias,
 # *   = todos os meses,
 # 1-5 = mas apenas de segunda a sexta-feira
-1 */2 * * 1-5 root php /var/www/aenet/jobs/processdfe.php &> /dev/null
+1 */2 * * 1-5 root php /var/www/aenet/jobs/job_dfe.php &> /dev/null
 ```
 
 ##Tarefa de envio das NFe, Cancelamentos e Eventos 
@@ -55,6 +55,6 @@ Insira os comandos
 # *    = todos os dias,
 # *    = todos os meses,
 # 1-6  = mas apenas de segunda a sábado 
-*/2 8-21 * * 1-6 root php /var/www/aenet/jobs/processnfe.php &> /dev/null
+*/2 8-21 * * 1-6 root php /var/www/aenet/jobs/job_nfe.php &> /dev/null
 ```
 
