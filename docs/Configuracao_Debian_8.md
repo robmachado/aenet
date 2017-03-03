@@ -109,7 +109,7 @@ server {
 	index index.php index.html index.htm index.nginx-debian.html;
 
         # corrija o nome do servidor
-	server_name 191.252.100.10;
+	server_name <coloque o IP>;
 
 	location / {
 		try_files $uri $uri/ =404;
@@ -153,6 +153,29 @@ nano /var/www/html/info.php
 phpinfo();
 
 ```
+# Instalação do MySQL
+
+```bash
+apt-get install mysql-server mysql-client
+```
+Altere a configuração do MySQL para aceitar acessos externos ao localhost.
+
+```bash
+nano /etc/mysql/my.cnf
+```
+Altere a linha:
+```bash
+bind_address = 127.0.0.1
+```
+por
+```bash
+bind_address = <IP do servidor>
+```
+Inclua outro usuário para acesso remoto usando a linha de comando do MySQL.
+
+```bash
+```
+
 
 #Instalação do Composer
 
@@ -166,4 +189,6 @@ php -r "unlink('composer-setup.php');"
 ```bash
 mv composer.phar /usr/local/bin/composer
 ```
+
+
 
