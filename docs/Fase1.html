@@ -1,0 +1,74 @@
+<h1 id="projeto-nfe-aenet">Projeto NFe AENET</h1>
+
+
+
+<h2 id="fase-1">FASE 1</h2>
+
+
+
+<h3 id="objetivo">Objetivo:</h3>
+
+<p>Emissão automática de NFe, a partir de TXT gravado em base de dados</p>
+
+
+
+<h3 id="estrutura">Estrutura:</h3>
+
+<ul>
+<li>S.O. Linux, Debian ou derivado, em sua última atualização LTS</li>
+<li>PHP 7.0 ou superior (temos que estabelecer se usará FPM ou não)</li>
+<li>Banco de Dados MySQL (banco INNODB) (tabelas a serem definidas)</li>
+</ul>
+
+<h3 id="pré-requisitos">Pré-Requisitos:</h3>
+
+<ul>
+<li>Acesso ROOT por SSH</li>
+<li>Todos os módulos necessários do PHP intalados e ativos</li>
+<li>PHP Composer</li>
+<li>Certificado digital A1 (via software) para cada empresa usuária</li>
+</ul>
+
+<h3 id="funcionamento">Funcionamento:</h3>
+
+<p>Usando o CRON (agendador) será executado um script periodicamente, em intervalos de tempo ainda a ser definido, mas não menos que 60 segundos.</p>
+
+<p>Esse script (processo) irá:</p>
+
+<ul>
+<li>buscar em tabela da base de dados, se existe algum TXT ainda não processado e se houver, irá: <br>
+<ul><li>usar a classe NFePHP\NFe\ConvertNFe() – erros e exceptions</li>
+<li>Assinar o XML obtido </li>
+<li>Validar o XML assinado – erros e exceptions</li>
+<li>Se validado, enviar para a SEFAZ (considerar CONTINGÊNCIA) - erros e exceptions   </li>
+<li>Carregar tabela da base com os retornos da SEFAZ</li>
+<li>enviar os email aos destinatários contidos no XML </li></ul></li>
+</ul>
+
+<h3 id="tarefas">Tarefas:</h3>
+
+<ol>
+<li>Instalar e configurar ambiente PHP</li>
+<li>Instalar composer</li>
+<li>Definir banco de dados e tabelas necessárias</li>
+<li>Definir e construir interface de acesso administrativo</li>
+<li>Definir e construir interface de usuário, incluindo a geração do PDF da DANFE</li>
+<li>Montar script e classes para a realização das terefas necessárias</li>
+<li>Montar testes unitários para garantir funcionamento em atualizações futuras</li>
+</ol>
+
+<blockquote>
+  <p>NOTA: ainda existem muitas duvidas que teremos que esclarecer nessa fase de design desse projeto, como:</p>
+  
+  <blockquote>
+    <p>Vamos criar uma base de dados para cada cliente ou não ?</p>
+  </blockquote>
+  
+  <p>Em algum momento vamos usar acesso a disco ou apenas o banco de dados ?</p>
+  
+  <blockquote>
+    <p>Isso dentre muitas outras duvidas!</p>
+  </blockquote>
+  
+  <p>NOTA: A versão atual do NFePHP (v4.0 ou v4.1), faz uso de disco e isso somente será mudado a partir da versão v5.0 com previsão de lançamento de release apenas no segundo semestre.</p>
+</blockquote>
