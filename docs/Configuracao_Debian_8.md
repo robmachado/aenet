@@ -171,11 +171,34 @@ por
 ```bash
 bind_address = <IP do servidor>
 ```
-Inclua outro usuário para acesso remoto usando a linha de comando do MySQL.
+Inclua outro usuário para acesso remoto usando a linha de comando do MySQL e a senha de root.
 
 ```bash
+mysql -uroot -p
+
+mysql>
+```
+Após conectar ao MySQL crie o novo usuário, para acesso remoto.
+```mysql
+mysql> CREATE USER 'nome'@'%' IDENTIFIED BY 'senha';
+```
+Forneça os privilégios aos usuário
+```mysql
+mysql> GRANT ALL PRIVILEGES ON *.* TO 'nome'@'%' WITH GRANT OPTION;
+```
+Atualize o sistema do MySQL para passarem a valer esses privilégios
+```mysql
+mysql> FLUSH PRIVILEGES;
+```
+Saia do MySQL
+```mysql
+mysql> quit;
 ```
 
+Reinicie o MySQL para recarregar as configurações de acesso remoto.
+```bash
+service mysql restart
+```
 
 #Instalação do Composer
 
@@ -189,6 +212,3 @@ php -r "unlink('composer-setup.php');"
 ```bash
 mv composer.phar /usr/local/bin/composer
 ```
-
-
-
