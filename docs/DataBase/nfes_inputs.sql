@@ -15,7 +15,7 @@ CREATE TABLE `nfes_inputs` (
   `id_nfe_aenet` int(11) UNSIGNED NOT NULL COMMENT 'Id da NFe (AENET)',
   `txt` longtext COLLATE utf8_unicode_ci NOT NULL COMMENT 'TXT referente ao documento a enviar (AENET)',
   `status` tinyint(4) NOT NULL DEFAULT '0' COMMENT 'Flag de resultado do processamento',
-  `xml` longtext COLLATE utf8_unicode_ci NOT NULL COMMENT 'XML com o protocolo da mensagem enviada',
+  `xml` longtext COLLATE utf8_unicode_ci COMMENT 'XML com o protocolo da mensagem enviada',
   `pdf` longtext COLLATE utf8_unicode_ci COMMENT 'PDF do documento em base64',
   `error_cod` int(11) NOT NULL DEFAULT '0' COMMENT 'Código de erro retornado pela SEFAZ',
   `error_msg` text COLLATE utf8_unicode_ci COMMENT 'Descrição de erro retornado pela SEFAZ',
@@ -25,5 +25,5 @@ CREATE TABLE `nfes_inputs` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Inputs de notas em txt a serem processadas';
 
 --
--- Indexes for table `dfe_inputs`
+-- Indexes for table `nfes_inputs`
 --

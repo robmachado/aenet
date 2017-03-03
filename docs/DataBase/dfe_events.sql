@@ -21,7 +21,7 @@ CREATE TABLE `dfe_events` (
   `dhEvento` datetime NOT NULL COMMENT 'Data e hora de emissão do evento',
   `dhRecbto` datetime NOT NULL COMMENT 'Data e hora do recebimento do evento na SEFAZ',
   `nProt` varchar(100) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT 'Numero do protocolo do evento, se houver',
-  `content` longtext COLLATE utf8_unicode_ci NOT NULL COMMENT 'XML do evento',
+  `content` longtext COLLATE utf8_unicode_ci COMMENT 'XML do evento',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
