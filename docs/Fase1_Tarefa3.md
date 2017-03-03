@@ -10,7 +10,7 @@ Para essa função estão especificados 3 tabelas na base de dados:
 
 ###aenet_nfe.nfes_aenet
 
-Esta tabela é de uso excusivo do sistema AENET, tanto para inclusão, alteração e leitura. Essa tabela interaje com o frontend do sistema.
+Esta tabela é de uso excusivo do sistema AENET, tanto para inclusão, alteração e leitura. Essa tabela interage com o frontend do sistema.
 
 ```mysql
 --
