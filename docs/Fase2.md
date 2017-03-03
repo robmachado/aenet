@@ -35,11 +35,11 @@ Outro script (processo) irá:
 
 Tarefas:
 
-[1. Estabelecer tabelas necessárias na base de dados](Fase2_Tarefa1.md)
-2. Montar os scripts e classes para a realização das tarefas e tratamento das exceções
-3. Montar testes unitários para garantir funcionamento em atualizações futuras
-4. Definir e montar as interfaces de administração
-5. Definir e montar as interfaces de usuário 
+1. [Estabelecer tabelas necessárias na base de dados](Fase2_Tarefa1.md)
+2. [Montar os scripts e classes para a realização das tarefas e tratamento das exceções](Fase2_Tarefa2.md)
+3. [Montar testes unitários para garantir funcionamento em atualizações futuras](Fase2_Tarefa3.md)
+4. [Definir e montar as interfaces de administração](Fase2_Tarefa4.md)
+5. [Definir e montar as interfaces de usuário](Fase2_Tarefa5.md) 
 
 >Para cada FASE do projeto, devem ser documentadas as tarefas e ações realizadas para que possam ser reproduzidas, desfeitas ou analisadas.
 >Outra coisa importante é estabelecer como serão registrados, recuperados e eliminados  os LOGS das operações, sejam elas automáticas ou não. 
