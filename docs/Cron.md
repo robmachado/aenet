@@ -3,7 +3,7 @@
 Para configurar a execução dos jobs relativos aos processo de DFe e envio de NFe
 
 >NOTA: Como essas tarefas serão executadas com o PHP-CLI tenha a certeza que o sistema operacional consegue encontar o executavel do PHP.
->Para fazer isso teste primerio o comando via terminal e verificque que tudo foi executado como previsto. 
+>Para fazer isso teste primeiro o comando via terminal e verifique que tudo tenha sido executado como previsto. 
 
 ##Tarefa de busca de documentos destinados DFe
 
