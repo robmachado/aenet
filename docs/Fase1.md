@@ -35,14 +35,14 @@ Esse script (processo) irá:
 	
 ###Tarefas:
 
-1. [Instalar e configurar ambiente PHP](Configuracao_Debian_8.md)
-2. [Instalar composer](Configuracao_Debian_8.md)
-3. [Definir banco de dados e tabelas necessárias](Fase1_Tarefa3.md)
-4. [Estabelecer os formatos dos TXT quando não se tratar de uma NFe](Fase1_Tarefa4.md)
-5. [Definir e construir interface de acesso administrativo](Fase1_Tarefa5.md)
-6. [Definir e construir interface de usuário, incluindo a geração do PDF da DANFE](Fase1_Tarefa6.md)
-7. [Montar script e classes para a realização das terefas necessárias](Fase1_Tarefa7.md)
-8. [Montar testes unitários para garantir funcionamento em atualizações futuras](Fase1_Tarefa8.md)
+1. [Instalar e configurar ambiente PHP](Fase1/Configuracao.md)
+2. [Instalar composer](Fase1/Configuracao.md)
+3. [Definir banco de dados e tabelas necessárias](Fase1/Tarefa3.md)
+4. [Estabelecer os formatos dos TXT quando não se tratar de uma NFe](Fase1/Tarefa4.md)
+5. [Definir e construir interface de acesso administrativo](Fase1/Tarefa5.md)
+6. [Definir e construir interface de usuário, incluindo a geração do PDF da DANFE](Fase1/Tarefa6.md)
+7. [Montar script e classes para a realização das terefas necessárias](Fase1/Tarefa7.md)
+8. [Montar testes unitários para garantir funcionamento em atualizações futuras](Fase1/Tarefa8.md)
 
 >NOTA: ainda existem muitas duvidas que teremos que esclarecer nessa fase de design desse projeto, como:
 >>Vamos criar uma base de dados para cada cliente ou não ?
