@@ -1,11 +1,11 @@
 #Configuração do CRON
 
-Para configurar a execução dos jobs relativos aos processo de, Status, DFe e NFe.
+Para configurar a execução dos jobs relativos aos processo de: Status, DFe e NFe.
 
 >NOTA: Como essas tarefas serão executadas com o PHP-CLI tenha a certeza que o sistema operacional consegue encontrar o executável do PHP.
 >Para fazer isso teste primeiro o comando via terminal e verifique que tudo tenha sido executado como previsto. 
 
-##Tarefa de busta do status das autorizadoras
+##Tarefa de busca do status das autorizadoras
 
 Vá para a pasta onde ficam os agendamentos do cron
 
@@ -24,7 +24,7 @@ Insira os comandos
 # Tarefa de busca do status dos serviços das autorizadoras
 # Essa tarefa será executada
 # */5  = a cada 5 minutos,
-# 6-21 = das 6 as 21 horas,
+# 6-21 = das 6 às 21 horas,
 # *    = todos os dias,
 # *    = todos os meses,
 # 1-6  = mas apenas de segunda a sábado
