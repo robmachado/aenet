@@ -5,7 +5,16 @@
 -- --------------------------------------------------------
 
 --
+-- Remover se existir tabela anterior `dfe_nfes`
+--
+
+DROP TABLE IF EXISTS `dfe_nfes`;
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura da tabela `dfe_nfes`
+-- Registro das NFe baixadas do DFe
 -- Responsável : Roberto
 --
 

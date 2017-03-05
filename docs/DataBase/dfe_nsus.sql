@@ -5,7 +5,16 @@
 -- --------------------------------------------------------
 
 --
+-- Remover se existir tabela anterior `dfe_nsus`
+--
+
+DROP TABLE IF EXISTS `dfe_nsus`;
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura da tabela `dfe_nsus`
+-- Controle de dados recebidos do webservice de DFe
 -- Responsável : Roberto
 --
 

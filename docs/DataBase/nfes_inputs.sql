@@ -5,7 +5,16 @@
 -- --------------------------------------------------------
 
 --
+-- Remover se existir tabela anterior `nfes_inputs`
+--
+
+DROP TABLE IF EXISTS `nfes_inputs`;
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura da tabela `nfes_inputs`
+-- Controle do processo de envio de solicitações a SEFAZ
 -- Responsável : Roberto
 --
 

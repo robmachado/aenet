@@ -5,7 +5,16 @@
 -- --------------------------------------------------------
 
 --
+-- Remover se existir tabela anterior `dfe_events`
+--
+
+DROP TABLE IF EXISTS `dfe_events`;
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura da tabela `dfe_events`
+-- Registro dos eventos baixados do DFe
 -- Responsável : Roberto
 --
 

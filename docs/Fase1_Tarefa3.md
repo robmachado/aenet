@@ -10,7 +10,8 @@ Para essa função estão especificados 3 tabelas na base de dados:
 
 ###aenet_nfe.nfes_aenet
 
-Esta tabela é de uso excusivo do sistema AENET, tanto para inclusão, alteração e leitura. Essa tabela interage com o frontend do sistema.
+Esta tabela é de uso excusivo do sistema AENET, tanto para inclusão, alteração e leitura. 
+Essa tabela interage com o frontend do sistema AENET.
 
 ```mysql
 --
@@ -79,8 +80,9 @@ CREATE TABLE `nfes_aenet` (
 
 É de responsabilidade do sistema AENET carregar e manter atualizados os dados desta tabela.
 O sistema AENET deve carregar todos os campos obrigatórios.
-Exceto o "sefazstatus" que é uma função do aplicativo.
-Esse campo é usado para gerenciar a situação da SEFAZ e caso a mesma esteja OFF LINE nenhum envio será feito a menos que a contingência seja ativada.
+Exceto o "sefazstatus" que é uma função do aplicativo e ao incluir um registro esse campo deve permanecer como ZERO.
+Esse campo será usado para gerenciar a situação da SEFAZ e caso a mesma esteja "OFF LINE" nenhum envio será feito, a menos que a contingência seja ativada e ativa ou seja com "sefazstatus" = 1.
+A busca do status da SEFAZ irá ocorrer sempre que o compo contingência for alterado ou a cada 5 minutos através do cronjob
 
 A contingência é ativada EMPRESA por EMPRESA e não por unidade da SEFAZ e essa ativação deverá ser feita de forma MANUAL pois implica em mudanças no TXT.
 
@@ -99,9 +101,9 @@ A contingência é ativada EMPRESA por EMPRESA e não por unidade da SEFAZ e ess
 CREATE TABLE `cadastros` (
   `id_empresa` int(11) UNSIGNED NOT NULL COMMENT 'Id da Empresas (AENET)',
   `cnpj` varchar(14) NOT NULL COMMENT 'CNPJ da empresa',
-  `pfx` text NOT NULL COMMENT 'Conteúdo do PFX em base64',
-  `chain` text COMMENT 'Certificados da cadeia de certificação em PEM',
-  `senha` varchar(30) NOT NULL COMMENT 'Senha de acesso ao certificado',
+  `crtpfx` text NOT NULL COMMENT 'Conteúdo do PFX em base64',
+  `crtchain` text COMMENT 'Certificados da cadeia de certificação em PEM',
+  `crtpass` varchar(30) NOT NULL COMMENT 'Senha de acesso ao certificado',
   `logo` text COMMENT 'Logo marca JPG ou PNG em base64 para uso nos PDFs',
   `contingency` text COMMENT 'Dados de contingência json base64',
   `sefazstatus` text COMMENT 'Dados referentes ao staus da SEFAZ json base64',

@@ -1,9 +1,35 @@
 #Configuração do CRON
 
-Para configurar a execução dos jobs relativos aos processo de DFe e envio de NFe
+Para configurar a execução dos jobs relativos aos processo de, Status, DFe e NFe.
 
->NOTA: Como essas tarefas serão executadas com o PHP-CLI tenha a certeza que o sistema operacional consegue encontar o executavel do PHP.
+>NOTA: Como essas tarefas serão executadas com o PHP-CLI tenha a certeza que o sistema operacional consegue encontrar o executável do PHP.
 >Para fazer isso teste primeiro o comando via terminal e verifique que tudo tenha sido executado como previsto. 
+
+##Tarefa de busta do status das autorizadoras
+
+Vá para a pasta onde ficam os agendamentos do cron
+
+```bash
+cd /etc/cron.d
+```
+Crie um arquivo com o primeiro set de comandos CRON
+
+```bash
+nano job_status
+```
+
+Insira os comandos
+ 
+```bash
+# Tarefa de busca do status dos serviços das autorizadoras
+# Essa tarefa será executada
+# */5  = a cada 5 minutos,
+# 6-21 = das 6 as 21 horas,
+# *    = todos os dias,
+# *    = todos os meses,
+# 1-6  = mas apenas de segunda a sábado
+*/5 6-21 * * 1-6 root php /var/www/aenet/jobs/job_status.php &> /dev/null
+```
 
 ##Tarefa de busca de documentos destinados DFe
 
@@ -16,7 +42,7 @@ cd /etc/cron.d
 Crie um arquivo com o primeiro set de comandos CRON
 
 ```bash
-nano taskdfe
+nano job_dfe
 ```
 
 Insira os comandos
@@ -43,7 +69,7 @@ cd /etc/cron.d
 Crie um arquivo com o primeiro set de comandos CRON
 
 ```bash
-nano tasknfe
+nano job_nfe
 ```
 Insira os comandos
 

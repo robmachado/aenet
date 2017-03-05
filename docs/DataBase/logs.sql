@@ -5,7 +5,16 @@
 -- --------------------------------------------------------
 
 --
+-- Remover se existir tabela anterior `logs`
+--
+
+DROP TABLE IF EXISTS `logs`;
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura da tabela `logs`
+-- Registro de LOGS das operações
 -- Responsável : Roberto
 --
 
