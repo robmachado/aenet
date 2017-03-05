@@ -6,17 +6,26 @@ use NFePHP\NFe\Tools;
 use NFePHP\Common\Certificate;
 use NFePHP\Common\Soap\SoapCurl;
 use NFePHP\Common\Certificate\CertificationChain;
+use stdClass;
+use Aenet\NFe\Models\Status;
 
 class StatusController
 {
+    protected $cadastro;
+    
+    public function __construct(stdClass $cad)
+    {
+        $this->cadastro = $cad;
+    }
+    
     /**
      * Pull status from SEFAZ
      * @param string $uf
      */
     public function pull($uf, $tpAmb)
     {
-        $configJson = file_get_contents('config.json');
-        $content = file_get_contents('bob.pfx');
+        
+        
         //$chain = new CertificationChain(file_get_contents('chain.pem'));
         $certificate = Certificate::readPfx($content, 'fima');
         //$certificate->chainKeys = $chain;
