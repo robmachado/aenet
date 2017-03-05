@@ -77,10 +77,10 @@ Insira os comandos
 # Tarefa de envio das NFe geradas
 # Essa tarefa será executada 
 # */2  = a cada 2 minutos,
-# 8-21 = das 8 às 21 horas,
+# 6-21 = das 6 às 21 horas,
 # *    = todos os dias,
 # *    = todos os meses,
 # 1-6  = mas apenas de segunda a sábado 
-*/2 8-21 * * 1-6 root php /var/www/aenet/jobs/job_nfe.php &> /dev/null
+*/2 6-21 * * 1-6 root php /var/www/aenet/jobs/job_nfe.php &> /dev/null
 ```
 
