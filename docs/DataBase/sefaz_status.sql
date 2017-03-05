@@ -69,3 +69,4 @@ INSERT INTO `sefaz_status` (`uf`, `status_1`, `error_msg_1`, `updated_at_1`, `st
 --
 -- Indexes for dumped tables
 --
+ALTER TABLE `sefaz_status` ADD UNIQUE(`uf`);

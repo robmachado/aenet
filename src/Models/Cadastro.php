@@ -5,12 +5,17 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
 
 class Cadastro extends Eloquent
 {
-    public $timestamps = false;
+    public $timestamps = true;
     protected $table = 'cadastros';
     protected $fillable = [
         'id_empresa',
         'cnpj',
-        'pfx',
-        'senha'
+        'uf',
+        'crtpfx',
+        'crtchain',
+        'crtpass',
+        'crtvalid_to',
+        'logo',
+        'contingency'
     ];
 }

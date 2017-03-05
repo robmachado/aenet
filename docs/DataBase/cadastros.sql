@@ -25,6 +25,7 @@ CREATE TABLE `cadastros` (
   `crtpfx` text NOT NULL COMMENT 'Conteúdo do PFX em base64',
   `crtchain` text COMMENT 'Certificados da cadeia de certificação em PEM',
   `crtpass` varchar(30) NOT NULL COMMENT 'Senha de acesso ao certificado',
+  `crtvalid_to` datetime COMMENT 'Data e hora da validade do certificado',
   `logo` text COMMENT 'Logo marca JPG ou PNG em base64 para uso nos PDFs',
   `contingency` text COMMENT 'Dados de contingência json base64',
   `created_at` datetime NOT NULL COMMENT 'Data e hora da criação do registro',
