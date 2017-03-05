@@ -6,7 +6,7 @@ Emissão automática de NFe, a partir de TXT gravado em base de dados
 
 ##Tarefa 3 Definir banco de dados e tabelas necessárias
 
-Para essa função estão especificados 3 tabelas na base de dados:
+Para essa função estão especificados 3 tabelas na base de dados, e mais uma usada para o controle do status do autorizador:
 
 ###aenet_nfe.nfes_aenet
 
@@ -94,19 +94,28 @@ A contingência é ativada EMPRESA por EMPRESA e não por unidade da SEFAZ e ess
 -- --------------------------------------------------------
 
 --
+-- Remover se existir tabela anterior `cadastros`
+--
+
+DROP TABLE IF EXISTS `cadastros`;
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura da tabela `cadastros`
+-- Cadastro de emitentes do sistema
 -- Responsável : Roberto
 --
 
 CREATE TABLE `cadastros` (
-  `id_empresa` int(11) UNSIGNED NOT NULL COMMENT 'Id da Empresas (AENET)',
+  `id_empresa` int(11) UNSIGNED NOT NULL COMMENT 'Id da Empresa (AENET)',
   `cnpj` varchar(14) NOT NULL COMMENT 'CNPJ da empresa',
+  `uf` varchar(2) NOT NULL COMMENT 'UF da empresa',
   `crtpfx` text NOT NULL COMMENT 'Conteúdo do PFX em base64',
   `crtchain` text COMMENT 'Certificados da cadeia de certificação em PEM',
   `crtpass` varchar(30) NOT NULL COMMENT 'Senha de acesso ao certificado',
   `logo` text COMMENT 'Logo marca JPG ou PNG em base64 para uso nos PDFs',
   `contingency` text COMMENT 'Dados de contingência json base64',
-  `sefazstatus` text COMMENT 'Dados referentes ao staus da SEFAZ json base64',
   `created_at` datetime NOT NULL COMMENT 'Data e hora da criação do registro',
   `updated_at` datetime NOT NULL COMMENT 'Data e hora da última alteração do registro',
   PRIMARY KEY (`id_empresa`)
@@ -131,7 +140,16 @@ Quando é criada uma NFe, Carta de Correção, Cancelamento, Inutilização de n
 -- --------------------------------------------------------
 
 --
+-- Remover se existir tabela anterior `nfes_inputs`
+--
+
+DROP TABLE IF EXISTS `nfes_inputs`;
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura da tabela `nfes_inputs`
+-- Controle do processo de envio de solicitações a SEFAZ
 -- Responsável : Roberto
 --
 
@@ -153,7 +171,6 @@ CREATE TABLE `nfes_inputs` (
 --
 -- Indexes for table `nfes_inputs`
 --
-
 ```
 
 O aplicativo irá varrer esta tabela em busca de novos campos ainda não tratados com status = 0 
@@ -168,3 +185,95 @@ Registros com status = 2 (com ERRO) não serão removidos da tabela e ficarão n
 - em caso de sucesso, o aplicativo irá protocolar o XML assinado ou corrigir seu dados em caso de cancelamento
 - gerar o PDF relativo ao documento (DANFE, DACCE ou DANFE com cancelamento), outros elevneto não geram PDF 
 - caso seja um NFe o aplicativo irá enviar os emails aos destinatários indicados no TXT
+
+###aenet_nfe.nfes_inputs
+
+Esta tabela é usada para gerenciar o stato dos serviços dos autorizadores para o processo de comunicação com as SEFAZ.
+A cada 5 minutos, é feita uma busca por todos os webservices e os mesmos são marcados como ativos ou não. Essa busca contempla tanto os servidores em produção como aqueles em homologação.
+Normalmente nos casos em que o serviço estiver "FORA DO AR" o servidor não irá reponder e irro gerará uma mensagem de erro que será registrada nessa tabela.
+Esse processo não garante uma informação exata, pois o motivo da negativa da busca pode indicar outros problemas como:
+ - serviço realmente OFF LINE (mais comum)
+ - envenenamento de cache de DNS (nosso ou externo)
+ - bloqueio por parte de sistema de rotamento (nossos ou externos)
+ - bloqueio de acesso por questões de segurança (parametrização do servidor da SEFAZ)
+ - alteração dos protocolos de segurança (parametrização do servidor da SEFAZ)
+ - exigência de cadeia de certificação completa na chamada (parametrização do servidor da SEFAZ)
+
+>NOTA: mesmo o servidor indicando que o sistema está ON LINE, ainda sim, podemos ter problemas na comunicação, causados por DELAYS exagerados na resposta do servidor da SEFAZ ou ainda serviços especificos "TRAVADOS".
+>Lembre-se que a busca por status é um serviço e existem vários no mesmo webservice, que podem ter comportamentos incorretos.
+
+>CONTINGÊNCIA: Não existe forma segura de descobrir de forma automática quando entrar em contingência, isso é uma tarefa que deve ser realizada por operador humano, e apenas depois de se certificar que a contingência está autorizada, pelo site da sua SEFAZ.
+
+```mysql
+--
+-- Database: `aenet_nfe`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Remover se existir tabela anterior `sefaz_status`
+--
+
+DROP TABLE IF EXISTS `sefaz_status`;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `sefaz_status`
+-- Controle de status das autorizadoras da SEFAZ e Contingência SVC
+-- Responsável : Roberto
+--
+
+CREATE TABLE `sefaz_status` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Id da tabela',
+  `uf` varchar(10) COLLATE utf8_unicode_ci NOT NULL COMMENT 'Sigla do estado ou SVC',
+  `status_1` tinyint(4) NOT NULL COMMENT 'Status da SEFAZ Produção 1-Online ou 0-Offline',
+  `error_msg_1` varchar(200) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT 'Mensagem de erro, normalmente vinculada a serviço fora do ar',
+  `updated_at_1` datetime NOT NULL COMMENT 'Data e hora da última atualização',
+  `status_2` tinyint(4) NOT NULL COMMENT 'Status da SEFAZ Homologação 1-Online ou 0-Offline',
+  `error_msg_2` varchar(200) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT 'Mensagem de erro, normalmente vinculada a serviço fora do ar',
+  `updated_at_2` datetime NOT NULL COMMENT 'Data e hora da última atualização',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Registra o status da SEFAZ';
+
+--
+-- Extraindo dados da tabela `sefaz_status`
+--
+
+INSERT INTO `sefaz_status` (`uf`, `status_1`, `error_msg_1`, `updated_at_1`, `status_2`, `error_msg_2`, `updated_at_2`) VALUES
+('AC', 1, '', '2017-03-05 10:55:10', 1, '', '2017-03-05 10:55:10'),
+('AL', 1, '', '2017-03-05 10:55:10', 1, '', '2017-03-05 10:55:10'),
+('AM', 1, '', '2017-03-05 10:55:10', 1, '', '2017-03-05 10:55:10'),
+('AN', 1, '', '2017-03-05 10:55:10', 1, '', '2017-03-05 10:55:10'),
+('AP', 1, '', '2017-03-05 10:55:10', 1, '', '2017-03-05 10:55:10'),
+('BA', 1, '', '2017-03-05 10:55:10', 1, '', '2017-03-05 10:55:10'),
+('CE', 1, '', '2017-03-05 10:55:10', 1, '', '2017-03-05 10:55:10'),
+('DF', 1, '', '2017-03-05 10:55:10', 1, '', '2017-03-05 10:55:10'),
+('ES', 1, '', '2017-03-05 10:55:10', 1, '', '2017-03-05 10:55:10'),
+('GO', 1, '', '2017-03-05 10:55:10', 1, '', '2017-03-05 10:55:10'),
+('MA', 1, '', '2017-03-05 10:55:10', 1, '', '2017-03-05 10:55:10'),
+('MG', 1, '', '2017-03-05 10:55:10', 1, '', '2017-03-05 10:55:10'),
+('MS', 1, '', '2017-03-05 10:55:10', 1, '', '2017-03-05 10:55:10'),
+('MT', 1, '', '2017-03-05 10:55:10', 1, '', '2017-03-05 10:55:10'),
+('PA', 1, '', '2017-03-05 10:55:10', 1, '', '2017-03-05 10:55:10'),
+('PB', 1, '', '2017-03-05 10:55:10', 1, '', '2017-03-05 10:55:10'),
+('PE', 1, '', '2017-03-05 10:55:10', 1, '', '2017-03-05 10:55:10'),
+('PI', 1, '', '2017-03-05 10:55:10', 1, '', '2017-03-05 10:55:10'),
+('PR', 1, '', '2017-03-05 10:55:10', 1, '', '2017-03-05 10:55:10'),
+('RJ', 1, '', '2017-03-05 10:55:10', 1, '', '2017-03-05 10:55:10'),
+('RN', 1, '', '2017-03-05 10:55:10', 1, '', '2017-03-05 10:55:10'),
+('RO', 1, '', '2017-03-05 10:55:10', 1, '', '2017-03-05 10:55:10'),
+('RR', 1, '', '2017-03-05 10:55:10', 1, '', '2017-03-05 10:55:10'),
+('RS', 1, '', '2017-03-05 10:55:10', 1, '', '2017-03-05 10:55:10'),
+('SC', 1, '', '2017-03-05 10:55:10', 1, '', '2017-03-05 10:55:10'),
+('SE', 1, '', '2017-03-05 10:55:10', 1, '', '2017-03-05 10:55:10'),
+('SP', 1, '', '2017-03-05 10:55:10', 1, '', '2017-03-05 10:55:10'),
+('TO', 1, '', '2017-03-05 10:55:10', 1, '', '2017-03-05 10:55:10'),
+('SVCAN', 1, '', '2017-03-05 10:55:10', 1, '', '2017-03-05 10:55:10'),
+('SVCRS', 1, '', '2017-03-05 10:55:10', 1, '', '2017-03-05 10:55:10');
+
+--
+-- Indexes for dumped tables
+--
+```

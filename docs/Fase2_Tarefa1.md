@@ -29,17 +29,38 @@ Essa é uma tabela transitória, é continuamente alimentada e limpa quando o se
 
 ```mysql
 --
--- Estrutura da tabela `nsus`
+-- Database: `aenet_nfe`
 --
 
-CREATE TABLE `nsus` (
-  `id` int(11) NOT NULL COMMENT 'Id da tabela',
-  `id_empresa` int(11) NOT NULL COMMENT 'Id da Empresa (SISTEMA AENET)',
-  `nsu` int(11) NOT NULL COMMENT 'Id do registro (RECETA FEDERAL)',
-  `tipo` varchar(100) COLLATE utf8_unicode_ci NOT NULL COMMENT 'Tipo de informação contida no registro (RECEITA  FEDERAL)',
-  `manifestar` tinyint(4) NOT NULL COMMENT 'pendencia de manifestação',
-  `content` text COLLATE utf8_unicode_ci NOT NULL COMMENT 'Conteudo do registro'
+-- --------------------------------------------------------
+
+--
+-- Remover se existir tabela anterior `dfe_nsus`
+--
+
+DROP TABLE IF EXISTS `dfe_nsus`;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `dfe_nsus`
+-- Controle de dados recebidos do webservice de DFe
+-- Responsável : Roberto
+--
+
+CREATE TABLE `dfe_nsus` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Id da Tabela',
+  `id_empresa` int(11) UNSIGNED NOT NULL COMMENT 'Id da Empresas (AENET)',
+  `nsu` int(11) NOT NULL COMMENT 'Id do registro (RECEITA)',
+  `tipo` varchar(250) COLLATE utf8_unicode_ci NOT NULL COMMENT 'Tipo de registro NSU (RECEITA)',
+  `manifestar` tinyint(4) NOT NULL DEFAULT '0' COMMENT 'Pendencia de manifestação tipo RESUMO',
+  `content` longtext COLLATE utf8_unicode_ci NOT NULL COMMENT 'Conteúdo do NSU, já descompactado',
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Indexes for table `dfe_nsus`
+--
 ```
 Ao iniciar o processo de busca de destinadas o sistema lê o maior NSU contido na tabela para um determinado "id_empresa", e irá usar essa informação para buscar a sequencia seguinte de dados da Receita.
 

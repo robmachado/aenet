@@ -13,7 +13,10 @@ Tabela com cadastro completo da empresa usuária
 
 ###Funcionamento:
 
-Usando o CRON (agendador) será executado um script periodicamente, em intervalos de tempo ainda a ser definido, mas não menos que 60 MINUTOS. Esse intervalo de tempo é limitado devido a restrições de acesso por parte da Receita Federal.
+Usando o [CRONTAB](Cron.md) será executado um script periodicamente, em intervalos de tempo ainda a serem definidos, 
+mas não menos que 60 MINUTOS. 
+
+Esse intervalo de tempo é limitado devido a restrições de acesso por parte da Receita Federal.
 
 >NOTA: Esse sistema DFe da Receita, não possui dados em "REAL TIME", é um processo em "batch" com sincronismo a determinados intervalos, as primeiras consultas irão retornar documentos emitidos até no 3 meses anteriores e não antes disso, mas buscas posteriores somente serão retornadas os documentos mais recentes.
 

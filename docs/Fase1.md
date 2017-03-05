@@ -21,7 +21,7 @@ Emissão automática de NFe, a partir de TXT gravado em base de dados
 
 ###Funcionamento:
 
-Usando o CRON (agendador) será executado um script periodicamente, em intervalos de tempo ainda a ser definido, mas não menos que 60 segundos.
+Usando o [CRONTAB](Cron.md) será executado um script periodicamente, em intervalos de tempo ainda a ser definido, mas não menos que 60 segundos.
 
 Esse script (processo) irá:
 

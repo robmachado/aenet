@@ -21,6 +21,7 @@ DROP TABLE IF EXISTS `cadastros`;
 CREATE TABLE `cadastros` (
   `id_empresa` int(11) UNSIGNED NOT NULL COMMENT 'Id da Empresa (AENET)',
   `cnpj` varchar(14) NOT NULL COMMENT 'CNPJ da empresa',
+  `uf` varchar(2) NOT NULL COMMENT 'UF da empresa',
   `crtpfx` text NOT NULL COMMENT 'Conteúdo do PFX em base64',
   `crtchain` text COMMENT 'Certificados da cadeia de certificação em PEM',
   `crtpass` varchar(30) NOT NULL COMMENT 'Senha de acesso ao certificado',
