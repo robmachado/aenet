@@ -1,19 +1,19 @@
-#CONFIGURAÇÃO AMBIENTE DEBIAN 8 (JESSIE)
+# CONFIGURAÇÃO AMBIENTE DEBIAN 8 (JESSIE)
 
-#Instalar SUDO
+# Instalar SUDO
 
 ```bash
 apt-get install sudo
 ```
 
-##Criar usuários
+## Criar usuários
 
 ```bash
 adduser nomedeusuario
 addgroup nomedeusuario sudo
 ```
 
-#Instalação do PHP 7
+# Instalação do PHP 7
 
 ```bash
 nano /etc/apt/sources.list.d/dotdeb.list
@@ -27,7 +27,7 @@ deb http://packages.dotdeb.org jessie all
 deb-src http://packages.dotdeb.org jessie all
 ```
 
-###Vamos à configuração da chave gpg…
+### Vamos à configuração da chave gpg…
 
 ```bash
 wget https://www.dotdeb.org/dotdeb.gpg
@@ -42,7 +42,7 @@ apt-get install php7.0 php7.0-cli php7.0-mysql php7.0-xml php7.0-zip php7.0-soap
 
 ```
 
-###Alterar as configurações do php.cli
+### Alterar as configurações do php.cli
 
 ```bash
 nano /etc/php/7.0/cli/php.ini
@@ -53,7 +53,7 @@ nano /etc/php/7.0/cli/php.ini
 max_execution_time = 330
 memory_limit = 256M
 
-###Alterar as configurações do phpfpm
+### Alterar as configurações do phpfpm
 
 ```bash
 nano /etc/php/7.0/fpm/php.ini
@@ -71,13 +71,13 @@ cgi.fix_pathinfo = 0
 systemctl restart php7.0-fpm
 ```
 
-#Instalação do NGINX
+# Instalação do NGINX
 
 ```bash
 apt-get install nginx
 ```
 
-###Alterar as configurações do NGINX
+### Alterar as configurações do NGINX
 
 ```bash
 nano /etc/nginx/sites-available/default
@@ -202,7 +202,7 @@ Reinicie o MySQL para recarregar as configurações de acesso remoto.
 service mysql restart
 ```
 
-#Instalação do Composer
+# Instalação do Composer
 
 ```bash
 php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"

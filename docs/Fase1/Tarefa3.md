@@ -1,14 +1,14 @@
-#Fase 1
+# Fase 1
 
-###Objetivo:
+### Objetivo:
 
 Emissão automática de NFe, a partir de TXT gravado em base de dados
 
-##Tarefa 3 Definir banco de dados e tabelas necessárias
+## Tarefa 3 Definir banco de dados e tabelas necessárias
 
 Para essa função estão especificados 3 tabelas na base de dados, e mais uma usada para o controle do status do autorizador:
 
-###aenet_nfe.nfes_aenet
+### aenet_nfe.nfes_aenet
 
 Esta tabela é de uso excusivo do sistema AENET, tanto para inclusão, alteração e leitura. 
 Essa tabela interage com o frontend do sistema AENET.
@@ -76,7 +76,7 @@ CREATE TABLE `nfes_aenet` (
 
 ```
 
-###aenet_nfe.cadastros
+### aenet_nfe.cadastros
 
 É de responsabilidade do sistema AENET carregar e manter atualizados os dados desta tabela.
 O sistema AENET deve carregar todos os campos obrigatórios.
@@ -128,7 +128,7 @@ CREATE TABLE `cadastros` (
 ALTER TABLE `cadastros` ADD UNIQUE(`cnpj`);
 ```
 
-###aenet_nfe.nfes_inputs
+### aenet_nfe.nfes_inputs
 
 Esta tabela é usada para gerenciar os processos de comunicação com a SEFAZ.
 Quando é criada uma NFe, Carta de Correção, Cancelamento, Inutilização de numero, ou manifestação de destinatário, esta tabela receberá uma inclusão por parte do sistema AENET.

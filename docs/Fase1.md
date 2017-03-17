@@ -1,25 +1,25 @@
-#Projeto NFe AENET
+# Projeto NFe AENET
 
-##FASE 1
+## FASE 1
 
-###Objetivo:
+### Objetivo:
 
 Emissão automática de NFe, a partir de TXT gravado em base de dados
 
-###Estrutura:
+### Estrutura:
 
 * S.O. Linux, Debian ou derivado, em sua última atualização LTS
 * PHP 7.0 ou superior (temos que estabelecer se usará FPM ou não)
 * Banco de Dados MySQL (banco INNODB) (tabelas a serem definidas)
 
-###Pré-Requisitos:
+### Pré-Requisitos:
 
 * Acesso ROOT por SSH
 * Todos os módulos necessários do PHP intalados e ativos
 * PHP Composer
 * Certificado digital A1 (via software) para cada empresa usuária
 
-###Funcionamento:
+### Funcionamento:
 
 Usando o [CRONTAB](Cron.md) será executado um script periodicamente, em intervalos de tempo ainda a ser definido, mas não menos que 60 segundos.
 
@@ -33,7 +33,7 @@ Esse script (processo) irá:
   * Carregar tabela da base com os retornos da SEFAZ
   * enviar os email aos destinatários contidos no XML 
 	
-###Tarefas:
+### Tarefas:
 
 1. [Instalar e configurar ambiente PHP](Fase1/Configuracao.md)
 2. [Instalar composer](Fase1/Configuracao.md)

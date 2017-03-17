@@ -1,4 +1,4 @@
-#Configuração do CRON
+# Configuração do CRON
 
 Para configurar a execução dos jobs relativos aos processo de: Status, DFe e NFe.
 

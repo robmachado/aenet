@@ -1,17 +1,17 @@
-#Projeto NFe AENET
+# Projeto NFe AENET
 
-##FASE 2
+## FASE 2
 
-###Objetivo:
+### Objetivo:
 
 Baixar automaticamente todas as NFe e outros documentos fiscais destinados aos clientes cadastrados
 
-###Pré-Requisitos:
+### Pré-Requisitos:
 
 Certificado digital A1 (via software) para cada empresa usuária
 Tabela com cadastro completo da empresa usuária
 
-###Funcionamento:
+### Funcionamento:
 
 Usando o [CRONTAB](Cron.md) será executado um script periodicamente, em intervalos de tempo ainda a serem definidos, 
 mas não menos que 60 MINUTOS. 
