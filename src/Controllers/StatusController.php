@@ -49,7 +49,7 @@ class StatusController
                 $this->cad->crtchain
             );
             //carrega a classe de comunicação
-            $tools = new Tools($configJson, $certificate);
+            $tools = new Tools($this->config, $certificate);
             $tools->model('55');
             $soap = new SoapCurl();
             $soap->setDebugMode(false);
