@@ -37,12 +37,13 @@ foreach($nfes as $nfe) {
 }
 
 //verifica por solicitações de cancelamento de NFe, ainda não realizados
-//para  justificativa <> ''
-//      status = 100
-//      cancelamento_protocolo = ''
-//      protoclo <> ''
-//      nfe_chave_acesso <> ''
-$nfes = $ae->cancelAll(); //retorna um array
+//para casos onde:
+// justificativa <> ''e
+// status = 100 e
+// cancelamento_protocolo = '' e
+// protoclo <> '' e
+// nfe_chave_acesso <> '' 
+$nfes = $ae->cancelAll();
 $oldid_empresa = 0;
 $client = null;
 foreach($nfes as $nfe) {

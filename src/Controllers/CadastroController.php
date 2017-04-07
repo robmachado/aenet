@@ -13,7 +13,12 @@ class CadastroController extends BaseController
     {
         parent::__construct();
     }
-
+    
+    /**
+     * Retorna os dados do cadastro co um id especifico em um array
+     * @param int $id
+     * @return array
+     */
     public function get($id)
     {
         return json_decode(
@@ -23,6 +28,11 @@ class CadastroController extends BaseController
         );
     }
     
+    /**
+     * Retorna todos os registros do cadastro 
+     * com certificado dentro da validade
+     * @return array
+     */
     public function getAllValid()
     {
         $dt = new DateTime();
@@ -35,6 +45,9 @@ class CadastroController extends BaseController
             ->toArray();
     }
     
+    /**
+     * Atualiza os dados quando a data de validade do certificado estiver NULL
+     */
     public function validateCertNull()
     {
         $clients = Cadastro::whereNull('crtvalid_to')->get();
@@ -43,6 +56,10 @@ class CadastroController extends BaseController
         }
     }
     
+    /**
+     * Faz a veriicação da data de valide e verifica o funcionamento do PFX
+     * @param Cadastro $client
+     */
     protected function updateValidateCertNull($client)
     {
         try {
@@ -60,6 +77,10 @@ class CadastroController extends BaseController
         }
     }
     
+    /**
+     * Retorna todos os cadastros de clientes
+     * @return array
+     */
     public function all()
     {
         return Cadastro::all()->toArray();

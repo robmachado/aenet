@@ -6,8 +6,6 @@ use Aenet\NFe\DBase\Connection;
 
 class BaseController
 {
-
-    
     protected $conn;
     
     public function __construct()
