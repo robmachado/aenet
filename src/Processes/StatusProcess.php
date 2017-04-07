@@ -4,7 +4,7 @@ namespace Aenet\NFe\Processes;
 
 /**
  * Atualiza os dados do status de todas as SEFAZ autorizadoras
- * 
+ *
  */
 
 use Aenet\NFe\Processes\BaseProcess;
@@ -36,7 +36,7 @@ class StatusProcess extends BaseProcess
         'SP'=>'SP'
     ];
     
-    public function __construct(stdClass $cad) 
+    public function __construct(stdClass $cad)
     {
         parent::__construct($cad);
     }
@@ -50,8 +50,8 @@ class StatusProcess extends BaseProcess
             $std1 = $this->pull($uf, 1);
             if ($sefaz == 'SVRS' || $sefaz == 'SVAN') {
                 //carregar todos os estados com o mesmo resultado
-                foreach($this->same[$sefaz] as $sigla) {
-                    $std[$sigla] = new \stdClass();                
+                foreach ($this->same[$sefaz] as $sigla) {
+                    $std[$sigla] = new \stdClass();
                     $std[$sigla]->uf = $sigla;
                     $std[$sigla]->status_1 = 1;
                     $std[$sigla]->error_msg_1 = $std1->xMotivo;
@@ -67,7 +67,7 @@ class StatusProcess extends BaseProcess
                     }
                 }
             } else {
-                $std[$sefaz] = new \stdClass();                
+                $std[$sefaz] = new \stdClass();
                 $std[$sefaz]->uf = $sefaz;
                 $std[$sefaz]->status_1 = 1;
                 $std[$sefaz]->updated_at_1 = $agora;
@@ -81,11 +81,11 @@ class StatusProcess extends BaseProcess
                 if ($std2->cStat != 107) {
                     $std[$sefaz]->status_2 = 0;
                 }
-            }  
+            }
         }
         $stCtrl = new StatusController();
-        foreach($std as $reg) {
-            $stCtrl->updateStatus($reg);  
+        foreach ($std as $reg) {
+            $stCtrl->updateStatus($reg);
         }
     }
     

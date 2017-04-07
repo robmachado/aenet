@@ -2,7 +2,6 @@
 
 namespace Aenet\NFe\Controllers;
 
-
 use Aenet\NFe\DBase\Connection;
 
 class BaseController
@@ -16,5 +15,4 @@ class BaseController
         $this->conn = new Connection();
         $this->conn->connect();
     }
-    
 }

@@ -29,7 +29,7 @@ class BaseProcess
         $this->cad = $cad;
         $config = new Config(
             $cad->fantasia,
-            $cad->uf,    
+            $cad->uf,
             $cad->cnpj,
             $cad->tpAmb
         );
@@ -55,5 +55,4 @@ class BaseProcess
         $soap->setDebugMode(false);
         $this->tools->loadSoapClass($soap);
     }
-
 }

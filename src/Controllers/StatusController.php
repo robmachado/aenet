@@ -2,7 +2,6 @@
 
 namespace Aenet\NFe\Controllers;
 
-
 use Aenet\NFe\Models\Status;
 use Aenet\NFe\Controllers\BaseController;
 use stdClass;
@@ -38,7 +37,6 @@ class StatusController extends BaseController
                 'status_2' => $std->status_2,
                 'error_msg_2' => $std->error_msg_2,
                 'updated_at_2' => $std->updated_at_2,
-            ]
-        );
+            ]);
     }
 }

@@ -27,8 +27,10 @@ class CadastroController extends BaseController
     {
         $dt = new DateTime();
         return Cadastro::where(
-            'crtvalid_to', '>=', $dt->format('Y-m-d H:i:s')
-            )
+            'crtvalid_to',
+            '>=',
+            $dt->format('Y-m-d H:i:s')
+        )
             ->get()
             ->toArray();
     }
@@ -36,7 +38,7 @@ class CadastroController extends BaseController
     public function validateCertNull()
     {
         $clients = Cadastro::whereNull('crtvalid_to')->get();
-        foreach($clients as $client) {
+        foreach ($clients as $client) {
             $this->updateValidateCertNull($client);
         }
     }

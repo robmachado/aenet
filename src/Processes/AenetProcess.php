@@ -18,7 +18,7 @@ class AenetProcess extends BaseProcess
     protected $cmpt;
     protected $nfestd;
     
-    public function __construct(stdClass $cad) 
+    public function __construct(stdClass $cad)
     {
         parent::__construct($cad);
         $this->aenet = new AenetController();
@@ -29,21 +29,21 @@ class AenetProcess extends BaseProcess
     public function send($id, $txt)
     {
         //tenta converter se falhar grava ERRO e retorna
-        //esse registro será bloqueado até que novo TXT seja inserido e 
+        //esse registro será bloqueado até que novo TXT seja inserido e
         //o status retornado a 0.
-        try {        
+        try {
             $xml = Convert::toXML($txt);
         } catch (\Exception $e) {
             $error = $e->getMessage();
             $astd = [
                 'status_nfe' => 9, //erro 9 esse registro será ignorado
                 'motivo' => $error
-            ];        
+            ];
             $this->aenet->update($id, $astd);
             return false;
         }
         //tenta assinar se falhar grava ERRO e retorna
-        //esse registro será bloqueado até que novo TXT seja inserido e 
+        //esse registro será bloqueado até que novo TXT seja inserido e
         //o status retornado a 0.
         try {
             $xmlsigned = $this->tools->signNFe($xml);
@@ -57,7 +57,7 @@ class AenetProcess extends BaseProcess
             $astd = [
                 'status_nfe' => 9, //erro 9 esse registro será ignorado
                 'motivo' => $error
-            ];        
+            ];
             $this->aenet->update($id, $astd);
             return false;
         }
@@ -77,7 +77,7 @@ class AenetProcess extends BaseProcess
             $astd = [
                 'status_nfe' => 9,
                 'motivo' => $error
-            ];        
+            ];
             $this->aenet->update($id, $astd);
             return false;
         }
@@ -101,7 +101,7 @@ class AenetProcess extends BaseProcess
             $astd = [
                 'status_nfe' => 9,
                 'motivo' => $error
-            ];        
+            ];
             $this->aenet->update($id, $astd);
             return false;
         }
@@ -123,7 +123,7 @@ class AenetProcess extends BaseProcess
         
         //envia os emais ao destinatário
         $smCtrl = new SmtpController();
-        $smtp = json_decode(json_encode($smCtrl->get())); 
+        $smtp = json_decode(json_encode($smCtrl->get()));
         $config = new stdClass();
         $config->mail->user = $smtp->user;
         $config->mail->password = $smtp->pass;
@@ -151,5 +151,38 @@ class AenetProcess extends BaseProcess
             'data_danfe' => ''
         ];
         //$this->aenet->update($id, $astd);
-   }
+        return true;
+    }
+    
+    /**
+     * Executa o cancelamento da NFe indicada
+     * @param int $id
+     * @param string $chave
+     * @param string $xJust
+     * @param string $nProt
+     * @return boolean
+     */
+    public function cancela($id, $chave, $xJust, $nProt)
+    {
+        try {
+            //$response = $this->tools->sefazCancela($chave, $xJust, $nProt);
+            //$ret = $this->nfestd->toStd($response);
+            $astd = [
+                'cancelamento_chave_acesso',
+                'data_cancelamento',
+                'cancelamento_protocolo',
+                'nfe_cancelada'
+            ];
+            //$this->aenet->update($id, $astd);
+        } catch (\Exception $e) {
+            $error = $e->getMessage();
+            $astd = [
+              'status_nfe' => 9, //erro 9 esse registro será ignorado
+              'motivo' => $error
+            ];
+            $this->aenet->update($id, $astd);
+            return false;
+        }
+        return true;
+    }
 }

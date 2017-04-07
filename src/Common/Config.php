@@ -17,7 +17,7 @@ class Config
         'proxyPort' => '',
         'proxyUser' => '',
         'proxyPass' => ''
-    ];        
+    ];
     
     public function __construct(
         $razaosocial,
@@ -43,7 +43,8 @@ class Config
         $this->aProxyConf = $aProxyConf;
     }
     
-    public function __toString() {
+    public function __toString()
+    {
         $conf = [
             'atualizacao' => date('Y-=m-d H:i:s'),
             'tpAmb' => $this->tpAmb,

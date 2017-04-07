@@ -8,7 +8,9 @@ require_once '../bootstrap.php';
  * das SEFAZ autorizadoras
  * Para não haver bloqueio de acesso é importante que essa busca de status seja
  * realizada em intervalos não inferiores à 10 minutos.
- * A busca de status auxilia a operção do sistema é não é o fator mais relevante
+ * A busca de status auxilia a opereção do sistema é não é o fator 
+ * mais relevante, pois mesmo o status indicando ONLINE podem haver problemas 
+ * de lentidão acima do limite interrompendo o processo.
  */
 use Aenet\NFe\Controllers\CadastroController;
 use Aenet\NFe\Processes\StatusProcess;
