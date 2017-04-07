@@ -18,19 +18,19 @@ class Connection
     /**
      * @var string
      */
-    private $host      = 'localhost';
+    private $host      = '';
     /**
      * @var string
      */
-    private $database  = 'aenet_nfe';
+    private $database  = '';
     /**
      * @var string
      */
-    private $username  = 'root';
+    private $username  = '';
     /**
      * @var string
      */
-    private $password  = 'monitor5';
+    private $password  = '';
     /**
      * @var string
      */
@@ -45,20 +45,14 @@ class Connection
     private $prefix    = '';
     
     /**
-     * Constructor may be recive configurations data in a stdClass
-     * @param stdClass $config
+     * Constructor uses .ENV file for database parameters
      */
-    public function __construct(stdClass $config = null)
+    public function __construct()
     {
-        if (!empty($config)) {
-            $this->setCharSet($config->charset);
-            $this->setCollation($config->collation);
-            $this->setUserName($config->username);
-            $this->setPassword($config->password);
-            $this->setDriver($config->driver);
-            $this->setHost($config->host);
-            $this->setPrefix($$config->prefix);
-        }
+        $this->host = getenv('DB_HOST');
+        $this->database = getenv('DB_NAME');
+        $this->username = getenv('DB_USER');
+        $this->password = getenv('DB_PASS');
     }
     
     /**
@@ -80,7 +74,6 @@ class Connection
         $this->capsule->setAsGlobal();
         $this->capsule->bootEloquent();
     }
-    
     
     /**
      * Disconnect database

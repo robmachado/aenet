@@ -15,7 +15,7 @@ Emissão automática de NFe, a partir de TXT gravado em base de dados
 ### Pré-Requisitos:
 
 * Acesso ROOT por SSH
-* Todos os módulos necessários do PHP intalados e ativos
+* Todos os módulos necessários do PHP instalados e ativos
 * PHP Composer
 * Certificado digital A1 (via software) para cada empresa usuária
 
@@ -27,12 +27,12 @@ Esse script (processo) irá:
 
 * buscar em tabela da base de dados, se existe algum TXT ainda não processado e se houver, irá:
   * usar a classe NFePHP\NFe\ConvertNFe() -- erros e exceptions
-  * Assinar o XML obtido 
+  * Assinar o XML obtido
   * Validar o XML assinado -- erros e exceptions
-  * Se validado, enviar para a SEFAZ (considerar CONTINGÊNCIA) - erros e exceptions   
+  * Se validado, enviar para a SEFAZ (considerar CONTINGÊNCIA) - erros e exceptions
   * Carregar tabela da base com os retornos da SEFAZ
   * enviar os email aos destinatários contidos no XML 
-	
+
 ### Tarefas:
 
 1. [Instalar e configurar ambiente PHP](Fase1/Configuracao.md)
@@ -44,11 +44,4 @@ Esse script (processo) irá:
 7. [Montar script e classes para a realização das terefas necessárias](Fase1/Tarefa7.md)
 8. [Montar testes unitários para garantir funcionamento em atualizações futuras](Fase1/Tarefa8.md)
 
->NOTA: ainda existem muitas duvidas que teremos que esclarecer nessa fase de design desse projeto, como:
->>Vamos criar uma base de dados para cada cliente ou não ?
-
->Em algum momento vamos usar acesso a disco ou apenas o banco de dados ?
->>Isso dentre muitas outras duvidas!
-
->NOTA: A versão atual do NFePHP (v4.0 ou v4.1), faz uso de disco e isso somente será mudado a partir da versão v5.0 com previsão de lançamento de release apenas no segundo semestre.
-
+> IMPORTANTE: No segundo semestr o TXT passará a observar a versão 4.00 do layout da SAFAZ e provavelmente haverão alterações, em relação a versão atual.

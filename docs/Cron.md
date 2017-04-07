@@ -2,10 +2,10 @@
 
 Para configurar a execução dos jobs relativos aos processo de: Status, DFe e NFe.
 
->NOTA: Como essas tarefas serão executadas com o PHP-CLI tenha a certeza que o sistema operacional consegue encontrar o executável do PHP.
->Para fazer isso teste primeiro o comando via terminal e verifique que tudo tenha sido executado como previsto. 
+> NOTA: Como essas tarefas serão executadas com o PHP-CLI tenha a certeza que o sistema operacional consegue encontrar o executável do PHP.
+> Para fazer isso teste primeiro o comando via terminal e verifique que tudo tenha sido executado como previsto.
 
-##Tarefa de busca do status das autorizadoras
+## Tarefa de busca do status das autorizadoras
 
 Vá para a pasta onde ficam os agendamentos do cron
 
@@ -19,7 +19,7 @@ nano job_status
 ```
 
 Insira os comandos
- 
+
 ```bash
 # Tarefa de busca do status dos serviços das autorizadoras
 # Essa tarefa será executada
@@ -31,7 +31,7 @@ Insira os comandos
 */5 6-21 * * 1-6 root php /var/www/aenet/jobs/job_status.php &> /dev/null
 ```
 
-##Tarefa de busca de documentos destinados DFe
+## Tarefa de busca de documentos destinados DFe
 
 Vá para a pasta onde ficam os agendamentos do cron
 
@@ -46,7 +46,7 @@ nano job_dfe
 ```
 
 Insira os comandos
- 
+
 ```bash
 # Tarefa de busca de documentos destinados
 # Essa tarefa será executada
@@ -58,7 +58,7 @@ Insira os comandos
 1 */2 * * 1-5 root php /var/www/aenet/jobs/job_dfe.php &> /dev/null
 ```
 
-##Tarefa de envio das NFe, Cancelamentos e Eventos 
+## Tarefa de envio das NFe, Cancelamentos e Eventos 
 
 Vá para a pasta onde ficam os agendamentos do cron
 
@@ -83,4 +83,3 @@ Insira os comandos
 # 1-6  = mas apenas de segunda a sábado 
 */2 6-21 * * 1-6 root php /var/www/aenet/jobs/job_nfe.php &> /dev/null
 ```
-

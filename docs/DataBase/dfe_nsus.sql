@@ -24,6 +24,11 @@ CREATE TABLE `dfe_nsus` (
   `nsu` int(11) NOT NULL COMMENT 'Id do registro (RECEITA)',
   `tipo` varchar(250) COLLATE utf8_unicode_ci NOT NULL COMMENT 'Tipo de registro NSU (RECEITA)',
   `manifestar` tinyint(4) NOT NULL DEFAULT '0' COMMENT 'Pendencia de manifestação tipo RESUMO',
+  `cnpj` varchar(14) COLLATE utf8_unicode_ci NOT NULL COMMENT 'CNPJ do emissor da NFe',
+  `xNome` varchar(150) COLLATE utf8_unicode_ci NOT NULL COMMENT 'Razão do emissor da NFe',
+  `chNFe` varchar(44) COLLATE utf8_unicode_ci NOT NULL COMMENT 'Chave da NFe',
+  `dhEmi` datetime NOT NULL COMMENT 'Data e hora de emissão da NFe',
+  `nProt` varchar(150) COLLATE utf8_unicode_ci NOT NULL COMMENT 'Protocolo da NFe',
   `content` longtext COLLATE utf8_unicode_ci NOT NULL COMMENT 'Conteúdo do NSU, já descompactado',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;

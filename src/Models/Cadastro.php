@@ -9,13 +9,20 @@ class Cadastro extends Eloquent
     protected $table = 'cadastros';
     protected $fillable = [
         'id_empresa',
+        'fantasia',
+        'razao',
         'cnpj',
         'uf',
         'crtpfx',
         'crtchain',
         'crtpass',
         'crtvalid_to',
+        'tpAmb',
         'logo',
-        'contingency'
+        'contingency',
+        'emailfrom',
+        'error',
+        'created_at',
+        'updated_at'
     ];
 }

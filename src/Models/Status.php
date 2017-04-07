@@ -16,6 +16,5 @@ class Status extends Eloquent
         'status_2',
         'error_msg_2',
         'updated_at_2'
-
     ];
 }

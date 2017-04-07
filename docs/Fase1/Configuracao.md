@@ -51,6 +51,7 @@ nano /etc/php/7.0/cli/php.ini
 **Corrija:**
 
 max_execution_time = 330
+
 memory_limit = 256M
 
 ### Alterar as configurações do phpfpm

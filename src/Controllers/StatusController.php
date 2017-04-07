@@ -1,86 +1,44 @@
 <?php
 
-namespace Aenet\NFe;
+namespace Aenet\NFe\Controllers;
 
-use NFePHP\NFe\Tools;
-use NFePHP\Common\Certificate;
-use NFePHP\Common\Soap\SoapCurl;
-use NFePHP\Common\Certificate\CertificationChain;
-use stdClass;
+
 use Aenet\NFe\Models\Status;
-use Aenet\NFe\Common\Config;
+use Aenet\NFe\Controllers\BaseController;
+use stdClass;
 
-class StatusController
+class StatusController extends BaseController
 {
-    public $uf;
-    public $tpAmb;
-    public $status;
-    public $error = '';
-    
-    protected $cad;
-    protected $config;
-
-    public function __construct(stdClass $cad)
+    public function __construct()
     {
-        $this->cad = $cad;
-        $config = new Config(
-            'Qualquer coisa',
-            $cad->uf,    
-            $cad->cnpj,
-            $cad->tpAmb
+        parent::__construct();
+    }
+    
+    /**
+     * Returns Status Model for UF
+     * @param string $uf
+     * @return StatusModel
+     */
+    public function get($uf)
+    {
+        return Status::where('uf', $uf)->get();
+    }
+    
+    /**
+     * Update status on table aenet_nfe.sefaz_status
+     * @param stdClass $std
+     */
+    public function updateStatus(stdClass $std)
+    {
+        Status::where('uf', $std->uf)
+            ->update([
+                'status_1' => $std->status_1,
+                'error_msg_1' => $std->error_msg_1,
+                'updated_at_1' => $std->updated_at_1,
+                'status_2' => $std->status_2,
+                'error_msg_2' => $std->error_msg_2,
+                'updated_at_2' => $std->updated_at_2,
+            ]
         );
-        $this->config = "{$config}";
     }
-    
-    /**
-     * Pull status from SEFAZ
-     * @param string $uf
-     * @param int $tpAmb
-     */
-    public function pull($uf = null, $tpAmb = null)
-    {
-        try {
-            //carrega o certificado
-            $certificate = Certificate::readPfx(
-                base64_decode($this->cad->crtpfx),
-                $this->cad->crtpass
-            );
-            $certificate->chainKeys = new CertificationChain(
-                $this->cad->crtchain
-            );
-            //carrega a classe de comunicação
-            $tools = new Tools($this->config, $certificate);
-            $tools->model('55');
-            $soap = new SoapCurl();
-            $soap->setDebugMode(false);
-            $tools->loadSoapClass($soap);
-            if (!empty($tpAmb)) {
-                //corrige o ambiente
-                $tools->tpAmb = $tpAmb;
-            }    
-            if (empty($uf)) {
-                $uf = $this->cad->uf;
-            }
-            //executa a chama SOAP
-            $response = $tools->sefazStatus($uf);
-            return $reposnse;
-        } catch (InvalidArgumentException $e) {
-            
-        } catch (Exception $e) {
-            
-        }
-    }
-    
-    /**
-     * Save status on table aenet_nfe.sefaz_status
-     * @param string $uf
-     * @param int $tpAmb
-     * @param int $status
-     * @param string $error
-     */
-    public function update($uf, $tpAmb, $status, $error = '')
-    {
-        
-    }
-    
 }

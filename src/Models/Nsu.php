@@ -14,6 +14,11 @@ class Nsu extends Eloquent
         'nsu',
         'tipo',
         'manifestar',
+        'chNFe',
+        'cnpj',
+        'xNome',
+        'dhEmi',
+        'nProt',
         'content'
     ];
 }

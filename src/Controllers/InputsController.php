@@ -1,8 +1,14 @@
 <?php
 
-namespace Aenet\NFe;
+namespace Aenet\NFe\Controllers;
 
-class InputsController
+use Aenet\NFe\Models\Input;
+use Aenet\NFe\Controllers\BaseController;
+
+class InputsController extends BaseController
 {
-
+    public function __construct()
+    {
+        parent::__construct();
+    }
 }

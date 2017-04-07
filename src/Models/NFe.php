@@ -7,13 +7,16 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
 class NFe extends Eloquent
 {
     public $timestamps = false;
-    protected $table = 'nfes';
+    protected $table = 'dfe_nfes';
     protected $fillable = [
         'id',
         'id_cadastro',
         'nsu',
-        'cnpj',
         'chNFe',
+        'cnpj',
+        'xNome',
+        'dhEmi',
+        'nProt',
         'content'
     ];
 }
