@@ -41,13 +41,4 @@ class NsusController extends BaseController
         return $num;
     }
     
-    public function insert(stdClass $std)
-    {
-        
-    }
-    
-    public function update()
-    {
-        
-    }
 }
