@@ -5,7 +5,7 @@ require_once '../bootstrap.php';
 
 /**
  * Processamento das Solicitações do sistema AENET
- * 
+ * Irá ler cada registro marcado como não processado 
  */
 
 use Aenet\NFe\Controllers\AenetController;
@@ -15,8 +15,6 @@ use NFePHP\NFe\Convert;
 
 $cad = new CadastroController();
 $ae = new AenetController();
-
-
 
 //verifica item em aberto em nfes_aenet
 $nfes = $ae->nfeAll(); //retorna um array

@@ -20,18 +20,17 @@ class NsusController extends BaseController
     
     public function getPendents($id_empresa)
     {
-        return Nsu::where([
-                ['manifestar', '=', '0'],
-                ['id_empresa', '=', $id_empresa]
-            ])
+        return Nsu::where('id_empresa', 28)
+            ->where('manifestar', '1')
             ->orderBy('nsu')
+            ->get()
             ->toArray();
     }
     
     public function getLastNSU($id_empresa)
     {
         //pega o maior numero de nsu da tabela
-        $nsu = Nsu::where(['id_empresa', '=', $id_empresa])
+        $nsu = Nsu::where('id_empresa', $id_empresa)
             ->orderBy('nsu', 'desc')
             ->first();
         $num = 0;
@@ -40,5 +39,4 @@ class NsusController extends BaseController
         }
         return $num;
     }
-    
 }

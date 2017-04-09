@@ -17,5 +17,7 @@ $clients = $cad->getAllValid();
 foreach($clients as $c) {
     $client = json_decode(json_encode($c));
     $dfe = new DFeProcess($client);
+    $dfe->search();
+    $dfe->manifestaAll();
 }
 

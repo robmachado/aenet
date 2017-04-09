@@ -34,6 +34,7 @@ class Aenet extends Eloquent
         'status_nfe',
         'cancelamento_chave_acesso',
         'cancelamento_protocolo',
+        'cancelamento_xml',
         'nfe_cancelada',
         'nfe_danfe_impressa',
         'nfe_pdf_gerado',

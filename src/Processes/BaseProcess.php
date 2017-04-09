@@ -52,7 +52,7 @@ class BaseProcess
         $this->tools->model('55');
         $soap = new SoapCurl();
         $soap->disableSecurity(true);
-        $soap->setDebugMode(false);
+        $soap->setDebugMode(true);
         $this->tools->loadSoapClass($soap);
     }
 }

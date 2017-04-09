@@ -12,7 +12,7 @@ class Event extends Eloquent
         'id',
         'id_cadastro',
         'nsu',
-        'cnp',
+        'cnpj',
         'chNFe',
         'tpEvento',
         'nSeqEvento',

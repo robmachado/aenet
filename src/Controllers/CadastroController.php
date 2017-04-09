@@ -29,7 +29,7 @@ class CadastroController extends BaseController
     }
     
     /**
-     * Retorna todos os registros do cadastro 
+     * Retorna todos os registros do cadastro
      * com certificado dentro da validade
      * @return array
      */

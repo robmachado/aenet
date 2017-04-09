@@ -40,6 +40,7 @@ CREATE TABLE `nfes_aenet` (
   `status_nfe` int(11) COLLATE utf8_unicode_ci DEFAULT '0' COMMENT '0 - Nfe a ser processada(VEM DO SISTEMA AENET ); ( 1 - Nfe Pendente de Consulta; 2- Nfe Aprovada; 3 - Denegada    (VEM DO SISTEMA AENET_NFE) )',
   `cancelamento_chave_acesso` varchar(50) COLLATE utf8_unicode_ci NOT NULL COMMENT 'Chave de Acesso - USADO para TUDO - (NFE ID ) (VEM DO SISTEMA AENET_NFE)',
   `cancelamento_protocolo` varchar(50) COLLATE utf8_unicode_ci NOT NULL COMMENT 'Protocolo de cancelamento da NFe  (VEM DO SISTEMA AENET_NFE)',
+  `cancelamento_xml` text COLLATE utf8_unicode_ci COMMENT 'XML protocolocado com o cancelamento da NFe (VEM DO SISTEMA AENET_NFE)',
   `nfe_cancelada` char(1) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT 'Check box indicando que a nota foi cancelada  (VEM DO SISTEMA AENET_NFE)',
   `nfe_danfe_impressa` char(3) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT 'NúmEro de impressões da DANFE (VEM DO SISTEMA AENET_NFE)',
   `nfe_pdf_gerado` char(3) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT 'Nr. de gerações do PDF da NFe (VEM DO SISTEMA AENET_NFE)',

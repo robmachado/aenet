@@ -15,7 +15,7 @@ class AenetController extends BaseController
     
     public function nfeAll()
     {
-        return Aenet::where(['status_nfe', '=', 0])
+        return Aenet::where('status_nfe', 0)
             ->orderBy('id_empresa')
             ->get()
             ->toArray();
@@ -23,13 +23,11 @@ class AenetController extends BaseController
     
     public function cancelAll()
     {
-        return Aenet::where([
-                ['justificativa', '<>', ''],
-                ['status', '=', '100'],
-                ['cancelamento_protocolo', '=', ''],
-                ['protoclo', '<>', ''],
-                ['nfe_chave_acesso', '<>', '']
-            ])
+        return Aenet::where('justificativa', '<>', '')
+            ->where('status', '=', '100')
+            ->where('cancelamento_protocolo', '=', '')
+            ->where('protocolo', '<>', '')
+            ->where('nfe_chave_acesso', '<>', '')
             ->orderBy('id_empresa')
             ->get()
             ->toArray();
