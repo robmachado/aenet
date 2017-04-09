@@ -23,12 +23,12 @@ Insira os comandos
 ```bash
 # Tarefa de busca do status dos serviços das autorizadoras
 # Essa tarefa será executada
-# */5  = a cada 5 minutos,
+# */15  = a cada 15 minutos,
 # 6-21 = das 6 às 21 horas,
 # *    = todos os dias,
 # *    = todos os meses,
 # 1-6  = mas apenas de segunda a sábado
-*/5 6-21 * * 1-6 root php /var/www/aenet/jobs/job_status.php &> /dev/null
+*/15 6-21 * * 1-6 root php /var/www/aenet/jobs/job_status.php &> /dev/null
 ```
 
 ## Tarefa de busca de documentos destinados DFe

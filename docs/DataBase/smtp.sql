@@ -5,7 +5,7 @@
 --
 -- Remover se existir tabela anterior `smtp`
 --
-DROP TABLE IF EXISTS `smpt`;
+DROP TABLE IF EXISTS `smtp`;
 
 -- --------------------------------------------------------
 

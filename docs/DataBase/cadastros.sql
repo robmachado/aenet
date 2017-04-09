@@ -28,11 +28,11 @@ CREATE TABLE `cadastros` (
   `crtchain` text DEFAULT NULL COMMENT 'Certificados da cadeia de certificação em PEM',
   `crtpass` varchar(30) NOT NULL COMMENT 'Senha de acesso ao certificado',
   `crtvalid_to` datetime DEFAULT NULL COMMENT 'Data e hora da validade do certificado',
-  `tpAmb` int(11) NOT NULL DEFAULT '2' COMMENT 'Força o tipo de ambiente a ser usado 2-homologação ou 1-produção'
+  `tpAmb` int(11) NOT NULL DEFAULT '2' COMMENT 'Força o tipo de ambiente a ser usado 2-homologação ou 1-produção',
   `logo` text DEFAULT NULL COMMENT 'Logo marca JPG ou PNG em base64 para uso nos PDFs',
   `contingency` text COMMENT 'Dados de contingência json base64',
   `emailfrom` varchar(50) NOT NULL COMMENT 'Email do emitente para NFe',
-  `error` text NOT NULL COMMENT 'Mensagens de erro do cadastro' 
+  `error` text NOT NULL COMMENT 'Mensagens de erro do cadastro', 
   `created_at` datetime DEFAULT NULL COMMENT 'Data e hora da criação do registro',
   `updated_at` datetime DEFAULT NULL COMMENT 'Data e hora da última alteração do registro',
   PRIMARY KEY (`id_empresa`)

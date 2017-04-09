@@ -15,7 +15,7 @@ DROP TABLE IF EXISTS `nfes_aenet`;
 -- Responsável: Flávio Caporali
 --
 CREATE TABLE `nfes_aenet` (
-  `id_nfes_aenet` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Id da Nota Fiscal (VEM DO SISTEMA AENET )',
+  `id_nfes_aenet` int(11) NOT NULL COMMENT 'Id da Nota Fiscal (VEM DO SISTEMA AENET )',
   `id_empresa` int(11) NOT NULL DEFAULT '0' COMMENT '(VEM DO AENET)',
   `tipo_nfe` char(1) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT 'Tipo da Nota Fiscal E ou S',
   `nome_destinatario` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT 'Nome do destinatário da NFe (VEM DO SISTEMA AENET )',
@@ -37,7 +37,7 @@ CREATE TABLE `nfes_aenet` (
   `motivo` text COLLATE utf8_unicode_ci NOT NULL COMMENT 'Motivo da rejeição da NFe (VEM DO SISTEMA AENET_NFE)',
   `arquivo_nfe_pdf` text COLLATE utf8_unicode_ci COMMENT 'PDF da NFe (VEM DO SISTEMA AENET_NFE)',
   `arquivo_nfe_xml` text COLLATE utf8_unicode_ci COMMENT 'XML retornado da NFe (VEM DO SISTEMA AENET_NFE)',
-  `status_nfe` int(11) COLLATE utf8_unicode_ci DEFAULT '0' COMMENT '0 - Nfe a ser processada(VEM DO SISTEMA AENET ); ( 1 - Nfe Pendente de Consulta; 2- Nfe Aprovada; 3 - Denegada    (VEM DO SISTEMA AENET_NFE) )',
+  `status_nfe` int(11) DEFAULT '0' COMMENT '0 - Nfe a ser processada(VEM DO SISTEMA AENET ); ( 1 - Nfe Pendente de Consulta; 2- Nfe Aprovada; 3 - Denegada    (VEM DO SISTEMA AENET_NFE) )',
   `cancelamento_chave_acesso` varchar(50) COLLATE utf8_unicode_ci NOT NULL COMMENT 'Chave de Acesso - USADO para TUDO - (NFE ID ) (VEM DO SISTEMA AENET_NFE)',
   `cancelamento_protocolo` varchar(50) COLLATE utf8_unicode_ci NOT NULL COMMENT 'Protocolo de cancelamento da NFe  (VEM DO SISTEMA AENET_NFE)',
   `cancelamento_xml` text COLLATE utf8_unicode_ci COMMENT 'XML protocolocado com o cancelamento da NFe (VEM DO SISTEMA AENET_NFE)',
@@ -54,10 +54,10 @@ CREATE TABLE `nfes_aenet` (
   `data_danfe` datetime DEFAULT NULL COMMENT 'Data da Danfe(VEM DO SISTEMA AENET_NFE)',
   `cod_ope_d` varchar(30) COLLATE utf8_unicode_ci NOT NULL COMMENT 'Código Operador Destinatário Correio (VEM DO SISTEMA AENET )',
   `cod_ope_r` varchar(30) COLLATE utf8_unicode_ci NOT NULL COMMENT 'Código Operador Remetente  Correio  (VEM DO SISTEMA AENET )',
-  `cnpj_emi` int(11) NOT NULL COMMENT 'CNPJ Emitente  (VEM DO SISTEMA AENET )',
-  `nro_evento` int(11) NOT NULL COMMENT 'Numero do evento  (VEM DO SISTEMA AENET )',
+  `cnpj_emi` int(11) NOT NULL COMMENT 'CNPJ Emitente  (VEM DO SISTEMA AENET)',
+  `nro_evento` int(11) NOT NULL COMMENT 'Numero do evento  (VEM DO SISTEMA AENET)',
   `tempo_consulta` int(11) NOT NULL COMMENT 'Tempo da consulta ? (SEM USO)',
-  `txt_edi` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT 'SEM USO',
+  `txt_edi` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT '(SEM USO)',
   PRIMARY KEY (`id_nfes_aenet`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 

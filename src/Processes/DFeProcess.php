@@ -71,28 +71,109 @@ class DFeProcess extends BaseProcess
                 $nodom = new DOMDocument();
                 $nodom->loadXML($content);
                 //processa o conteudo do NSU
-                $this->$processo($nodom, $numnsu, $content);
+                $this->$processo($nodom, $numnsu, $content, $tipo);
             }
             sleep(5);
         }
     }
     
+    protected function saveNSU(DOMDocument $dom, $numnsu, $content, $tipo)
+    {
+        $nsu = new Nsu();
+        $nsu->id_empresa = $this->cad->id_empresa;
+        $nsu->nsu = $numnsu;
+        $nsu->content = base64_encode($content);
+        $nsu->tipo = $tipo;
+        if ($tipo == 'procNF') {
+            $infNFe = $dom->getElementsByTagName('ide')->item(0);
+            $ide = $dom->getElementsByTagName('ide')->item(0);
+            $emit = $dom->getElementsByTagName('emit')->item(0);
+            $infProt = $dom->getElementsByTagName('infProt')->item(0);
+            $dhEmi = new DateTime(
+                $ide->getElementsByTagName('dhEmi')
+                    ->item(0)->nodeValue
+            );
+            $nsu->cnpj = $emit->getElementsByTagName('CNPJ')->item(0)->nodeValue;
+            $nsu->chNFe = preg_replace('/[^0-9]/', '', $infNFe->getAttribute("Id"));
+            $nsu->xNome = $emit->getElementsByTagName('xNome')->item(0)->nodeValue;
+            $nsu->dhEmi = $dhEmi->format('Y-m-d H:i:s');
+            $nsu->nProt = $infProt->getElementsByTagName('nProt')->item(0)->nodeValue;
+        } elseif ($tipo == 'resNFe') {
+            $dhEmi = new DateTime(
+                $dom->getElementsByTagName('dhEmi')
+                    ->item(0)->nodeValue
+            );
+            $nsu->cnpj = $dom->getElementsByTagName('CNPJ')->item(0)->nodeValue;
+            $nsu->chNFe = $dom->getElementsByTagName('chNFe')->item(0)->nodeValue;
+            $nsu->xNome = $dom->getElementsByTagName('xNome')->item(0)->nodeValue;
+            $nsu->dhEmi = $dhEmi->format('Y-m-d H:i:s');
+            $nsu->nProt = $dom->getElementsByTagName('nProt')->item(0)->nodeValue;
+        } elseif ($tipo == 'procEv') {
+            $evento = $dom->getElementsByTagName('evento')->item(0);
+            $iEv = $evento->getElementsByTagName('infEvento')->item(0);
+            $retEvento = $dom->getElementsByTagName('retEvento')->item(0);
+            $infEvento = $retEvento->getElementsByTagName('infEvento')->item(0);
+            $nsu->cnpj = $infEvento->getElementsByTagName('CNPJDest')
+                ->item(0)->nodeValue;
+            $nsu->chNFe = $infEvento->getElementsByTagName('chNFe')
+                ->item(0)->nodeValue;
+            $nsu->xNome = '';
+            $dhEvento = new DateTime(
+                $iEv->getElementsByTagName('dhEvento')
+                    ->item(0)->nodeValue
+            );
+            $nsu->dhEmi = $dhEvento->format('Y-m-d H:i:s');
+            $nsu->nProt = $infEvento->getElementsByTagName('nProt')
+                ->item(0)->nodeValue;
+        } elseif ($tipo == 'resEve') {
+            $nsu->cnpj = $dom->getElementsByTagName('CNPJ')
+                ->item(0)->nodeValue;
+            $nsu->chNFe = $dom->getElementsByTagName('chNFe')
+                ->item(0)->nodeValue;
+            $nsu->xNome = '';
+            $dhEvento = new DateTime(
+                $dom->getElementsByTagName('dhRecbto')
+                    ->item(0)->nodeValue
+            );
+            $nsu->dhEmi = $dhEvento->format('Y-m-d H:i:s');
+            $nsu->nProt = $dom->getElementsByTagName('nProt')
+                ->item(0)->nodeValue;
+        }
+        //salva
+        $nsu->save();
+    }
+
+
     /**
      * Processa NFe
      * @param DOMDocument $dom
      */
-    protected function pprocNF(DOMDocument $dom, $numnsu, $content)
+    protected function pprocNF(DOMDocument $dom, $numnsu, $content, $tipo)
     {
+        //salva NSU
+        $this->saveNSU($dom, $numnsu, $content, $tipo);
+        //salva NFe
         $infNFe = $dom->getElementsByTagName('infNFe')->item(0);
+        $ide = $dom->getElementsByTagName('ide')->item(0);
         $emit = $dom->getElementsByTagName('emit')->item(0);
+        $infProt = $dom->getElementsByTagName('infProt')->item(0);
         //cria um novo registro de NFe tabela dfe_nfes
         $nf = new NFe();
         $nf->id_empresa = $this->cad->id_empresa;
         $nf->nsu = $numnsu;
-        $nf->content = base64_encode($content);
+        $nf->chNFe = substr($infNFe->getAttribute('Id'), 3, 44);
         $nf->cnpj = $emit->getElementsByTagName('CNPJ')
             ->item(0)->nodeValue;
-        $nf->chNFe = substr($infNFe->getAttibute('Id'), 3, 44);
+        $nf->xNome = $emit->getElementsByTagName('xNome')
+            ->item(0)->nodeValue;
+        $nf->content = base64_encode($content);
+        $dhEmi = new DateTime(
+            $ide->getElementsByTagName('dhEmi')
+                ->item(0)->nodeValue
+        );
+        $nf->dhEmi = $dhEmi->format('Y-m-d H:i:s');
+        $nf->nProt = $infProt->getElementsByTagName('nProt')
+            ->item(0)->nodeValue;
         //salva
         $nf->save();
     }
@@ -102,26 +183,11 @@ class DFeProcess extends BaseProcess
      * @param DOMDocument $dom
      * @return none
      */
-    protected function presEve(DOMDocument $dom, $numnsu, $content)
+    protected function presEve(DOMDocument $dom, $numnsu, $content, $tipo)
     {
-        return $this->pprocEv($dom, $numnsu, $content);
-    }
-    
-    /**
-     * Processa Eventos vinculados a NFe
-     * @param DOMDocument $dom
-     */
-    protected function pprocEv(DOMDocument $dom, $numnsu, $content)
-    {
-        $dhEvento = new DateTime(
-            $dom->getElementsByTagName('dhEvento')
-                ->item(0)->nodeValue
-        );
-        $dhRecbto = new DateTime(
-            $dom->getElementsByTagName('dhRecbto')
-                ->item(0)->nodeValue
-        );
-        //cria um novo registro de evento tabela dfe_events
+        //salva NSU
+        $this->saveNSU($dom, $numnsu, $content, $tipo);
+        //salva Evento
         $ev = new Event();
         $ev->id_empresa = $this->cad->id_empresa;
         $ev->nsu = $numnsu;
@@ -133,10 +199,14 @@ class DFeProcess extends BaseProcess
             ->item(0)->nodeValue;
         $ev->nSeqEvento = $dom->getElementsByTagName('nSeqEvento')
             ->item(0)->nodeValue;
-        $ev->xEvento = $dom->getElementsByTagName('xEvento')
-            ->item(0)->nodeValue;
+        $xEvento = $dom->getElementsByTagName('xEvento')->item(0);
+        $ev->xEvento = '';
+        $dhEvento = new DateTime(
+            $dom->getElementsByTagName('dhRecbto')
+                ->item(0)->nodeValue
+        );
         $ev->dhEvento = $dhEvento->format('Y-m-d H:i:s');
-        $ev->dhRecbto = $dhRecbto->format('Y-m-d H:i:s');
+        $ev->dhRecbto = $dhEvento->format('Y-m-d H:i:s');
         $ev->nProt = $dom->getElementsByTagName('nProt')
             ->item(0)->nodeValue;
         $ev->content = base64_encode($content);
@@ -144,25 +214,56 @@ class DFeProcess extends BaseProcess
         $ev->save();
     }
     
-    protected function presNFe(DOMDocument $dom, $numnsu, $content)
+    /**
+     * Processa Eventos vinculados a NFe
+     * @param DOMDocument $dom
+     */
+    protected function pprocEv(DOMDocument $dom, $numnsu, $content, $tipo)
     {
-        $dt = new DateTime(
-            $dom->getElementsByTagName('dhEmi')->item(0)->nodeValue
+        //salva NSU
+        $this->saveNSU($dom, $numnsu, $content, $tipo);
+        //salva Evento
+        $ev = new Event();
+        $ev->id_empresa = $this->cad->id_empresa;
+        $ev->nsu = $numnsu;
+        $evento = $dom->getElementsByTagName('evento')->item(0);
+        $iEv = $evento->getElementsByTagName('infEvento')->item(0);
+        $retEvento = $dom->getElementsByTagName('retEvento')->item(0);
+        $infEvento = $retEvento->getElementsByTagName('infEvento')->item(0);
+        $ev->cnpj = $infEvento->getElementsByTagName('CNPJDest')
+            ->item(0)->nodeValue;
+        $ev->chNFe = $infEvento->getElementsByTagName('chNFe')
+            ->item(0)->nodeValue;
+        $ev->tpEvento = $infEvento->getElementsByTagName('tpEvento')
+            ->item(0)->nodeValue;
+        $ev->nSeqEvento = $infEvento->getElementsByTagName('nSeqEvento')
+            ->item(0)->nodeValue;
+        $xEvento = $infEvento->getElementsByTagName('xEvento')->item(0);
+        $ev->xEvento = '';
+        if (!empty($xEvento)) {
+            $ev->xEvento = $xEvento->nodeValue;
+        }
+        $dhEvento = new DateTime(
+            $iEv->getElementsByTagName('dhEvento')
+                ->item(0)->nodeValue
         );
-        //cria um novo registro de NSU
-        $nsu = new Nsu();
-        $nsu->id_empresa = $this->cad->id_empresa;
-        $nsu->nsu = $numnsu;
-        $nsu->content = base64_encode($content);
-        $nsu->tipo = 'resumo';
-        $nsu->manifestar = 1;
-        $nsu->cnpj = $dom->getElementsByTagName('CNPJ')->item(0)->nodeValue;
-        $nsu->chNFe = $dom->getElementsByTagName('chNFe')->item(0)->nodeValue;
-        $nsu->xNome = $dom->getElementsByTagName('xNome')->item(0)->nodeValue;
-        $nsu->dhEmi = $dt->format('Y-m-d H:i:s');
-        $nsu->nProt = $dom->getElementsByTagName('nProt')->item(0)->nodeValue;
-        //salva
-        $nsu->save();
+        $dhRecbto = new DateTime(
+            $infEvento->getElementsByTagName('dhRegEvento')
+                ->item(0)->nodeValue
+        );
+        $ev->dhEvento = $dhEvento->format('Y-m-d H:i:s');
+        $ev->dhRecbto = $dhRecbto->format('Y-m-d H:i:s');
+        $ev->nProt = $infEvento->getElementsByTagName('nProt')
+            ->item(0)->nodeValue;
+        $ev->content = base64_encode($content);
+        //grava
+        $ev->save();
+    }
+    
+    protected function presNFe(DOMDocument $dom, $numnsu, $content, $tipo)
+    {
+        //salva NSU
+        $this->saveNSU($dom, $numnsu, $content, $tipo);
     }
 
     public function manifestaAll()
