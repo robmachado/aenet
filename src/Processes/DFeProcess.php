@@ -60,6 +60,9 @@ class DFeProcess extends BaseProcess
             $ultNSU = $node->getElementsByTagName('ultNSU')->item(0)->nodeValue;
             $maxNSU = $node->getElementsByTagName('maxNSU')->item(0)->nodeValue;
             $lote = $node->getElementsByTagName('loteDistDFeInt')->item(0);
+            if (empty($lote)) {
+                continue;
+            }
             $docs = $lote->getElementsByTagName('docZip');
             $d = [];
             foreach ($docs as $doc) {
@@ -172,8 +175,6 @@ class DFeProcess extends BaseProcess
                 ->item(0)->nodeValue
         );
         $nf->dhEmi = $dhEmi->format('Y-m-d H:i:s');
-        $nf->nProt = $infProt->getElementsByTagName('nProt')
-            ->item(0)->nodeValue;
         //salva
         $nf->save();
     }

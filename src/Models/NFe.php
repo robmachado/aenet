@@ -16,7 +16,6 @@ class NFe extends Eloquent
         'cnpj',
         'xNome',
         'dhEmi',
-        'nProt',
         'content'
     ];
 }
