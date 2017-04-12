@@ -100,7 +100,7 @@ Insira os comandos
 # 0  = as 0 horas,
 # 1  = no dia 1,
 # *  = todos os meses,
-# *  = seja em que dia da seman for
+# *  = seja em que dia da semana for
 5 0 1 * * root /var/www/aenet/jobs/job_clearlogs.sh &> /dev/null
 ```
 
