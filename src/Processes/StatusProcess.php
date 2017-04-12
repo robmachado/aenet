@@ -88,6 +88,26 @@ class StatusProcess extends BaseProcess
                 }
             }
         }
+        //status das contingências
+        $svcs = ['SVCAN', 'SVCRS'];
+        foreach ($svcs as $svc) {
+            $std2 = $this->pull($svc, 2);
+            $std1 = $this->pull($svc, 1);
+            $std[$svc] = new \stdClass();
+            $std[$svc]->uf = $svc;
+            $std[$svc]->status_1 = 1;
+            $std[$svc]->error_msg_1 = $std1->xMotivo;
+            $std[$svc]->updated_at_1 = $agora;
+            $std[$svc]->status_2 = 1;
+            $std[$svc]->updated_at_2 = $agora;
+            $std[$svc]->error_msg_2 = $std2->xMotivo;
+            if ($std1->cStat != 107) {
+                $std[$svc]->status_1 = 0;
+            }
+            if ($std2->cStat != 107) {
+                $std[$svc]->status_2 = 0;
+            }
+        }
         $stCtrl = new StatusController();
         foreach ($std as $reg) {
             $stCtrl->updateStatus($reg);

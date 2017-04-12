@@ -297,8 +297,6 @@ class DFeProcess extends BaseProcess
                 $dhRegEvento = $resp->retEvento->infEvento->nSeqEvento;
                 
                 Nsu::where('id', $stdRes->id)->update(['manifestar' => 0]);
-                    
-                
             } catch (\Exception $e) {
                 $error = $e->getMessage();
                 $this->logger->error("Exception: $error");
