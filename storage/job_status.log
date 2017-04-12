@@ -1,2 +1,1 @@
 
-[2017-04-09T15:24:15.247191-03:00] Status.ERROR: Exception: An error occurred while trying to communication via soap, error:14094418:SSL routines:ssl3_read_bytes:tlsv1 alert unknown ca [] []

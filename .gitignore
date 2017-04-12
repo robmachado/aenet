@@ -6,5 +6,6 @@
 nbproject
 local
 vendor
+*.log
 *~
 composer.lock

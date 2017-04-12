@@ -83,3 +83,24 @@ Insira os comandos
 # 1-6  = mas apenas de segunda a sábado 
 */2 6-21 * * 1-6 root php /var/www/aenet/jobs/job_nfe.php &> /dev/null
 ```
+
+**LIMPEZA**
+Os logs irão crescer indefinidamente se não forem limpos periódicamente, por isso será estabelecido um CRON JOB para essa limpeza que irá rodar todo o dia 1 as 00:05.
+
+```bash
+nano job_clearlogs
+```
+
+Insira os comandos
+
+```bash
+# Tarefa de limpeza dos arquivos de log
+# Essa tarefa será executada
+# 5  = aos 5 minutos,
+# 0  = as 0 horas,
+# 1  = no dia 1,
+# *  = todos os meses,
+# *  = seja em que dia da seman for
+5 0 1 * * root /var/www/aenet/jobs/job_clearlogs.sh &> /dev/null
+```
+
