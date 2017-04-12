@@ -295,10 +295,10 @@ class DFeProcess extends BaseProcess
                 $xEvento = $resp->retEvento->infEvento->xEvento;
                 $nSeqEvento = $resp->retEvento->infEvento->nSeqEvento;
                 $dhRegEvento = $resp->retEvento->infEvento->nSeqEvento;
-                if ($cStat == 135 || $cStat == 136 || $cStat == 573) {
-                    //se sucesso pode remover o registro na tabela
-                    Nsu::destroy($stdRes->id);
-                }
+                
+                Nsu::where('id', $stdRes->id)->update(['manifestar' => 0]);
+                    
+                
             } catch (\Exception $e) {
                 $error = $e->getMessage();
                 $this->logger->error("Exception: $error");
