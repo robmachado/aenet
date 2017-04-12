@@ -51,11 +51,11 @@ Insira os comandos
 # Tarefa de busca de documentos destinados
 # Essa tarefa será executada
 # 1   = ao primeiro 1 minuto,
-# */2 = a cada 2 horas,
+# */4 = a cada 2 horas,
 # *   = todos os dias,
 # *   = todos os meses,
 # 1-5 = mas apenas de segunda a sexta-feira
-1 */2 * * 1-5 root php /var/www/aenet/jobs/job_dfe.php &> /dev/null
+1 */4 * * 1-5 root php /var/www/aenet/jobs/job_dfe.php &> /dev/null
 ```
 
 ## Tarefa de envio das NFe, Cancelamentos e Eventos 
