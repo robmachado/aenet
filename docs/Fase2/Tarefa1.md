@@ -54,6 +54,11 @@ CREATE TABLE `dfe_nsus` (
   `nsu` int(11) NOT NULL COMMENT 'Id do registro (RECEITA)',
   `tipo` varchar(250) COLLATE utf8_unicode_ci NOT NULL COMMENT 'Tipo de registro NSU (RECEITA)',
   `manifestar` tinyint(4) NOT NULL DEFAULT '0' COMMENT 'Pendencia de manifestação tipo RESUMO',
+  `cnpj` varchar(14) COLLATE utf8_unicode_ci NOT NULL COMMENT 'CNPJ do emissor da NFe',
+  `xNome` varchar(150) COLLATE utf8_unicode_ci NOT NULL COMMENT 'Razão do emissor da NFe',
+  `chNFe` varchar(44) COLLATE utf8_unicode_ci NOT NULL COMMENT 'Chave da NFe',
+  `dhEmi` datetime NOT NULL COMMENT 'Data e hora de emissão da NFe',
+  `nProt` varchar(150) COLLATE utf8_unicode_ci NOT NULL COMMENT 'Protocolo da NFe',
   `content` longtext COLLATE utf8_unicode_ci NOT NULL COMMENT 'Conteúdo do NSU, já descompactado',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -69,3 +74,85 @@ Antes de carregar a tabela com os dados obtidos, o sistema efetua uma limpeza, d
 O sistema então carrega essa tabela, com todos os dados obtidos nessa pesquisa, caso o dado seja um resumo de nfe "resNFe_v1.00.xsd", a flag "manifestar" é setada como "1" ou seja pendente, ou setada ara zero nos demais casos.
 
 Após o final do processo essa tabela é lida e os dados "prontos" (onde "manifestar" é igual a ZERO), são transferidos para as tabelas destino e caso haja pendência de manifestação a mesma é realizada. Em caso de sucesso da manifestação de destinatário, a flag "manifestar" é alterada para zero, para permitir a sua remoção na próxima pesquisa.
+
+
+
+```mysql
+--
+-- Database: `aenet_nfe`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Remover se existir tabela anterior `dfe_events`
+--
+
+DROP TABLE IF EXISTS `dfe_events`;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `dfe_events`
+-- Registro dos eventos baixados do DFe
+-- Responsável : Roberto
+--
+
+CREATE TABLE `dfe_events` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Id da Tabela',
+  `id_empresa` int(11) UNSIGNED NOT NULL COMMENT 'Id da Empresas (AENET)',
+  `nsu` int(11) NOT NULL COMMENT 'NSU referencia (RECEITA)',
+  `cnpj` varchar(14) COLLATE utf8_unicode_ci NOT NULL COMMENT 'CNPJ do emissor do evento',
+  `chNFe` varchar(44) COLLATE utf8_unicode_ci NOT NULL COMMENT 'Chave da NFe referente ao evento',
+  `tpEvento` varchar(10) COLLATE utf8_unicode_ci NOT NULL COMMENT 'Código do Tipo de evento',
+  `nSeqEvento` int(11) NOT NULL COMMENT 'Numero sequencial do evento',
+  `xEvento` varchar(250) COLLATE utf8_unicode_ci NOT NULL COMMENT 'Descrição do evento',
+  `dhEvento` datetime NOT NULL COMMENT 'Data e hora de emissão do evento',
+  `dhRecbto` datetime NOT NULL COMMENT 'Data e hora do recebimento do evento na SEFAZ',
+  `nProt` varchar(100) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT 'Numero do protocolo do evento, se houver',
+  `content` longtext COLLATE utf8_unicode_ci COMMENT 'XML do evento',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Indexes for table `dfe_events`
+--
+```
+
+```mysql
+--
+-- Database: `aenet_nfe`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Remover se existir tabela anterior `dfe_nfes`
+--
+
+DROP TABLE IF EXISTS `dfe_nfes`;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `dfe_nfes`
+-- Registro das NFe baixadas do DFe
+-- Responsável : Roberto
+--
+
+CREATE TABLE `dfe_nfes` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Id da Tabela',
+  `id_empresa` int(11) UNSIGNED NOT NULL COMMENT 'Id da Empresa (AENET)',
+  `nsu` int(11) NOT NULL COMMENT 'NSU referencia (RECEITA)',
+  `cnpj` varchar(14) COLLATE utf8_unicode_ci NOT NULL COMMENT 'CNPJ do emissor da NFe',
+  `xNome` varchar(150) COLLATE utf8_unicode_ci NOT NULL COMMENT 'Razão do emissor da NFe',
+  `chNFe` varchar(44) COLLATE utf8_unicode_ci NOT NULL COMMENT 'Chave da NFe',
+  `dhEmi` datetime NOT NULL COMMENT 'Data e hora de emissão da NFe',
+  `content` longtext COLLATE utf8_unicode_ci NOT NULL COMMENT 'XML da NFe',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Indexes for table `dfe_nfes`
+--
+```

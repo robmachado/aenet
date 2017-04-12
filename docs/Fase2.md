@@ -38,7 +38,7 @@ Outro script (processo) irá:
 
 Tarefas:
 
-1. [Estabelecer tabelas necessárias na base de dados](Fase2/Tarefa1.md)
+1. <s>[Estabelecer tabelas necessárias na base de dados](Fase2/Tarefa1.md)</s> FINALIZADO
 2. [Montar os scripts e classes para a realização das tarefas e tratamento das exceções](Fase2/Tarefa2.md)
 3. [Montar testes unitários para garantir funcionamento em atualizações futuras](Fase2/Tarefa3.md)
 4. [Definir e montar as interfaces de administração](Fase2/Tarefa4.md)
