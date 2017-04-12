@@ -28,7 +28,7 @@ Insira os comandos
 # *    = todos os dias,
 # *    = todos os meses,
 # 1-6  = mas apenas de segunda a sábado
-*/15 6-21 * * 1-6 root php /var/www/nfe/jobs/job_status.php &> /dev/null
+*/15 6-21 * * 1-6 root php /var/www/aenet/jobs/job_status.php &> /dev/null
 ```
 
 ## Tarefa de busca de documentos destinados DFe
@@ -55,7 +55,7 @@ Insira os comandos
 # *   = todos os dias,
 # *   = todos os meses,
 # 1-5 = mas apenas de segunda a sexta-feira
-1 */2 * * 1-5 root php /var/www/nfe/jobs/job_dfe.php &> /dev/null
+1 */2 * * 1-5 root php /var/www/aenet/jobs/job_dfe.php &> /dev/null
 ```
 
 ## Tarefa de envio das NFe, Cancelamentos e Eventos 
@@ -81,5 +81,5 @@ Insira os comandos
 # *    = todos os dias,
 # *    = todos os meses,
 # 1-6  = mas apenas de segunda a sábado 
-*/2 6-21 * * 1-6 root php /var/www/nfe/jobs/job_nfe.php &> /dev/null
+*/2 6-21 * * 1-6 root php /var/www/aenet/jobs/job_nfe.php &> /dev/null
 ```
