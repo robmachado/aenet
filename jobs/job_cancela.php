@@ -16,20 +16,28 @@ use NFePHP\NFe\Convert;
 $cad = new CadastroController();
 $ae = new AenetController();
 
-//verifica item em aberto em nfes_aenet
-$nfes = $ae->nfeAll(); //retorna um array
+//verifica por solicitações de cancelamento de NFe, ainda não realizados
+//para casos onde:
+// justificativa <> ''e
+// status = 100 e
+// cancelamento_protocolo = '' e
+// protoclo <> '' e
+// nfe_chave_acesso <> '' 
+$nfes = $ae->cancelAll();
 $oldid_empresa = 0;
 $client = null;
 foreach($nfes as $nfe) {
     $std = json_decode(json_encode($nfe));
     $id = $std->id_nfes_aenet;
     $id_empresa = $std->id_empresa;
-    $txt = $std->arquivo_nfe_txt;
+    $xJust = $std->justificativa;
+    $nProt = $std->protocolo;
+    $chave = $std->nfe_chave_acesso;
     if ($id_empresa != $oldid_empresa) {
         //pega os dados do cliente dessa NFe
         $client = json_decode(json_encode($cad->get($id_empresa)[0]));
         $oldid_empresa = $id_empresa;
         $aep = new AenetProcess($client);
     }
-    $aep->send($id, $txt);
-}
+    $aep->cancela($id,$chave,$xJust,$nProt);
+} 

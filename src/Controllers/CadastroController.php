@@ -15,7 +15,7 @@ class CadastroController extends BaseController
     }
     
     /**
-     * Retorna os dados do cadastro co um id especifico em um array
+     * Retorna os dados do cadastro com um id especifico em um array
      * @param int $id
      * @return array
      */

@@ -85,11 +85,13 @@ class AenetProcess extends BaseProcess
             $cStat = $ret->retEnviNFe->cStat;
             $xMotivo = $ret->retEnviNFe->xMotivo;
             $recibo = $ret->retEnviNFe->infRec->nRec;
-            echo "<pre>";
-            print_r($ret);
-            echo "</pre>";
             if ($cStat != 103) {
                 $this->logger->error("Erro: $response");
+                $astd = [
+                    'status_nfe' => 9,
+                    'motivo' => "$cStat - $xMotivo"
+                ];
+                $this->aenet->update($id, $astd);
                 return false;
             }
             $astd = [
@@ -113,19 +115,25 @@ class AenetProcess extends BaseProcess
         try {
             $response = $this->tools->sefazConsultaRecibo($recibo);
             $ret = $this->nfestd->toStd($response);
-            $cStat = $ret->retConsReciNFe->cStat;
-            $xMotivo = $ret->retConsReciNFe->xMotivo;
+            $cStat = $ret->cStat;
+            $xMotivo = $ret->xMotivo;
+            $infProt = $ret->protNFe->infProt;
             if ($cStat != 104) {
                 $this->logger->error("Error: $response");
+                $astd = [
+                    'status_nfe' => 9,
+                    'motivo' => "$cStat - $xMotivo"
+                ];
+                $this->aenet->update($id, $astd);
                 return false;
             }
-            $protNFe = $ret->retConsReciNFe->protNFe;
-            $cStatNFe = $protNFe->cStat;
-            $xMotivoNFe = $protNFe->xMotivo;
-            $nProt = $protNFe->nProt;
-            $xmlProt = '';
+            $cStatNFe = $infProt->cStat;
+            $xMotivoNFe = $infProt->xMotivo;
+            $xmlProt = $xmlsigned;
+            $nProt = 0;
             $status = 9;
             if ($cStatNFe == '100') {
+                $nProt = $infProt->nProt;
                 //adiciona o protocolo no xml assinado
                 $xmlProt = $this->cmpt->toAuthorize($xmlsigned, $response);
                 $status = 1;

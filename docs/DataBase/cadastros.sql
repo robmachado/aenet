@@ -33,7 +33,7 @@ CREATE TABLE `cadastros` (
   `contingency` text COMMENT 'Dados de contingência json base64',
   `emailfrom` varchar(50) NOT NULL COMMENT 'Email do emitente para NFe',
   `error` text NOT NULL COMMENT 'Mensagens de erro do cadastro', 
-  `created_at` datetime DEFAULT NULL COMMENT 'Data e hora da criação do registro',
+  `created_at` datetime NOT NULL COMMENT 'Data e hora da criação do registro',
   `updated_at` datetime DEFAULT NULL COMMENT 'Data e hora da última alteração do registro',
   PRIMARY KEY (`id_empresa`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
