@@ -20,7 +20,7 @@ DROP TABLE IF EXISTS `dfe_events`;
 
 CREATE TABLE `dfe_events` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Id da Tabela',
-  `id_cadastro` int(11) UNSIGNED NOT NULL COMMENT 'Id da Empresas (AENET)',
+  `id_empresa` int(11) UNSIGNED NOT NULL COMMENT 'Id da Empresas (AENET)',
   `nsu` int(11) NOT NULL COMMENT 'NSU referencia (RECEITA)',
   `cnpj` varchar(14) COLLATE utf8_unicode_ci NOT NULL COMMENT 'CNPJ do emissor do evento',
   `chNFe` varchar(44) COLLATE utf8_unicode_ci NOT NULL COMMENT 'Chave da NFe referente ao evento',

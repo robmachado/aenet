@@ -20,7 +20,7 @@ DROP TABLE IF EXISTS `dfe_nfes`;
 
 CREATE TABLE `dfe_nfes` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Id da Tabela',
-  `id_cadastro` int(11) UNSIGNED NOT NULL COMMENT 'Id da Empresa (AENET)',
+  `id_empresa` int(11) UNSIGNED NOT NULL COMMENT 'Id da Empresa (AENET)',
   `nsu` int(11) NOT NULL COMMENT 'NSU referencia (RECEITA)',
   `cnpj` varchar(14) COLLATE utf8_unicode_ci NOT NULL COMMENT 'CNPJ do emissor da NFe',
   `xNome` varchar(150) COLLATE utf8_unicode_ci NOT NULL COMMENT 'Razão do emissor da NFe',
