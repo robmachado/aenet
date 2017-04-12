@@ -27,7 +27,7 @@ Esse script (processo) irá:
 
 * buscar os clientes da tabela cadastro, e para cada um deles irá:
 * buscar o numero do ultimo NSU -- na base tabela dfe_nsus
-* realizar uma busca no webservice (a busca é iterativa em um loop de até 50 chamadas SOAP a cada processamento)
+* realizar uma busca no webservice (a busca é iterativa em um loop de até 10 chamadas SOAP a cada processamento)
 * gravar os dados recebidos dos resumos ou dos XML na tabela dfe_nsus
 
 Outro script (processo) irá:
@@ -39,7 +39,7 @@ Outro script (processo) irá:
 Tarefas:
 
 1. <s>[Estabelecer tabelas necessárias na base de dados](Fase2/Tarefa1.md)</s> FINALIZADO
-2. [Montar os scripts e classes para a realização das tarefas e tratamento das exceções](Fase2/Tarefa2.md)
+2. <s>[Montar os scripts e classes para a realização das tarefas e tratamento das exceções](Fase2/Tarefa2.md)</s> FINALIZADO
 3. [Montar testes unitários para garantir funcionamento em atualizações futuras](Fase2/Tarefa3.md)
 4. [Definir e montar as interfaces de administração](Fase2/Tarefa4.md)
 5. [Definir e montar as interfaces de usuário](Fase2/Tarefa5.md)
