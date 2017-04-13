@@ -15,7 +15,7 @@ DROP TABLE IF EXISTS `nfes_aenet`;
 -- Responsável: Flávio Caporali
 --
 CREATE TABLE `nfes_aenet` (
-  `id_nfes_aenet` int(11) NOT NULL COMMENT 'Id da Nota Fiscal (VEM DO SISTEMA AENET )',
+  `id_nfes_aenet` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Id da Nota Fiscal (VEM DO SISTEMA AENET )',
   `id_empresa` int(11) NOT NULL DEFAULT '0' COMMENT '(VEM DO AENET)',
   `tipo_nfe` char(1) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT 'Tipo da Nota Fiscal E ou S',
   `nome_destinatario` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT 'Nome do destinatário da NFe (VEM DO SISTEMA AENET )',

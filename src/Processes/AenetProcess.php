@@ -2,14 +2,12 @@
 
 namespace Aenet\NFe\Processes;
 
+use Aenet\NFe\Processes\BaseProcess;
 use Aenet\NFe\Controllers\AenetController;
-use Aenet\NFe\Controllers\SmtpController;
 use NFePHP\NFe\Convert;
 use NFePHP\NFe\Tools;
 use NFePHP\NFe\Complements;
 use NFePHP\NFe\Common\Standardize;
-use NFePHP\DA\NFe\Danfe;
-use NFePHP\Mail\Mail;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 use stdClass;
@@ -21,6 +19,10 @@ class AenetProcess extends BaseProcess
     protected $nfestd;
     protected $logger;
     
+    /**
+     * Constructor
+     * @param stdClass $cad
+     */
     public function __construct(stdClass $cad)
     {
         parent::__construct($cad);
@@ -32,6 +34,12 @@ class AenetProcess extends BaseProcess
         $this->logger->pushHandler(new StreamHandler($storage.'/job_nfe.log', Logger::WARNING));
     }
     
+    /**
+     * Converts, sign, valid, send and autorize XML
+     * @param int $id
+     * @param string $txt
+     * @return boolean
+     */
     public function send($id, $txt)
     {
         //tenta converter se falhar grava ERRO e retorna
@@ -49,11 +57,13 @@ class AenetProcess extends BaseProcess
             $this->aenet->update($id, $astd);
             return false;
         }
+        
         //tenta assinar a NFe se falhar grava ERRO e retorna
         //esse registro será bloqueado até que novo TXT seja inserido e
         //o status retornado a 0.
         try {
             $xmlsigned = $this->tools->signNFe($xml[0]);
+            //file_put_contents('xmlsig.xml',$xmlsigned);
             $dom = new \DOMDocument('1.0', 'UTF-8');
             $dom->preserveWhiteSpace = false;
             $dom->formatOutput = false;
@@ -76,15 +86,15 @@ class AenetProcess extends BaseProcess
             return false;
         }
         
-        //tenta enviar se falhar grava o ERRO e retorna
+        //tenta enviar para a SEFAZ se falhar grava o ERRO e retorna
         try {
             $lote = date('YmdHis').rand(0, 9);
             $recibo = 0;
             $response = $this->tools->sefazEnviaLote([$xmlsigned], $lote);
             $ret = $this->nfestd->toStd($response);
-            $cStat = $ret->retEnviNFe->cStat;
-            $xMotivo = $ret->retEnviNFe->xMotivo;
-            $recibo = $ret->retEnviNFe->infRec->nRec;
+            $cStat = $ret->cStat;
+            $xMotivo = $ret->xMotivo;
+            $recibo = $ret->infRec->nRec;
             if ($cStat != 103) {
                 $this->logger->error("Erro: $response");
                 $astd = [
@@ -160,58 +170,6 @@ class AenetProcess extends BaseProcess
             $this->aenet->update($id, $astd);
             return false;
         }
-        //imprime o DANFE
-        $path = realpath("../../storage");
-        $logopath = $path."/logo_".$this->cad->id_empresa.".jpg";
-        if (!is_file($logopath)) {
-            $logo = base64_decode($this->cad->logo);
-            file_put_contents($logopath, $logo);
-        }
-        $pdf = '';
-        try {
-            $danfe = new Danfe($docxml, 'P', 'A4', $logopath, 'I', '');
-            $id = $danfe->montaDANFE();
-            $pdf = $danfe->render();
-            $astd = [
-                'arquivo_nfe_pdf' => $pdf,
-                'data_danfe' => date('Y-m-d H:i:s')
-            ];
-            $this->aenet->update($id, $astd);
-        } catch (\Exception $e) {
-            $error = $e->getMessage();
-            $this->logger->error("Exception: $error");
-        }
-        
-        try {
-            //envia os emais ao destinatário
-            $smCtrl = new SmtpController();
-            $smtp = json_decode(json_encode($smCtrl->get()));
-            $config = new stdClass();
-            $config->mail->user = $smtp->user;
-            $config->mail->password = $smtp->pass;
-            $config->mail->host = $smtp->host;
-            $config->mail->secure = $smtp->security;
-            $config->mail->port = $smtp->port;
-            $config->mail->from = $this->cad->emailfrom;
-            $config->mail->fantasy = $this->cad->fantasia;
-            $config->mail->replyTo = $this->cad->emailfrom;
-            $config->mail->replyName = $this->cad->fantasia;
-            $mail = new Mail($config);
-            $mail->loadDocuments($xmlProt, $pdf);
-            $addresses = [];
-            $mail->send($addresses);
-            
-            //grava os dados na tabela
-            $astd = [
-                'nfe_email_enviado' => 1,
-                'data_email' => date('Y-m-d H:i:s')
-            ];
-            $this->aenet->update($id, $astd);
-        } catch (\Exception $e) {
-            $error = $e->getMessage();
-            $this->logger->error("Exception: $error");
-        }
-        return true;
     }
     
     /**

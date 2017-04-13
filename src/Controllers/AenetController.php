@@ -21,6 +21,17 @@ class AenetController extends BaseController
             ->toArray();
     }
     
+    public function danfeAll()
+    {
+        //status = 100 ou 150 e arquivo_nfe_pdf NULL
+        return Aenet::whereNull('arquivo_nfe_pdf')
+            ->where('status', 100)    
+            ->orWhere('status', 150)
+            ->orderBy('id_empresa')
+            ->get()
+            ->toArray();
+    }
+    
     public function cancelAll()
     {
         return Aenet::where('justificativa', '<>', '')
