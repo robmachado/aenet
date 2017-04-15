@@ -5,41 +5,31 @@ namespace Aenet\NFe\Processes;
 use Aenet\NFe\Processes\BaseProcess;
 use Aenet\NFe\Controllers\AenetController;
 use NFePHP\DA\NFe\Danfe;
-use Monolog\Logger;
-use Monolog\Handler\StreamHandler;
 use stdClass;
 
-class DanfeProcess  extends BaseProcess
+class DanfeProcess extends BaseProcess
 {
+    /**
+     * @var AenetController
+     */
     protected $aenet;
-    protected $logger;
-    protected $storage;
 
     public function __construct(stdClass $cad)
     {
-        parent::__construct($cad);
+        parent::__construct($cad, 'job_danfe.log');
         $this->aenet = new AenetController();
-        $this->storage = realpath(__DIR__ .'/../../storage');
-        $this->logger = new Logger('Aenet');
-        $this->logger->pushHandler(
-            new StreamHandler($this->storage.'/job_danfe.log', Logger::WARNING)
-        );
     }
     
     /**
      * Create pdf from xml
      * @param int $id
      * @param string $xml
-     * @return bool 
+     * @return bool
      */
     public function render($id, $xml)
     {
-        //imprime o DANFE
         $logopath = $this->storage."/images/logo_".$this->cad->id_empresa.".jpg";
-        if (!is_file($logopath)) {
-            $logo = base64_decode($this->cad->logo);
-            file_put_contents($logopath, $logo);
-        }
+        $logopath = $this->saveLogo($logopath);
         try {
             $pdf = '';
             $danfe = new Danfe($xml, 'P', 'A4', $logopath, 'I', '');
@@ -57,5 +47,41 @@ class DanfeProcess  extends BaseProcess
             $this->logger->error("Exception: $error");
         }
         return false;
-    }    
+    }
+    
+    protected function saveLogo($logopath)
+    {
+        $image = $this->cad->logo;
+        if (empty($image)) {
+            //se está em branco não usar LOGO
+            return '';
+        }
+        if (is_file($logopath)) {
+            //se já existir usar logo existente
+            return $logopath;
+        }
+        //verifica string do logo
+        if ($image !== base64_encode(base64_decode($image))) {
+            //imagem invalida
+            $this->logger->error("Exception: ["
+                . $this->cad->id_empresa
+                . "] Imagem do Logo é inválida ou está corrompida.");
+            return '';
+        }
+        $img = base64_decode($image);
+        $tmppath = $this->storage."/images/logo_".$this->cad->id_empresa.".img";
+        file_put_contents($tmppath, $img);
+        $type = exif_imagetype($tmppath);
+        unlink($tmppath);
+        if ($type !== 2 && $type !== 3) {
+            //imagem invalida
+            $this->logger->error("Exception: ["
+                . $this->cad->id_empresa
+                . "] Imagem do Logo é inválida não é JPG, nem PNG.");
+            return '';
+        }
+        $logo = imagecreatefromstring($img);
+        imagejpeg($logo, $logopath, 90);
+        imagedestroy($logo);
+    }
 }

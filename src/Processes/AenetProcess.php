@@ -8,16 +8,22 @@ use NFePHP\NFe\Convert;
 use NFePHP\NFe\Tools;
 use NFePHP\NFe\Complements;
 use NFePHP\NFe\Common\Standardize;
-use Monolog\Logger;
-use Monolog\Handler\StreamHandler;
 use stdClass;
 
 class AenetProcess extends BaseProcess
 {
+    /**
+     * @var AenetController
+     */
     protected $aenet;
+    /**
+     * @var Complements
+     */
     protected $cmpt;
+    /**
+     * @var Standardize
+     */
     protected $nfestd;
-    protected $logger;
     
     /**
      * Constructor
@@ -25,13 +31,10 @@ class AenetProcess extends BaseProcess
      */
     public function __construct(stdClass $cad)
     {
-        parent::__construct($cad);
+        parent::__construct($cad, 'job_nfe.log');
         $this->aenet = new AenetController();
         $this->cmpt = new Complements();
         $this->nfestd = new Standardize();
-        $storage = realpath(__DIR__ .'/../../storage');
-        $this->logger = new Logger('Aenet');
-        $this->logger->pushHandler(new StreamHandler($storage.'/job_nfe.log', Logger::WARNING));
     }
     
     /**

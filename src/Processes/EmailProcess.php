@@ -5,46 +5,39 @@ namespace Aenet\NFe\Processes;
 use Aenet\NFe\Processes\BaseProcess;
 use Aenet\NFe\Controllers\SmtpController;
 use NFePHP\Mail\Mail;
-use Monolog\Logger;
-use Monolog\Handler\StreamHandler;
 use stdClass;
 
-class EmailProcess
+class EmailProcess extends BaseProcess
 {
+    /**
+     * @var AenetController
+     */
     protected $aenet;
-    protected $logger;
     
     public function __construct(stdClass $cad)
     {
-        parent::__construct($cad);
-        $storage = realpath(__DIR__ .'/../../storage');
-        $this->logger = new Logger('Aenet');
-        $this->logger->pushHandler(
-            new StreamHandler($storage.'/job_email.log', Logger::WARNING)
-        );
+        parent::__construct($cad, 'job_email.log');
+        $this->aenet = new AenetController();
     }
     
-    public function send()
+    public function send($id, $xml, $pdf = '')
     {
         try {
             //envia os emais ao destinatário
             $smCtrl = new SmtpController();
-            $smtp = json_decode(json_encode($smCtrl->get()));
+            $smtp = json_decode(json_encode($smCtrl->get()[0]));
             $config = new stdClass();
-            $config->mail->user = $smtp->user;
-            $config->mail->password = $smtp->pass;
-            $config->mail->host = $smtp->host;
-            $config->mail->secure = $smtp->security;
-            $config->mail->port = $smtp->port;
-            $config->mail->from = $this->cad->emailfrom;
-            $config->mail->fantasy = $this->cad->fantasia;
-            $config->mail->replyTo = $this->cad->emailfrom;
-            $config->mail->replyName = $this->cad->fantasia;
-            $mail = new Mail($config);
-            $mail->loadDocuments($xmlProt, $pdf);
-            $addresses = [];
-            $mail->send($addresses);
-            
+            $config->user = $smtp->user;
+            $config->password = $smtp->pass;
+            $config->host = $smtp->host;
+            $config->secure = $smtp->security;
+            $config->port = $smtp->port;
+            $config->from = $this->cad->emailfrom;
+            $config->fantasy = $this->cad->fantasia;
+            $config->replyTo = $this->cad->emailfrom;
+            $config->replyName = $this->cad->fantasia;
+            //envia o email
+            $resp = Mail::sendMail($config, $xml, $pdf, [''], '');
             //grava os dados na tabela
             $astd = [
                 'nfe_email_enviado' => 1,

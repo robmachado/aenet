@@ -25,8 +25,18 @@ class AenetController extends BaseController
     {
         //status = 100 ou 150 e arquivo_nfe_pdf NULL
         return Aenet::whereNull('arquivo_nfe_pdf')
-            ->where('status', 100)    
+            ->where('status', 100)
             ->orWhere('status', 150)
+            ->orderBy('id_empresa')
+            ->get()
+            ->toArray();
+    }
+    
+    public function emailAll()
+    {
+        //nfe_email_enviado NULL e arquivo_nfe_pdf NOT NULL
+        return Aenet::whereNull('nfe_email_enviado')
+            ->whereNotNull('arquivo_nfe_pdf')
             ->orderBy('id_empresa')
             ->get()
             ->toArray();

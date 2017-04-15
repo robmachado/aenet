@@ -4,14 +4,11 @@ namespace Aenet\NFe\Processes;
 
 /**
  * Atualiza os dados do status de todas as SEFAZ autorizadoras
- *
  */
 
 use Aenet\NFe\Processes\BaseProcess;
 use Aenet\NFe\Controllers\StatusController;
 use NFePHP\NFe\Common\Standardize;
-use Monolog\Logger;
-use Monolog\Handler\StreamHandler;
 use DateTime;
 use stdClass;
 
@@ -40,10 +37,7 @@ class StatusProcess extends BaseProcess
     
     public function __construct(stdClass $cad)
     {
-        parent::__construct($cad);
-        $storage = realpath(__DIR__ .'/../../storage');
-        $this->logger = new Logger('Status');
-        $this->logger->pushHandler(new StreamHandler($storage.'/job_status.log', Logger::WARNING));
+        parent::__construct($cad, 'job_status.log');
     }
 
     public function updateAll()

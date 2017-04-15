@@ -8,25 +8,21 @@ use Aenet\NFe\Models\Nsu;
 use Aenet\NFe\Models\NFe;
 use Aenet\NFe\Models\Event;
 use NFePHP\NFe\Common\Standardize;
-use Monolog\Logger;
-use Monolog\Handler\StreamHandler;
 use DOMDocument;
 use stdClass;
 use DateTime;
 
 class DFeProcess extends BaseProcess
 {
+    /**
+     * @var NsusController
+     */
     protected $nsus;
-    protected $logger;
 
     public function __construct(stdClass $cad)
     {
-        parent::__construct($cad);
+        parent::__construct($cad, 'job_dfe.log');
         $this->nsus = new NsusController();
-        // create a log channel
-        $storage = realpath(__DIR__ .'/../../storage');
-        $this->logger = new Logger('DFe');
-        $this->logger->pushHandler(new StreamHandler($storage.'/job_dfe.log', Logger::WARNING));
     }
     
     public function search()

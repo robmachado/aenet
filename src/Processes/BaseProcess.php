@@ -2,12 +2,14 @@
 
 namespace Aenet\NFe\Processes;
 
+use Aenet\NFe\Common\Config;
 use NFePHP\NFe\Tools;
 use NFePHP\Common\Certificate;
 use NFePHP\Common\Soap\SoapCurl;
 use NFePHP\Common\Certificate\CertificationChain;
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
 use stdClass;
-use Aenet\NFe\Common\Config;
 
 class BaseProcess
 {
@@ -23,8 +25,16 @@ class BaseProcess
      * @var NFePHP\NFe\Tools
      */
     protected $tools;
+    /**
+     * @var Monolog
+     */
+    protected $logger;
+    /**
+     * @var string
+     */
+    protected $storage;
     
-    public function __construct(stdClass $cad)
+    public function __construct(stdClass $cad, $pathlog)
     {
         $this->cad = $cad;
         $config = new Config(
@@ -34,6 +44,11 @@ class BaseProcess
             $cad->tpAmb
         );
         $this->config = "{$config}";
+        $this->storage = realpath(__DIR__ .'/../../storage');
+        $this->logger = new Logger('Aenet');
+        $this->logger->pushHandler(
+            new StreamHandler($this->storage . '/' . $pathlog, Logger::WARNING)
+        );
         $this->loadTools();
     }
     

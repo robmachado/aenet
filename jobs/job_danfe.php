@@ -5,7 +5,6 @@ require_once '/var/www/aenet/bootstrap.php';
 
 /**
  * Cria os DANFES para as notas já protocoladas
- * 
  */
 
 use Aenet\NFe\Controllers\AenetController;
@@ -31,7 +30,7 @@ foreach($nfes as $nfe) {
         $oldid_empresa = $id_empresa;
         $dp = new DanfeProcess($client);
     }
-    //em caso de erro nada será gravado na base
+    //em caso de erro nada será gravado na base de dados
     //apenas um log será criado
     $dp->render($id, $xml);
 }

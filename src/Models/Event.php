@@ -9,7 +9,6 @@ class Event extends Eloquent
     public $timestamps = false;
     protected $table = 'dfe_events';
     protected $fillable = [
-        'id',
         'id_cadastro',
         'nsu',
         'cnpj',

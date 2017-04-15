@@ -22,7 +22,6 @@ class Input extends Eloquent
 {
     protected $table = 'nfes_inputs';
     protected $fillable = [
-        'id',
         'id_empresa',
         'id_nfe_aenet',
         'txt',

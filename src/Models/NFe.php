@@ -9,7 +9,6 @@ class NFe extends Eloquent
     public $timestamps = false;
     protected $table = 'dfe_nfes';
     protected $fillable = [
-        'id',
         'id_empresa',
         'nsu',
         'chNFe',

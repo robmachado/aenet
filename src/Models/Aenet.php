@@ -9,7 +9,6 @@ class Aenet extends Eloquent
     public $timestamps = false;
     protected $table = 'nfes_aenet';
     protected $fillable = [
-        'id_nfes_aenet',
         'id_dados_nfe',
         'tipo_nfe',
         'nome_destinatario',
