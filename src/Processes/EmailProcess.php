@@ -4,6 +4,7 @@ namespace Aenet\NFe\Processes;
 
 use Aenet\NFe\Processes\BaseProcess;
 use Aenet\NFe\Controllers\SmtpController;
+use Aenet\NFe\Controllers\AenetController;
 use NFePHP\Mail\Mail;
 use stdClass;
 
@@ -20,7 +21,7 @@ class EmailProcess extends BaseProcess
         $this->aenet = new AenetController();
     }
     
-    public function send($id, $xml, $pdf = '')
+    public function send($id, $xml, $pdf = '', $addresses = [])
     {
         try {
             //envia os emais ao destinatário
@@ -32,12 +33,13 @@ class EmailProcess extends BaseProcess
             $config->host = $smtp->host;
             $config->secure = $smtp->security;
             $config->port = $smtp->port;
-            $config->from = $this->cad->emailfrom;
+            $config->from = $smtp->user;
+            //$config->from = $this->cad->emailfrom;
             $config->fantasy = $this->cad->fantasia;
             $config->replyTo = $this->cad->emailfrom;
             $config->replyName = $this->cad->fantasia;
             //envia o email
-            $resp = Mail::sendMail($config, $xml, $pdf, [''], '');
+            $resp = Mail::sendMail($config, $xml, $pdf, $addresses, '');
             //grava os dados na tabela
             $astd = [
                 'nfe_email_enviado' => 1,

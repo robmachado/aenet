@@ -24,6 +24,7 @@ foreach($nfes as $nfe) {
     $std = json_decode(json_encode($nfe));
     $id = $std->id_nfes_aenet;
     $id_empresa = $std->id_empresa;
+    $addresses = explode(';', $std->email_destinatario);
     $xml = base64_decode($std->arquivo_nfe_xml);
     $pdf = base64_decode($std->arquivo_nfe_pdf);
     
@@ -35,5 +36,5 @@ foreach($nfes as $nfe) {
     }
     //em caso de erro nada será gravado na base
     //apenas um log será criado
-    $ep->send($id, $xml, $pdf);
+    $ep->send($id, $xml, $pdf, $addresses);
 }
