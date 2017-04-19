@@ -4,6 +4,7 @@
 .idea
 .env
 nbproject
+storage/*.jpg
 local
 vendor
 *.log

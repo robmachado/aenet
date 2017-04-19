@@ -68,7 +68,7 @@ class DanfeProcess extends BaseProcess
                 . "] Imagem do Logo é inválida ou está corrompida.");
             return '';
         }
-        $img = base64_decode($image);
+        $img = gzdecode(base64_decode($image));
         $tmppath = $this->storage."/images/logo_".$this->cad->id_empresa.".img";
         file_put_contents($tmppath, $img);
         $type = exif_imagetype($tmppath);
