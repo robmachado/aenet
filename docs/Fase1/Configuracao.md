@@ -215,3 +215,19 @@ php -r "unlink('composer-setup.php');"
 ```bash
 mv composer.phar /usr/local/bin/composer
 ```
+
+# Ativar syslog para o CRON
+
+```bash
+sudo nano /etc/rsyslog.conf
+```
+Localize a linha #cron.*                     -/var/log/cron
+
+Descomente, e reinicie o syslog
+
+```bash
+sudo service rsyslog restart
+```
+
+
+ 

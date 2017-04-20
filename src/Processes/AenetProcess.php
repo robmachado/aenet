@@ -45,6 +45,7 @@ class AenetProcess extends BaseProcess
      */
     public function send($id, $txt)
     {
+        $this->logger->warning('Start:' . date('Y-m-d H:i:s'));
         //tenta converter se falhar grava ERRO e retorna
         //esse registro será bloqueado até que novo TXT seja inserido e
         //o status retornado a 0.
@@ -126,6 +127,7 @@ class AenetProcess extends BaseProcess
             $this->aenet->update($id, $astd);
             return false;
         }
+        $this->logger->warning('End:' . date('Y-m-d H:i:s'));
         return true;
     }
     
