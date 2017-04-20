@@ -106,6 +106,7 @@ class StatusProcess extends BaseProcess
         foreach ($std as $reg) {
             $stCtrl->updateStatus($reg);
         }
+        return true;
     }
     
      /**

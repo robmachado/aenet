@@ -79,6 +79,7 @@ class AenetProcess extends BaseProcess
                 'arquivo_nfe_xml' => base64_encode($xmlsigned)
             ];
             $this->aenet->update($id, $astd);
+            $dom = null;
         } catch (\Exception $e) {
             $error = str_replace(["'", '"'], "", $e->getMessage());
             $astd = [
@@ -125,6 +126,7 @@ class AenetProcess extends BaseProcess
             $this->aenet->update($id, $astd);
             return false;
         }
+        return true;
     }
     
     public function consulta($id, $recibo, $xml)
@@ -184,6 +186,7 @@ class AenetProcess extends BaseProcess
             $this->aenet->update($id, $astd);
             return false;
         }
+        return true;
     }
     
     

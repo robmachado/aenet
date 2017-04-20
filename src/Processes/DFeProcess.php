@@ -74,6 +74,7 @@ class DFeProcess extends BaseProcess
             }
             sleep(5);
         }
+        return true;
     }
     
     protected function saveNSU(DOMDocument $dom, $numnsu, $content, $tipo)
@@ -140,8 +141,8 @@ class DFeProcess extends BaseProcess
         }
         //salva
         $nsu->save();
+        return true;
     }
-
 
     /**
      * Processa NFe
@@ -173,6 +174,7 @@ class DFeProcess extends BaseProcess
         $nf->dhEmi = $dhEmi->format('Y-m-d H:i:s');
         //salva
         $nf->save();
+        return true;
     }
     
     /**
@@ -209,6 +211,7 @@ class DFeProcess extends BaseProcess
         $ev->content = base64_encode($content);
         //grava
         $ev->save();
+        return true;
     }
     
     /**
@@ -255,12 +258,14 @@ class DFeProcess extends BaseProcess
         $ev->content = base64_encode($content);
         //grava
         $ev->save();
+        return true;
     }
     
     protected function presNFe(DOMDocument $dom, $numnsu, $content, $tipo)
     {
         //salva NSU
         $this->saveNSU($dom, $numnsu, $content, $tipo);
+        return true;
     }
 
     public function manifestaAll()
@@ -298,5 +303,6 @@ class DFeProcess extends BaseProcess
                 $this->logger->error("Exception: $error");
             }
         }
+        return true;
     }
 }
