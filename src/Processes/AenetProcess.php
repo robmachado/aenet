@@ -49,6 +49,7 @@ class AenetProcess extends BaseProcess
         //esse registro será bloqueado até que novo TXT seja inserido e
         //o status retornado a 0.
         try {
+            $astd = [];
             $xml = Convert::toXML($txt);
         } catch (\Exception $e) {
             $error = $e->getMessage();
@@ -65,6 +66,7 @@ class AenetProcess extends BaseProcess
         //esse registro será bloqueado até que novo TXT seja inserido e
         //o status retornado a 0.
         try {
+            $astd = [];
             $xmlsigned = $this->tools->signNFe($xml[0]);
             $dom = new \DOMDocument('1.0', 'UTF-8');
             $dom->preserveWhiteSpace = false;
@@ -90,6 +92,7 @@ class AenetProcess extends BaseProcess
         
         //tenta enviar para a SEFAZ se falhar grava o ERRO e retorna
         try {
+            $astd = [];
             $lote = date('YmdHis').rand(0, 9);
             $recibo = 0;
             $response = $this->tools->sefazEnviaLote([$xmlsigned], $lote);
@@ -128,6 +131,7 @@ class AenetProcess extends BaseProcess
     {
         //tenta buscar o recibo
         try {
+            $astd = [];
             $response = $this->tools->sefazConsultaRecibo($recibo);
             $ret = $this->nfestd->toStd($response);
             $cStat = $ret->cStat;

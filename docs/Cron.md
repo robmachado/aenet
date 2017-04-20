@@ -58,7 +58,7 @@ Insira os comandos
 1 */4 * * 1-5 root php /var/www/aenet/jobs/job_dfe.php &> /dev/null
 ```
 
-## Tarefa de envio das NFe, Cancelamentos e Eventos 
+## Tarefa de envio das NFe
 
 Vá para a pasta onde ficam os agendamentos do cron
 
@@ -83,6 +83,34 @@ Insira os comandos
 # 1-6  = mas apenas de segunda a sábado 
 */2 6-21 * * 1-6 root php /var/www/aenet/jobs/job_nfe.php &> /dev/null
 ```
+
+## Tarefa de autorixação as NFe
+
+Vá para a pasta onde ficam os agendamentos do cron
+
+```bash
+cd /etc/cron.d
+```
+
+Crie um arquivo com o primeiro set de comandos CRON
+
+```bash
+nano job_nfe_consulta
+```
+Insira os comandos
+
+```bash
+# Tarefa de consulta e autorização das NFe geradas
+# Essa tarefa será executada 
+# */3  = a cada 3 minutos,
+# 6-21 = das 6 às 21 horas,
+# *    = todos os dias,
+# *    = todos os meses,
+# 1-6  = mas apenas de segunda a sábado 
+*/3 6-21 * * 1-6 root php /var/www/aenet/jobs/job_nfe_consulta.php &> /dev/null
+```
+
+
 
 ## Tarefa de criação dos DANFE 
 
