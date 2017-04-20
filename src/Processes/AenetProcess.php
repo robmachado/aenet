@@ -57,7 +57,7 @@ class AenetProcess extends BaseProcess
                 'status_nfe' => 9, //erro 9 esse registro será ignorado
                 'motivo' => $error
             ];
-            $this->logger->error("Exception: $error");
+            $this->logger->error("Exception: $id - $error");
             $this->aenet->update($id, $astd);
             return false;
         }
@@ -86,7 +86,7 @@ class AenetProcess extends BaseProcess
                 'status_nfe' => 9, //erro 9 esse registro será ignorado
                 'motivo' => $error,
             ];
-            $this->logger->error("Exception: $error");
+            $this->logger->error("Exception: $id - $error");
             $this->aenet->update($id, $astd);
             return false;
         }
@@ -122,7 +122,7 @@ class AenetProcess extends BaseProcess
                 'status_nfe' => 9,
                 'motivo' => $error
             ];
-            $this->logger->error("Exception: $error");
+            $this->logger->error("Exception: $id - $error");
             $this->aenet->update($id, $astd);
             return false;
         }
@@ -145,7 +145,7 @@ class AenetProcess extends BaseProcess
                 return false;
             }
             if ($cStat != 104) {
-                $this->logger->error("Error: $response");
+                $this->logger->error("Error: $id - $response");
                 $status_nfe  = 9;
                 if ($cStat == '656') {
                     $status_nfe = 8;
@@ -182,7 +182,7 @@ class AenetProcess extends BaseProcess
                 'status_nfe' => 9,
                 'motivo' => $error
             ];
-            $this->logger->error("Exception: $error");
+            $this->logger->error("Exception: $id - $error");
             $this->aenet->update($id, $astd);
             return false;
         }
@@ -223,7 +223,7 @@ class AenetProcess extends BaseProcess
               'status_nfe' => 9, //erro 9 esse registro será ignorado
               'motivo' => $error
             ];
-            $this->logger->error("Exception: $error");
+            $this->logger->error("Exception: $id -  $error");
             $this->aenet->update($id, $astd);
             return false;
         }

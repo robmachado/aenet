@@ -44,7 +44,7 @@ class DanfeProcess extends BaseProcess
             return true;
         } catch (\Exception $e) {
             $error = $e->getMessage();
-            $this->logger->error("Exception: $error");
+            $this->logger->error("Exception: $id - $error");
         }
         return false;
     }

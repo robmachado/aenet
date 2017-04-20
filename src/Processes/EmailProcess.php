@@ -48,7 +48,7 @@ class EmailProcess extends BaseProcess
             $this->aenet->update($id, $astd);
         } catch (\Exception $e) {
             $error = $e->getMessage();
-            $this->logger->error("Exception: $error");
+            $this->logger->error("Exception: $id - $error");
         }
         return true;
     }
