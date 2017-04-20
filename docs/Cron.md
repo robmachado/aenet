@@ -51,7 +51,7 @@ Insira os comandos
 # Tarefa de busca de documentos destinados
 # Essa tarefa será executada
 # 1   = ao primeiro 1 minuto,
-# */4 = a cada 2 horas,
+# */4 = a cada 4 horas,
 # *   = todos os dias,
 # *   = todos os meses,
 # 1-5 = mas apenas de segunda a sexta-feira
@@ -83,6 +83,59 @@ Insira os comandos
 # 1-6  = mas apenas de segunda a sábado 
 */2 6-21 * * 1-6 root php /var/www/aenet/jobs/job_nfe.php &> /dev/null
 ```
+
+## Tarefa de criação dos DANFE 
+
+Vá para a pasta onde ficam os agendamentos do cron
+
+```bash
+cd /etc/cron.d
+```
+
+Crie um arquivo com o primeiro set de comandos CRON
+
+```bash
+nano job_danfe
+```
+Insira os comandos
+
+```bash
+# Tarefa de criação dos DANFES
+# Essa tarefa será executada 
+# */3  = a cada 3 minutos,
+# 6-21 = das 6 às 21 horas,
+# *    = todos os dias,
+# *    = todos os meses,
+# 1-6  = mas apenas de segunda a sábado 
+*/3 6-21 * * 1-6 root php /var/www/aenet/jobs/job_danfe.php &> /dev/null
+```
+
+## Tarefa de envio dos emails aos destinatários
+
+Vá para a pasta onde ficam os agendamentos do cron
+
+```bash
+cd /etc/cron.d
+```
+
+Crie um arquivo com o primeiro set de comandos CRON
+
+```bash
+nano job_mail
+```
+Insira os comandos
+
+```bash
+# Tarefa de criação dos DANFES
+# Essa tarefa será executada 
+# */4  = a cada 4 minutos,
+# 6-21 = das 6 às 21 horas,
+# *    = todos os dias,
+# *    = todos os meses,
+# 1-6  = mas apenas de segunda a sábado 
+*/4 6-21 * * 1-6 root php /var/www/aenet/jobs/job_danfe.php &> /dev/null
+```
+
 
 **LIMPEZA**
 Os logs irão crescer indefinidamente se não forem limpos periódicamente, por isso será estabelecido um CRON JOB para essa limpeza que irá rodar todo o dia 1 as 00:05.

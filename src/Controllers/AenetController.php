@@ -42,16 +42,21 @@ class AenetController extends BaseController
             ->toArray();
     }
     
-    public function cancelAll()
+    public function reciboAll()
     {
-        return Aenet::where('justificativa', '<>', '')
-            ->where('status', '=', '100')
-            ->where('cancelamento_protocolo', '=', '')
-            ->where('protocolo', '<>', '')
-            ->where('nfe_chave_acesso', '<>', '')
+        //status_nfe = 0 e numero do recibo > 0, protocolo = 0 e arquivo_nfe_xml NOT NULL
+        return Aenet::where('status_nfe', '=', 0)
+            ->where('recibo', '>', 0)
+            ->where('protocolo', '=', 0)
+            ->whereNotNull('arquivo_nfe_xml')
             ->orderBy('id_empresa')
             ->get()
             ->toArray();
+    }
+    
+    public function get($id)
+    {
+        return Aenet::where('id_nfes_aenet', $id)->get()->toArray();
     }
     
     public function update($id, $astd)

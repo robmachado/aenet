@@ -39,4 +39,4 @@ $stdClient = json_decode(json_encode($clients[$n]));
 //usando os dados do cliente indicado
 $stProc = new StatusProcess($stdClient);
 $stProc->updateAll();
-
+exit;

@@ -66,7 +66,6 @@ class AenetProcess extends BaseProcess
         //o status retornado a 0.
         try {
             $xmlsigned = $this->tools->signNFe($xml[0]);
-            //file_put_contents('xmlsig.xml',$xmlsigned);
             $dom = new \DOMDocument('1.0', 'UTF-8');
             $dom->preserveWhiteSpace = false;
             $dom->formatOutput = false;
@@ -79,10 +78,10 @@ class AenetProcess extends BaseProcess
             ];
             $this->aenet->update($id, $astd);
         } catch (\Exception $e) {
-            $error = $e->getMessage();
+            $error = str_replace(["'", '"'], "", $e->getMessage());
             $astd = [
                 'status_nfe' => 9, //erro 9 esse registro será ignorado
-                'motivo' => $error
+                'motivo' => $error,
             ];
             $this->logger->error("Exception: $error");
             $this->aenet->update($id, $astd);
@@ -101,7 +100,7 @@ class AenetProcess extends BaseProcess
             if ($cStat != 103) {
                 $this->logger->error("Erro: $response");
                 $astd = [
-                    'status_nfe' => 9,
+                    'status_nfe' => 8,
                     'motivo' => "$cStat - $xMotivo"
                 ];
                 $this->aenet->update($id, $astd);
@@ -123,7 +122,10 @@ class AenetProcess extends BaseProcess
             $this->aenet->update($id, $astd);
             return false;
         }
-        
+    }
+    
+    public function consulta($id, $recibo, $xml)
+    {
         //tenta buscar o recibo
         try {
             $response = $this->tools->sefazConsultaRecibo($recibo);
@@ -131,24 +133,33 @@ class AenetProcess extends BaseProcess
             $cStat = $ret->cStat;
             $xMotivo = $ret->xMotivo;
             $infProt = $ret->protNFe->infProt;
+            if ($cStat == 105) {
+                //105 lote em processamento, a SEFAZ ainda não
+                //terminou de avaliar o XML, tentar de novo depois
+                return false;
+            }
             if ($cStat != 104) {
                 $this->logger->error("Error: $response");
+                $status_nfe  = 9;
+                if ($cStat == '656') {
+                    $status_nfe = 8;
+                }
                 $astd = [
-                    'status_nfe' => 9,
-                    'motivo' => "$cStat - $xMotivo"
+                   'status_nfe' => $status_nfe,
+                   'motivo' => "$cStat - $xMotivo"
                 ];
                 $this->aenet->update($id, $astd);
                 return false;
             }
             $cStatNFe = $infProt->cStat;
             $xMotivoNFe = $infProt->xMotivo;
-            $xmlProt = $xmlsigned;
+            $xmlProt = $xml;
             $nProt = 0;
             $status = 9;
             if ($cStatNFe == '100') {
                 $nProt = $infProt->nProt;
                 //adiciona o protocolo no xml assinado
-                $xmlProt = $this->cmpt->toAuthorize($xmlsigned, $response);
+                $xmlProt = $this->cmpt->toAuthorize($xml, $response);
                 $status = 1;
             }
             $astd = [
@@ -159,10 +170,6 @@ class AenetProcess extends BaseProcess
                 'arquivo_nfe_xml' => base64_encode($xmlProt)
             ];
             $this->aenet->update($id, $astd);
-            //verifica se a nota foi aceita, se nãoo sai
-            if ($cStatNFe != 100) {
-                return false;
-            }
         } catch (\Exception $e) {
             $error = $e->getMessage();
             $astd = [
@@ -174,6 +181,7 @@ class AenetProcess extends BaseProcess
             return false;
         }
     }
+    
     
     /**
      * Executa o cancelamento da NFe indicada

@@ -32,3 +32,4 @@ foreach($nfes as $nfe) {
     }
     $aep->send($id, $txt);
 }
+exit;

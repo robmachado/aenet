@@ -38,3 +38,4 @@ foreach($nfes as $nfe) {
     //apenas um log será criado
     $ep->send($id, $xml, $pdf, $addresses);
 }
+exit;

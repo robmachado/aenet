@@ -1,0 +1,313 @@
+-- phpMyAdmin SQL Dump
+-- version 4.5.4.1deb2ubuntu2
+-- http://www.phpmyadmin.net
+--
+-- Host: localhost
+-- Generation Time: 19-Abr-2017 às 17:35
+-- Versão do servidor: 5.7.17-0ubuntu0.16.04.1
+-- PHP Version: 7.0.17-2+deb.sury.org~xenial+1
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `aenet_nfe`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `errors`
+--
+
+CREATE TABLE `errors` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id da tabela',
+  `cstat` int(11) NOT NULL COMMENT 'código do erro',
+  `descricao` text COLLATE utf8_unicode_ci NOT NULL COMMENT 'descrição do erro',
+  `sucesso` tinyint(4) NOT NULL COMMENT 'Indica se o código é um sucesso ou fracasso',
+  `causa` text COLLATE utf8_unicode_ci NOT NULL COMMENT 'causa provável',
+  `correcao` text COLLATE utf8_unicode_ci NOT NULL COMMENT 'Provável correção',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Lista de Erros da SEFAZ';
+
+--
+-- Extraindo dados da tabela `errors`
+--
+
+INSERT INTO `errors` (`id`, `cstat`, `descricao`, `sucesso`, `causa`, `correcao`) VALUES
+(1, 100, 'Autorizado o uso da NF-e', 1, '', ''),
+(2, 101, 'Cancelamento de NF-e homologado', 1, '', ''),
+(3, 102, 'Inutilização de número homologado', 1, '', ''),
+(4, 103, 'Lote recebido com sucesso', 1, '', ''),
+(5, 104, 'Lote processado', 1, '', ''),
+(6, 105, 'Lote em processamento', 1, '', ''),
+(7, 106, 'Lote não localizado', 0, '', ''),
+(8, 107, 'Serviço em Operação', 1, '', ''),
+(9, 108, 'Serviço Paralisado Momentaneamente (curto prazo)', 0, '', ''),
+(10, 109, 'Serviço Paralisado sem Previsão', 0, '', ''),
+(11, 110, 'Uso Denegado', 0, '', ''),
+(12, 111, 'Consulta cadastro com uma ocorrência', 1, '', ''),
+(13, 112, 'Consulta cadastro com mais de uma ocorrência', 1, '', ''),
+(14, 113, 'SVC em processo de desativação SVC será  desabilitada para a SEFAZ-XX em dd/mm/aa às hh:mm horas', 0, '', ''),
+(15, 114, 'SVC-RS desabilitada pela SEFAZ de Origem', 0, '', ''),
+(16, 124, 'EPEC Autorizado', 1, '', ''),
+(17, 128, 'Lote de Evento Processado', 1, '', ''),
+(18, 135, 'Evento registrado e vinculado a NF-e', 1, '', ''),
+(19, 136, 'Evento registrado, mas não vinculado a NF-e', 1, '', ''),
+(20, 137, 'Nenhum documento localizado para o Destinatário', 1, '', ''),
+(21, 138, 'Documento localizado para o Destinatário', 1, '', ''),
+(22, 139, 'Pedido de Download processado', 1, '', ''),
+(23, 140, 'Download disponibilizado', 1, '', ''),
+(24, 142, 'Ambiente de Contingência EPEC bloqueado para o Emitente', 0, '', ''),
+(25, 150, 'Autorizado o uso da NF-e, autorização fora de prazo', 1, '', ''),
+(26, 151, 'Cancelamento de NF-e homologado fora de prazo', 1, '', ''),
+(27, 155, 'Cancelamento homologado fora de prazo', 1, '', ''),
+(28, 201, 'Rejeição: Número máximo de numeração a inutilizar ultrapassou o limite', 0, '', ''),
+(29, 202, 'Rejeição: Falha no reconhecimento da autoria ou integridade do arquivo digital', 0, '', ''),
+(30, 203, 'Rejeição: Emissor não habilitado para emissão de NF-e', 0, '', ''),
+(31, 204, 'Duplicidade de NF-e [nRec:999999999999999]', 0, '', ''),
+(32, 205, 'NF-e está denegada na base de dados da SEFAZ [nRec:999999999999999]', 0, '', ''),
+(33, 206, 'Rejeição: NF-e já está inutilizada na Base de dados da SEFAZ', 0, '', ''),
+(34, 207, 'Rejeição: CNPJ do emitente inválido', 0, '', ''),
+(35, 208, 'Rejeição: CNPJ do destinatário inválido', 0, '', ''),
+(36, 209, 'Rejeição: IE do emitente inválida', 0, '', ''),
+(37, 210, 'Rejeição: IE do destinatário inválida', 0, '', ''),
+(38, 211, 'Rejeição: IE do substituto inválida', 0, '', ''),
+(39, 212, 'Rejeição: Data de emissão NF-e posterior a data de recebimento', 0, '', ''),
+(40, 213, 'Rejeição: CNPJ-Base do Emitente difere do CNPJ-Base do Certificado Digital', 0, '', ''),
+(41, 214, 'Rejeição: Tamanho da mensagem excedeu o limite estabelecido', 0, '', ''),
+(42, 215, 'Rejeição: Falha no schema XML', 0, '', ''),
+(43, 216, 'Rejeição: Chave de Acesso difere da cadastrada', 0, '', ''),
+(44, 217, 'Rejeição: NF-e não consta na base de dados da SEFAZ', 0, '', ''),
+(45, 218, 'NF-e já está cancelada na base de dados da SEFAZ [nRec:999999999999999]', 0, '', ''),
+(46, 219, 'Rejeição: Circulação da NF-e verificada', 0, '', ''),
+(47, 220, 'Rejeição: Prazo de Cancelamento superior ao previsto na Legislação', 0, '', ''),
+(48, 221, 'Rejeição: Confirmado o recebimento da NF-e pelo destinatário', 0, '', ''),
+(49, 222, 'Rejeição: Protocolo de Autorização de Uso difere do cadastrado', 0, '', ''),
+(50, 223, 'Rejeição: CNPJ do transmissor do lote difere do CNPJ do transmissor da consulta', 0, '', ''),
+(51, 224, 'Rejeição: A faixa inicial é maior que a faixa final', 0, '', ''),
+(52, 225, 'Rejeição: Falha no Schema XML do lote de NFe', 0, '', ''),
+(53, 226, 'Rejeição: Código da UF do Emitente diverge da UF autorizadora', 0, '', ''),
+(54, 227, 'Rejeição: Erro na Chave de Acesso - Campo Id – falta a literal NFe', 0, '', ''),
+(55, 228, 'Rejeição: Data de Emissão muito atrasada', 0, '', ''),
+(56, 229, 'Rejeição: IE do emitente não informada', 0, '', ''),
+(57, 230, 'Rejeição: IE do emitente não cadastrada', 0, '', ''),
+(58, 231, 'Rejeição: IE do emitente não vinculada ao CNPJ', 0, '', ''),
+(59, 232, 'Rejeição: IE do destinatário não informada', 0, '', ''),
+(60, 233, 'Rejeição: IE do destinatário não cadastrada', 0, '', ''),
+(61, 234, 'Rejeição: IE do destinatário não vinculada ao CNPJ', 0, '', ''),
+(62, 235, 'Rejeição: Inscrição SUFRAMA inválida', 0, '', ''),
+(63, 236, 'Rejeição: Chave de Acesso com dígito verificador inválido', 0, '', ''),
+(64, 237, 'Rejeição: CPF do destinatário inválido', 0, '', ''),
+(65, 238, 'Rejeição: Cabeçalho - Versão do arquivo XML superior a Versão vigente', 0, '', ''),
+(66, 239, 'Rejeição: Cabeçalho - Versão do arquivo XML não suportada', 0, '', ''),
+(67, 240, 'Rejeição: Cancelamento/Inutilização - Irregularidade Fiscal do Emitente', 0, '', ''),
+(68, 241, 'Rejeição: Um número da faixa já foi utilizado', 0, '', ''),
+(69, 242, 'Rejeição: Cabeçalho - Falha no Schema XML', 0, '', ''),
+(70, 243, 'Rejeição: XML Mal Formado', 0, '', ''),
+(71, 244, 'Rejeição: CNPJ do Certificado Digital difere do CNPJ da Matriz e do CNPJ do Emitente', 0, '', ''),
+(72, 245, 'Rejeição: CNPJ Emitente não cadastrado', 0, '', ''),
+(73, 246, 'Rejeição: CNPJ Destinatário não cadastrado', 0, '', ''),
+(74, 247, 'Rejeição: Sigla da UF do Emitente diverge da UF autorizadora', 0, '', ''),
+(75, 248, 'Rejeição: UF do Recibo diverge da UF autorizadora', 0, '', ''),
+(76, 249, 'Rejeição: UF da Chave de Acesso diverge da UF autorizadora', 0, '', ''),
+(77, 250, 'Rejeição: UF diverge da UF autorizadora', 0, '', ''),
+(78, 251, 'Rejeição: UF/Município destinatário não pertence a SUFRAMA', 0, '', ''),
+(79, 252, 'Rejeição: Ambiente informado diverge do Ambiente de recebimento', 0, '', ''),
+(80, 253, 'Rejeição: Digito Verificador da chave de acesso composta inválida', 0, '', ''),
+(81, 254, 'Rejeição: NF-e complementar não possui NF referenciada', 0, '', ''),
+(82, 255, 'Rejeição: NF-e complementar possui mais de uma NF referenciada', 0, '', ''),
+(83, 256, 'Rejeição: Uma NF-e da faixa já está inutilizada na Base de dados da SEFAZ', 0, '', ''),
+(84, 257, 'Rejeição: Solicitante não habilitado para emissão da NF-e', 0, '', ''),
+(85, 258, 'Rejeição: CNPJ da consulta inválido', 0, '', ''),
+(86, 259, 'Rejeição: CNPJ da consulta não cadastrado como contribuinte na UF', 0, '', ''),
+(87, 260, 'Rejeição: IE da consulta inválida', 0, '', ''),
+(88, 261, 'Rejeição: IE da consulta não cadastrada como contribuinte na UF', 0, '', ''),
+(89, 262, 'Rejeição: UF não fornece consulta por CPF', 0, '', ''),
+(90, 263, 'Rejeição: CPF da consulta inválido', 0, '', ''),
+(91, 264, 'Rejeição: CPF da consulta não cadastrado como contribuinte na UF', 0, '', ''),
+(92, 265, 'Rejeição: Sigla da UF da consulta difere da UF do Web Service', 0, '', ''),
+(93, 266, 'Rejeição: Série utilizada não permitida no Web Service', 0, '', ''),
+(94, 267, 'Rejeição: NF Complementar referencia uma NF-e inexistente', 0, '', ''),
+(95, 268, 'Rejeição: NF Complementar referencia outra NF-e Complementar', 0, '', ''),
+(96, 269, 'Rejeição: CNPJ Emitente da NF Complementar difere do CNPJ da NF Referenciada', 0, '', ''),
+(97, 270, 'Rejeição: Código Município do Fato Gerador: dígito inválido', 0, '', ''),
+(98, 271, 'Rejeição: Código Município do Fato Gerador: difere da UF do emitente', 0, '', ''),
+(99, 272, 'Rejeição: Código Município do Emitente: dígito inválido', 0, '', ''),
+(100, 273, 'Rejeição: Código Município do Emitente: difere da UF do emitente', 0, '', ''),
+(101, 274, 'Rejeição: Código Município do Destinatário: dígito inválido', 0, '', ''),
+(102, 275, 'Rejeição: Código Município do Destinatário: difere da UF do Destinatário', 0, '', ''),
+(103, 276, 'Rejeição: Código Município do Local de Retirada: dígito inválido', 0, '', ''),
+(104, 277, 'Rejeição: Código Município do Local de Retirada: difere da UF do Local de Retirada', 0, '', ''),
+(105, 278, 'Rejeição: Código Município do Local de Entrega: dígito inválido', 0, '', ''),
+(106, 279, 'Rejeição: Código Município do Local de Entrega: difere da UF do Local de Entrega', 0, '', ''),
+(107, 280, 'Rejeição: Certificado Transmissor inválido', 0, '', ''),
+(108, 281, 'Rejeição: Certificado Transmissor Data Validade', 0, '', ''),
+(109, 282, 'Rejeição: Certificado Transmissor sem CNPJ', 0, '', ''),
+(110, 283, 'Rejeição: Certificado Transmissor - erro Cadeia de Certificação', 0, '', ''),
+(111, 284, 'Rejeição: Certificado Transmissor revogado', 0, '', ''),
+(112, 285, 'Rejeição: Certificado Transmissor difere ICP-Brasil', 0, '', ''),
+(113, 286, 'Rejeição: Certificado Transmissor erro no acesso a LCR', 0, '', ''),
+(114, 287, 'Rejeição: Código Município do FG - ISSQN: dígito inválido', 0, '', ''),
+(115, 288, 'Rejeição: Código Município do FG - Transporte: dígito inválido', 0, '', ''),
+(116, 289, 'Rejeição: Código da UF informada diverge da UF solicitada', 0, '', ''),
+(117, 290, 'Rejeição: Certificado Assinatura inválido', 0, '', ''),
+(118, 291, 'Rejeição: Certificado Assinatura Data Validade', 0, '', ''),
+(119, 292, 'Rejeição: Certificado Assinatura sem CNPJ', 0, '', ''),
+(120, 293, 'Rejeição: Certificado Assinatura - erro Cadeia de Certificação', 0, '', ''),
+(121, 294, 'Rejeição: Certificado Assinatura revogado', 0, '', ''),
+(122, 295, 'Rejeição: Certificado Assinatura difere ICP-Brasil', 0, '', ''),
+(123, 296, 'Rejeição: Certificado Assinatura erro no acesso a LCR', 0, '', ''),
+(124, 297, 'Rejeição: Assinatura difere do calculado', 0, '', ''),
+(125, 298, 'Rejeição: Assinatura difere do padrão do Sistema', 0, '', ''),
+(126, 299, 'Rejeição: XML da área de cabeçalho com codificação diferente de UTF-8', 0, '', ''),
+(127, 301, 'Uso Denegado: Irregularidade fiscal do emitente', 0, '', ''),
+(128, 302, 'Uso Denegado: Irregularidade fiscal do destinatário', 0, '', ''),
+(129, 303, 'Uso Denegado: Destinatário não habilitado a operar na UF', 0, '', ''),
+(130, 304, 'Rejeição: Pedido de Cancelamento para NF-e com evento da Suframa', 0, '', ''),
+(131, 315, 'Data de Emissão anterior ao início da autorização de Nota Fiscal na UF', 0, '', ''),
+(132, 316, 'Nota Fiscal referenciada com a mesma Chave de Acesso da Nota Fiscal atual', 0, '', ''),
+(133, 317, 'NF modelo 1 referenciada com data de emissão inválida', 0, '', ''),
+(134, 318, 'Contranota de Produtor sem Nota Fiscal referenciada', 0, '', ''),
+(135, 319, 'Contranota de Produtor não pode referenciar somente Nota Fiscal de entrada', 0, '', ''),
+(136, 320, 'Contranota de Produtor referencia somente NF de outro emitente', 0, '', ''),
+(137, 321, 'Rejeição: NF-e de devolução de mercadoria não possui documento fiscal referenciado', 0, '', ''),
+(138, 322, 'NF-e de devolução com mais de um documento fiscal referenciado', 0, '', ''),
+(139, 323, 'Rejeição: CNPJ autorizado para download inválido', 0, '', ''),
+(140, 324, 'Rejeição: CNPJ do destinatário já autorizado para download', 0, '', ''),
+(141, 325, 'Rejeição: CPF autorizado para download inválido', 0, '', ''),
+(142, 326, 'Rejeição: CPF do destinatário já autorizado para download', 0, '', ''),
+(143, 327, 'Rejeição: CFOP inválido para NF-e com finalidade de devolução de mercadoria', 0, '', ''),
+(144, 328, 'Rejeição: CFOP de devolução de mercadoria para NF-e que não tem finalidade de devolução de mercadoria', 0, '', ''),
+(145, 329, 'Rejeição: Número da DI /DSI inválido', 0, '', ''),
+(146, 330, 'Rejeição: Informar o Valor da AFRMM na importação por via marítima', 0, '', ''),
+(147, 331, 'Rejeição: Informar o CNPJ do adquirente ou do encomendante nesta forma de importação', 0, '', ''),
+(148, 332, 'Rejeição: CNPJ do adquirente ou do encomendante da importação inválido', 0, '', ''),
+(149, 333, 'Rejeição: Informar a UF do adquirente ou do encomendante nesta forma de importação', 0, '', ''),
+(150, 334, 'Rejeição: Número do processo de drawback não informado na importação', 0, '', ''),
+(151, 335, 'Rejeição: Número do processo de drawback na importação inválido', 0, '', ''),
+(152, 336, 'Rejeição: Informado o grupo de exportação no item para CFOP que não é de exportação', 0, '', ''),
+(153, 337, 'Rejeição: Não informado o grupo de exportação no item', 0, '', ''),
+(154, 338, 'Rejeição: Número do processo de drawback não informado na exportação', 0, '', ''),
+(155, 339, 'Rejeição: Número do processo de drawback na exportação inválido', 0, '', ''),
+(156, 340, 'Rejeição: Não informado o grupo de exportação indireta no item', 0, '', ''),
+(157, 341, 'Rejeição: Número do registro de exportação inválido', 0, '', ''),
+(158, 342, 'Rejeição: Chave de Acesso informada na Exportação Indireta com DV inválido', 0, '', ''),
+(159, 343, 'Rejeição: Modelo da NF-e informada na Exportação Indireta diferente de 55', 0, '', ''),
+(160, 344, 'Rejeição: Duplicidade de NF-e informada na Exportação Indireta (Chave de Acesso informada mais de uma vez)', 0, '', ''),
+(161, 345, 'Rejeição: Chave de Acesso informada na Exportação Indireta não consta como NF-e referenciada', 0, '', ''),
+(162, 346, 'Rejeição: Somatório das quantidades informadas na Exportação Indireta não corresponde a quantidade total do item', 0, '', ''),
+(163, 347, 'Rejeição: Descrição do Combustível diverge da descrição adotada pela ANP', 0, '', ''),
+(164, 348, 'Rejeição: NFC-e com grupo RECOPI', 0, '', ''),
+(165, 349, 'Rejeição: Número RECOPI não informado', 0, '', ''),
+(166, 350, 'Rejeição: Número RECOPI inválido', 0, '', ''),
+(167, 351, 'Rejeição: Valor do ICMS da Operação no CST=51 difere do produto BC e Alíquota', 0, '', ''),
+(168, 352, 'Rejeição: Valor do ICMS Diferido no CST=51 difere do produto Valor ICMS Operação e percentual diferimento', 0, '', ''),
+(169, 353, 'Rejeição: Valor do ICMS no CST=51 não corresponde a diferença do ICMS operação e ICMS diferido', 0, '', ''),
+(170, 354, 'Rejeição: Informado grupo de devolução de tributos para NF-e que não tem finalidade de devolução de mercadoria', 0, '', ''),
+(171, 355, 'Rejeição: Informar o local de saída do Pais no caso da exportação', 0, '', ''),
+(172, 356, 'Rejeição: Informar o local de saída do Pais somente no caso da exportação', 0, '', ''),
+(173, 357, 'Rejeição: Chave de Acesso do grupo de Exportação Indireta inexistente [nRef: xxx]', 0, '', ''),
+(174, 358, 'Rejeição: Chave de Acesso do grupo de Exportação Indireta cancelada ou denegada [nRef: xxx]', 0, '', ''),
+(175, 359, 'Rejeição: NF-e de venda a Órgão Público sem informar a Nota de Empenho', 0, '', ''),
+(176, 360, 'Rejeição: NF-e com Nota de Empenho inválida para a UF.', 0, '', ''),
+(177, 361, 'Rejeição: NF-e com Nota de Empenho inexistente na UF.', 0, '', ''),
+(178, 362, 'Rejeição: Venda de combustível sem informação do Transportador', 0, '', ''),
+(179, 363, 'Total do ISS difere do somatório dos itens', 0, '', ''),
+(180, 364, 'Rejeição: Total do valor da dedução do ISS difere do somatório dos itens', 0, '', ''),
+(181, 365, 'Rejeição: Total de outras retenções difere do somatório dos itens', 0, '', ''),
+(182, 366, 'Rejeição: Total do desconto incondicionado ISS difere do somatório dos itens', 0, '', ''),
+(183, 367, 'Rejeição: Total do desconto condicionado ISS difere do somatório dos itens', 0, '', ''),
+(184, 368, 'Rejeição: Total de ISS retido difere do somatório dos itens', 0, '', ''),
+(185, 369, 'Rejeição: Não informado o grupo avulsa na emissão pelo Fisco', 0, '', ''),
+(186, 370, 'Rejeição: Nota Fiscal Avulsa com tipo de emissão inválido', 0, '', ''),
+(187, 372, 'Destinatário com identificação de estrangeiro com caracteres inválidos', 0, '', ''),
+(188, 373, 'Descricao do primeiro item diferente de NOTA FISCAL EMITIDA EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL', 0, '', ''),
+(189, 374, 'CFOP incompatível com o grupo de tributação [nItem:nnn]', 0, '', ''),
+(190, 375, 'Informe no passo 1 a chave da NF-e referenciada.NF-e com CFOP 5929 (Lançamento relativo a Cupom Fiscal) referencia uma NFC-e [nItem:nnn]', 0, '', ''),
+(191, 376, 'Data do Desembaraço Aduaneiro inválida [nItem:nnn]', 0, '', ''),
+(192, 378, 'Grupo de Combustível sem a informação de Encerrante [nItem:nnn]', 0, '', ''),
+(193, 379, 'Grupo de Encerrante na NF-e (modelo 55) para CFOP diferente de venda de combustível para consumidor final [nItem:nnn]', 0, '', ''),
+(194, 380, 'Valor do Encerrante final não é superior ao Encerrante inicial [nItem:nnn]', 0, '', ''),
+(195, 381, 'Grupo de tributação ICMS90, informando dados do ICMS-ST [nItem:nnn]', 0, '', ''),
+(196, 382, 'CFOP não permitido para o CST informado [nItem:nnn]', 0, '', ''),
+(197, 383, 'Item com CSOSN indevido [nItem:nnn]', 0, '', ''),
+(198, 384, 'CSOSN não permitido para a UF [nItem:nnn]', 0, '', ''),
+(199, 385, 'Grupo de tributação ICMS900, informando dados do ICMS-ST [nItem:nnn]', 0, '', ''),
+(200, 386, 'CFOP não permitido para o CSOSN informado [nItem:nnn]', 0, '', ''),
+(201, 387, 'Código de Enquadramento Legal do IPI inválido [nItem:nnn]', 0, '', ''),
+(202, 388, 'Código de Situação Tributária do IPI incompatível com o Código de Enquadramento Legal do IPI [nItem:nnn]', 0, '', ''),
+(203, 389, 'Código Município ISSQN inexistente [nItem:nnn]', 0, '', ''),
+(204, 390, 'Nota Fiscal com grupo de devolução de tributos [nItem:nnn]', 0, '', ''),
+(205, 391, 'Não informados os dados do cartão de crédito / débito nas Formas de Pagamento da Nota Fiscal', 0, '', ''),
+(206, 392, 'Não informados os dados da operação de pagamento por cartão de crédito / débito', 0, '', ''),
+(207, 393, 'NF-e com o grupo de Informações Suplementares', 0, '', ''),
+(208, 394, 'Nota Fiscal sem a informação do QR-Code', 0, '', ''),
+(209, 395, 'Endereço do site da UF da Consulta via QRCode diverge do previsto', 0, '', ''),
+(210, 396, 'Parâmetro do QR-Code inexistente (chAcesso)', 0, '', ''),
+(211, 397, 'Parâmetro do QR-Code divergente da Nota Fiscal (chAcesso)', 0, '', ''),
+(212, 398, 'Parâmetro nVersao do QR-Code difere do previsto', 0, '', ''),
+(213, 399, 'Parâmetro de Identificação do destinatário no QR-Code para Nota Fiscal sem identificação do destinatário', 0, '', ''),
+(214, 401, 'Rejeição: CPF do remetente inválido', 0, '', ''),
+(215, 402, 'Rejeição: XML da área de dados com codificação diferente de UTF-8', 0, '', ''),
+(216, 403, 'Rejeição: O grupo de informações da NF-e avulsa é de uso exclusivo do Fisco', 0, '', ''),
+(217, 404, 'Rejeição: Uso de prefixo de namespace não permitido', 0, '', ''),
+(218, 405, 'Rejeição: Código do país do emitente: dígito inválido', 0, '', ''),
+(219, 406, 'Rejeição: Código do país do destinatário: dígito inválido', 0, '', ''),
+(220, 407, 'Rejeição: O CPF só pode ser informado no campo emitente para a NF-e avulsa', 0, '', ''),
+(221, 408, 'Rejeição: Evento não disponível para Autor pessoa física', 0, '', ''),
+(222, 409, 'Rejeição: Campo cUF inexistente no elemento nfeCabecMsg do SOAP Header', 0, '', ''),
+(223, 410, 'Rejeição: UF informada no campo cUF não é atendida pelo Web Service', 0, '', ''),
+(224, 411, 'Rejeição: Campo versaoDados inexistente no elemento nfeCabecMsg do SOAP Header', 0, '', ''),
+(225, 416, 'Rejeição: Falha na descompactação da área de dados', 0, '', ''),
+(226, 417, 'Rejeição: Total do ICMS superior ao valor limite estabelecido', 0, '', ''),
+(227, 418, 'Rejeição: Total do ICMS ST superior ao valor limite estabelecido', 0, '', ''),
+(228, 420, 'Rejeição: Cancelamento para NF-e já cancelada', 0, '', ''),
+(229, 450, 'Rejeição: Modelo da NF-e diferente de 55', 0, '', ''),
+(230, 451, 'Rejeição: Processo de emissão informado inválido', 0, '', ''),
+(231, 452, 'Rejeição: Tipo Autorizador do Recibo diverge do Órgão Autorizador', 0, '', ''),
+(232, 453, 'Rejeição: Ano de inutilização não pode ser superior ao Ano atual', 0, '', ''),
+(233, 454, 'Rejeição: Ano de inutilização não pode ser inferior a 2006', 0, '', ''),
+(234, 455, 'Rejeição: Órgão Autor do evento diferente da UF da Chave de Acesso', 0, '', ''),
+(235, 461, 'Rejeição: Informado percentual de Gás Natural na mistura para produto diferente de GLP', 0, '', ''),
+(236, 462, 'Código Identificador do CSC no QR-Code não cadastrado na SEFAZ', 0, '', ''),
+(237, 463, 'Código Identificador do CSC no QR-Code foi revogado pela empresa', 0, '', ''),
+(238, 464, 'Código de Hash no QR-Code difere do calculado', 0, '', ''),
+(239, 465, 'Rejeição: Número de Controle da FCI inexistente', 0, '', ''),
+(240, 466, 'Rejeição: Evento com Tipo de Autor incompatível', 0, '', ''),
+(241, 467, 'Rejeição: Dados da NF-e divergentes do EPEC', 0, '', ''),
+(242, 468, 'Rejeição: NF-e com Tipo Emissão = 4, sem EPEC correspondente', 0, '', ''),
+(243, 471, 'Rejeição: Informado NCM=00 indevidamente', 0, '', ''),
+(244, 476, 'Rejeição: Código da UF diverge da UF da primeira NF-e do Lote', 0, '', ''),
+(245, 477, 'Rejeição: Código do órgão diverge do órgão do primeiro evento do Lote', 0, '', ''),
+(246, 478, 'Rejeição: Local da entrega não informado para faturamento direto de veículos novos', 0, '', '');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `errors`
+--
+ALTER TABLE `errors`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `cstat` (`cstat`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `errors`
+--
+ALTER TABLE `errors`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id da tabela', AUTO_INCREMENT=247;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

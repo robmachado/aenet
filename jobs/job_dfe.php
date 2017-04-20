@@ -20,4 +20,5 @@ foreach($clients as $c) {
     $dfe->search();
     $dfe->manifestaAll();
 }
+exit;
 

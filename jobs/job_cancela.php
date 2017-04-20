@@ -40,4 +40,5 @@ foreach($nfes as $nfe) {
         $aep = new AenetProcess($client);
     }
     $aep->cancela($id,$chave,$xJust,$nProt);
-} 
+}
+exit;
