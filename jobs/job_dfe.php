@@ -14,11 +14,10 @@ $cad = new CadastroController();
 
 $clients = $cad->getAllValid();
 
-foreach($clients as $c) {
+foreach ($clients as $c) {
     $client = json_decode(json_encode($c));
     $dfe = new DFeProcess($client);
     $dfe->search();
     $dfe->manifestaAll();
 }
 exit;
-

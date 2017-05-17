@@ -4,31 +4,28 @@ ini_set('display_errors', 'On');
 require_once '/var/www/aenet/bootstrap.php';
 
 /**
- * Processamento das Solicitações do sistema AENET
- * Irá ler cada registro marcado como não processado 
+ * Processamento das Solicitações de Cancelamento de NFe do sistema AENET
+ * Irá ler cada registro marcado como não processado
  */
 
-use Aenet\NFe\Controllers\AenetController;
+use Aenet\NFe\Controllers\CancelaController;
 use Aenet\NFe\Controllers\CadastroController;
-use Aenet\NFe\Processes\AenetProcess;
-use NFePHP\NFe\Convert;
+use Aenet\NFe\Processes\CancelaProcess;
 
 $cad = new CadastroController();
-$ae = new AenetController();
+$canc = new CancelaController();
 
 //verifica por solicitações de cancelamento de NFe, ainda não realizados
 //para casos onde:
-// justificativa <> ''e
-// status = 100 e
-// cancelamento_protocolo = '' e
-// protoclo <> '' e
-// nfe_chave_acesso <> '' 
-$nfes = $ae->cancelAll();
+//nfes_aenet_cancel.status = 0 e
+//nfes_aenet_cancel.justificativa <> '' e
+//status = 100
+$nfes = $canc->pendentsAll();
 $oldid_empresa = 0;
 $client = null;
-foreach($nfes as $nfe) {
+foreach ($nfes as $nfe) {
     $std = json_decode(json_encode($nfe));
-    $id = $std->id_nfes_aenet;
+    $id = $std->id;
     $id_empresa = $std->id_empresa;
     $xJust = $std->justificativa;
     $nProt = $std->protocolo;
@@ -37,8 +34,8 @@ foreach($nfes as $nfe) {
         //pega os dados do cliente dessa NFe
         $client = json_decode(json_encode($cad->get($id_empresa)[0]));
         $oldid_empresa = $id_empresa;
-        $aep = new AenetProcess($client);
+        $cancp = new CancelaProcess($client);
     }
-    $aep->cancela($id,$chave,$xJust,$nProt);
+    $cancp->cancela($id, $chave, $xJust, $nProt);
 }
 exit;

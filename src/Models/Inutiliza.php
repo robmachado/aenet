@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
 class Inutiliza extends Eloquent
 {
     public $timestamps = false;
-    protected $table = 'nfe_aenet_inuts';
+    protected $table = 'nfes_aenet_inuts';
     protected $fillable = [
         'id_empresa',
         'serie',

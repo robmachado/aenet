@@ -19,6 +19,7 @@ DROP TABLE IF EXISTS `cadastros`;
 --
 
 CREATE TABLE `cadastros` (
+  `id_cad` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Id da tabela',
   `id_empresa` int(11) UNSIGNED NOT NULL COMMENT 'Id da Empresa (AENET)',
   `fantasia` varchar(50) NOT NULL COMMENT 'Nome da empresa',
   `razao` varchar(50) NOT NULL COMMENT 'Razão social da empresa', 
@@ -35,11 +36,12 @@ CREATE TABLE `cadastros` (
   `error` text NOT NULL COMMENT 'Mensagens de erro do cadastro', 
   `created_at` datetime NOT NULL COMMENT 'Data e hora da criação do registro',
   `updated_at` datetime DEFAULT NULL COMMENT 'Data e hora da última alteração do registro',
-  PRIMARY KEY (`id_empresa`)
+  PRIMARY KEY (`id_cad`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Indexes for table `cadastros`
 --
 ALTER TABLE `cadastros` ADD UNIQUE(`cnpj`);
+ALTER TABLE `cadastros` ADD UNIQUE(`id_empresa`);
 

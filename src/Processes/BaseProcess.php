@@ -44,6 +44,7 @@ class BaseProcess
             $cad->tpAmb
         );
         $this->config = "{$config}";
+        //file_put_contents('/var/www/aenet/local/config.json', $this->config);
         $this->storage = realpath(__DIR__ .'/../../storage');
         $this->logger = new Logger('Aenet');
         $this->logger->pushHandler(

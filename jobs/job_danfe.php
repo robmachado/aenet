@@ -19,7 +19,7 @@ $ae = new AenetController();
 $nfes = $ae->danfeAll(); //retorna um array
 $oldid_empresa = 0;
 $client = null;
-foreach($nfes as $nfe) {
+foreach ($nfes as $nfe) {
     $std = json_decode(json_encode($nfe));
     $id = $std->id_nfes_aenet;
     $id_empresa = $std->id_empresa;
@@ -35,4 +35,3 @@ foreach($nfes as $nfe) {
     $dp->render($id, $xml);
 }
 exit;
-        

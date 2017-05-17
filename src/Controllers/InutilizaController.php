@@ -20,7 +20,8 @@ class InutilizaController extends BaseController
             ->toArray();
     }
     
-    public function update($inutil)
+    public function update($id, $astd)
     {
+        Inutiliza::where('id', $id)->update($astd);
     }
 }

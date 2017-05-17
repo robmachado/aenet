@@ -4,12 +4,12 @@ ini_set('display_errors', 'On');
 require_once '/var/www/aenet/bootstrap.php';
 
 /**
- * Este JOB irá buscar e atualizar os status dos serviços 
+ * Este JOB irá buscar e atualizar os status dos serviços
  * das SEFAZ autorizadoras
  * Para não haver bloqueio de acesso é importante que essa busca de status seja
  * realizada em intervalos não inferiores à 10 minutos.
- * A busca de status auxilia a opereção do sistema é não é o fator 
- * mais relevante, pois mesmo o status indicando ONLINE podem haver problemas 
+ * A busca de status auxilia a opereção do sistema é não é o fator
+ * mais relevante, pois mesmo o status indicando ONLINE podem haver problemas
  * de lentidão acima do limite interrompendo o processo.
  */
 use Aenet\NFe\Controllers\CadastroController;
