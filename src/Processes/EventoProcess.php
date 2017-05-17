@@ -30,7 +30,7 @@ class EventoProcess extends BaseProcess
             $response = $this->tools->sefazCCe(
                 $chave,
                 $xCorrecao,
-                $nSeqEvento = 1
+                $nSeqEvento
             );
             $request = $this->tools->lastRequest;
             $ret = $this->nfestd->toStd($response);

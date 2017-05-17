@@ -53,9 +53,21 @@ class CancelaProcess extends BaseProcess
             //deve ser algum erro
             $evStat = $ret->retEvento->infEvento->cStat;
             $status = 1;
-            if ($evStat != 101 && $evStat != 155) {
+            if ($evStat != 101 && $evStat != 151 && $evStat != 155) {
                 $status = 8;
                 $xml = $response;
+                if ($evStat == 420 || $evStat == 573) {
+                    //420 Cancelamento para NF-e já  cancelada ou
+                    //573 Duplicidade de Evento
+                    //essa nota deve ser sido cancelada então buscar dados
+                    //pela consulta, nesse caso já é retornado o protocolo
+                    $resp = $this->tools->sefazConsultaChave($chave);
+                    $resp = $this->extractCancNode($resp);
+                    if (!empty($resp)) {
+                        $xml = $resp;
+                        $status = 1;
+                    }
+                }
             } else {
                 //sucesso então protocolar
                 $xml = $this->cmpt->toAuthorize($request, $response);
@@ -79,5 +91,18 @@ class CancelaProcess extends BaseProcess
             $this->canc->update($id, $astd);
             return false;
         }
+    }
+    
+    private function extractCancNode($xml)
+    {
+        $resp = '';
+        $dom = new \DOMDocument();
+        $dom->loadXML($xml);
+        $node = $dom->getElementsByTagName('procEventoNFe')->item(0);
+        $tpEvento = $dom->getElementsByTagName('tpEvento')->item(0)->nodeValue;
+        if (!empty($node) && $tpEvento == '110110') {
+            $resp = $dom->saveXML($node);
+        }
+        return $resp;
     }
 }
