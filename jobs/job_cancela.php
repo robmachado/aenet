@@ -19,7 +19,7 @@ $canc = new CancelaController();
 //para casos onde:
 //nfes_aenet_cancel.status = 0 e
 //nfes_aenet_cancel.justificativa <> '' e
-//status = 100
+//nfes_aenet.status_nfe = 1
 $nfes = $canc->pendentsAll();
 $oldid_empresa = 0;
 $client = null;

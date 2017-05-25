@@ -58,7 +58,6 @@ class EventoProcess extends BaseProcess
                 //sucesso então protocolar
                 $xml = $this->cmpt->toAuthorize($request, $response);
             }
-            
             $astd = [
                 'status' => $status,
                 'motivo' => $evStat

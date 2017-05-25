@@ -10,4 +10,3 @@ vendor
 *.log
 *.pdf
 *~
-composer.lock

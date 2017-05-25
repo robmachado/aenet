@@ -44,7 +44,6 @@ class BaseProcess
             $cad->tpAmb
         );
         $this->config = "{$config}";
-        //file_put_contents('/var/www/aenet/local/config.json', $this->config);
         $this->storage = realpath(__DIR__ .'/../../storage');
         $this->logger = new Logger('Aenet');
         $this->logger->pushHandler(
@@ -68,7 +67,7 @@ class BaseProcess
         $this->tools->model('55');
         $soap = new SoapCurl();
         $soap->disableSecurity(true);
-        $soap->setDebugMode(true);
+        $soap->setDebugMode(false);
         $this->tools->loadSoapClass($soap);
     }
 }
