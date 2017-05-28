@@ -91,6 +91,7 @@ class CancelaProcess extends BaseProcess
             $this->canc->update($id, $astd);
             return false;
         }
+        return true;
     }
     
     private function extractCancNode($xml)

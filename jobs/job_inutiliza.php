@@ -11,6 +11,16 @@ require_once '/var/www/aenet/bootstrap.php';
 use Aenet\NFe\Controllers\CadastroController;
 use Aenet\NFe\Controllers\InutilizaController;
 use Aenet\NFe\Processes\InutilizaProcess;
+use Aenet\NFe\Common\Flags;
+
+//antes de iniciar o processo, verifica se já existe outro processo
+//em andamento, com a verificação do arquivo de controle Flag, se não conseguir
+//criar o arquivo de controle, é porque existe outro job_inutiliza em andamento
+$jobname = 'job_inutiliza';
+if (!Flags::set($jobname)) {
+    //encerra prematuramente o job
+    die;
+}
 
 $cad = new CadastroController();
 $inuts = new InutilizaController();
@@ -39,4 +49,6 @@ foreach ($nfes as $nfe) {
     }
     $inp->inutiliza($id, $nSerie, $nIni, $nFin, $xJust, $sequencial);
 }
+//como o job encerrou remover o arquivo de controle antes de sair;
+Flags::reset($jobname);
 exit;

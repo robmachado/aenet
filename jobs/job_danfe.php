@@ -10,6 +10,16 @@ require_once '/var/www/aenet/bootstrap.php';
 use Aenet\NFe\Controllers\AenetController;
 use Aenet\NFe\Controllers\CadastroController;
 use Aenet\NFe\Processes\DanfeProcess;
+use Aenet\NFe\Common\Flags;
+
+//antes de iniciar o processo, verifica se já existe outro processo
+//em andamento, com a verificação do arquivo de controle Flag, se não conseguir
+//criar o arquivo de controle, é porque existe outro job_danfe em andamento
+$jobname = 'job_danfe';
+if (!Flags::set($jobname)) {
+    //encerra prematuramente o job
+    die;
+}
 
 $cad = new CadastroController();
 $ae = new AenetController();
@@ -34,4 +44,6 @@ foreach ($nfes as $nfe) {
     //apenas um log será criado
     $dp->render($id, $xml);
 }
+//como o job encerrou remover o arquivo de controle antes de sair;
+Flags::reset($jobname);
 exit;

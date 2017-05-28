@@ -9,9 +9,18 @@ require_once '/var/www/aenet/bootstrap.php';
  */
 use Aenet\NFe\Processes\DFeProcess;
 use Aenet\NFe\Controllers\CadastroController;
+use Aenet\NFe\Common\Flags;
+
+//antes de iniciar o processo, verifica se já existe outro processo
+//em andamento, com a verificação do arquivo de controle Flag, se não conseguir
+//criar o arquivo de controle, é porque existe outro job_dfe em andamento
+$jobname = 'job_dfe';
+if (!Flags::set($jobname)) {
+    //encerra prematuramente o job
+    die;
+}
 
 $cad = new CadastroController();
-
 $clients = $cad->getAllValid();
 
 foreach ($clients as $c) {
@@ -20,4 +29,6 @@ foreach ($clients as $c) {
     $dfe->search();
     $dfe->manifestaAll();
 }
+//como o job encerrou remover o arquivo de controle antes de sair;
+Flags::reset($jobname);
 exit;

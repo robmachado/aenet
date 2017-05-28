@@ -124,7 +124,7 @@ class StatusProcess extends BaseProcess
             return $stClass->toStd($response);
         } catch (\Exception $e) {
             $error = $e->getmessage();
-            $this->logger->error("Exception: $error");
+            $this->logger->error("[$uf] [$tpAmb] $error");
         }
         $std = new stdClass();
         $std->cStat = 0;

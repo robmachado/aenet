@@ -11,6 +11,16 @@ require_once '/var/www/aenet/bootstrap.php';
 use Aenet\NFe\Controllers\AenetController;
 use Aenet\NFe\Controllers\CadastroController;
 use Aenet\NFe\Processes\AenetProcess;
+use Aenet\NFe\Common\Flags;
+
+//antes de iniciar o processo, verifica se já existe outro processo
+//em andamento, com a verificação do arquivo de controle Flag, se não conseguir
+//criar o arquivo de controle, é porque existe outro job_nfe em andamento
+$jobname = 'job_nfe';
+if (!Flags::set($jobname)) {
+    //encerra prematuramente o job
+    die;
+}
 
 $cad = new CadastroController();
 $ae = new AenetController();
@@ -24,12 +34,22 @@ foreach ($nfes as $nfe) {
     $id = $std->id_nfes_aenet;
     $id_empresa = $std->id_empresa;
     $txt = $std->arquivo_nfe_txt;
+    $recibo = $std->recibo;
+    $xml  = base64_decode($std->arquivo_nfe_xml);
     if ($id_empresa != $oldid_empresa) {
         //pega os dados do cliente dessa NFe
         $client = json_decode(json_encode($cad->get($id_empresa)[0]));
         $oldid_empresa = $id_empresa;
         $aep = new AenetProcess($client);
     }
-    $aep->send($id, $txt);
+    if (empty($std->recibo)) {
+        //ainda não foi obtido o recibo
+        $aep->send($id, $txt);
+    } elseif (!empty($xml)) {
+        //o recibo já existe então pegar o protocolo
+        $aep->consulta($id, $recibo, $xml);
+    }
 }
+//como o job encerrou remover o arquivo de controle antes de sair;
+Flags::reset($jobname);
 exit;

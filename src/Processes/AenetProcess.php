@@ -45,7 +45,6 @@ class AenetProcess extends BaseProcess
      */
     public function send($id, $txt)
     {
-        $this->logger->warning('Start:' . date('Y-m-d H:i:s'));
         //tenta converter se falhar grava ERRO e retorna
         //esse registro será bloqueado até que novo TXT seja inserido e
         //o status retornado a 0.
@@ -109,6 +108,7 @@ class AenetProcess extends BaseProcess
                     'motivo' => "$cStat - $xMotivo"
                 ];
                 $this->aenet->update($id, $astd);
+                $this->logger->warning("cStat: $cStat - $xMotivo");
                 return false;
             }
             $astd = [
@@ -127,8 +127,9 @@ class AenetProcess extends BaseProcess
             $this->aenet->update($id, $astd);
             return false;
         }
-        $this->logger->warning('End:' . date('Y-m-d H:i:s'));
-        return true;
+        sleep(2);
+        //busca o protocolo
+        return $this->consulta($id, $recibo, $xmlsigned);
     }
     
     public function consulta($id, $recibo, $xml)
@@ -169,6 +170,8 @@ class AenetProcess extends BaseProcess
                 //adiciona o protocolo no xml assinado
                 $xmlProt = $this->cmpt->toAuthorize($xml, $response);
                 $status = 1;
+            } else {
+                $this->logger->warning("cStat: $cStatNFe - $xMotivoNFe");
             }
             $astd = [
                 'protocolo' => $nProt,
@@ -185,47 +188,6 @@ class AenetProcess extends BaseProcess
                 'motivo' => $error
             ];
             $this->logger->error("Exception: $id - $error");
-            $this->aenet->update($id, $astd);
-            return false;
-        }
-        return true;
-    }
-    
-    
-    /**
-     * Executa o cancelamento da NFe indicada
-     * @param int $id
-     * @param string $chave
-     * @param string $xJust
-     * @param string $nProt
-     * @return boolean
-     */
-    public function cancela($id, $chave, $xJust, $nProt)
-    {
-        try {
-            //$response = $this->tools->sefazCancela($chave, $xJust, $nProt);
-            //$ret = $this->nfestd->toStd($response);
-            //verificar cStat
-            //$ret = $this->cmpt->toAuthorize(
-            //    $this->tools->lastRequest,
-            //    $response
-            //);
-            //$xmlProt = $this->cmpt->toAuthorize($tools->lastRequest, $response);
-            $astd = [
-                'cancelamento_chave_acesso' => '',
-                'data_cancelamento'  => '',
-                'cancelamento_protocolo' => '',
-                'cancelamento_xml' => '',
-                'nfe_cancelada' => '1'
-            ];
-            //$this->aenet->update($id, $astd);
-        } catch (\Exception $e) {
-            $error = $e->getMessage();
-            $astd = [
-              'status_nfe' => 9, //erro 9 esse registro será ignorado
-              'motivo' => $error
-            ];
-            $this->logger->error("Exception: $id -  $error");
             $this->aenet->update($id, $astd);
             return false;
         }

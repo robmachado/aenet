@@ -11,6 +11,16 @@ require_once '/var/www/aenet/bootstrap.php';
 use Aenet\NFe\Controllers\EventoController;
 use Aenet\NFe\Controllers\CadastroController;
 use Aenet\NFe\Processes\EventoProcess;
+use Aenet\NFe\Common\Flags;
+
+//antes de iniciar o processo, verifica se já existe outro processo
+//em andamento, com a verificação do arquivo de controle Flag, se não conseguir
+//criar o arquivo de controle, é porque existe outro job_evento em andamento
+$jobname = 'job_evento';
+if (!Flags::set($jobname)) {
+    //encerra prematuramente o job
+    die;
+}
 
 $cad = new CadastroController();
 $evtctrl = new EventoController();
@@ -38,4 +48,6 @@ foreach ($cces as $cce) {
     }
     $evtp->send($id, $chave, $xCorrecao, $nSeqEvento);
 }
+//como o job encerrou remover o arquivo de controle antes de sair;
+Flags::reset($jobname);
 exit;

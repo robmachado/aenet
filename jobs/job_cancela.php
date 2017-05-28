@@ -11,9 +11,19 @@ require_once '/var/www/aenet/bootstrap.php';
 use Aenet\NFe\Controllers\CancelaController;
 use Aenet\NFe\Controllers\CadastroController;
 use Aenet\NFe\Processes\CancelaProcess;
+use Aenet\NFe\Common\Flags;
 
 $cad = new CadastroController();
 $canc = new CancelaController();
+
+//antes de iniciar o processo, verifica se já existe outro processo
+//em andamento, com a verificação do arquivo de controle Flag, se não conseguir
+//criar o arquivo de controle, é porque existe outro job_cancela em andamento
+$jobname = 'job_cancela';
+if (!Flags::set($jobname)) {
+    //encerra prematuramente o job
+    die;
+}
 
 //verifica por solicitações de cancelamento de NFe, ainda não realizados
 //para casos onde:
@@ -38,4 +48,6 @@ foreach ($nfes as $nfe) {
     }
     $cancp->cancela($id, $chave, $xJust, $nProt);
 }
+//como o job encerrou remover o arquivo de controle antes de sair;
+Flags::reset($jobname);
 exit;

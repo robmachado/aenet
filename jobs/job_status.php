@@ -15,6 +15,16 @@ require_once '/var/www/aenet/bootstrap.php';
 use Aenet\NFe\Controllers\CadastroController;
 use Aenet\NFe\Processes\StatusProcess;
 use Aenet\NFe\Processes\ValidateCertificatesProcess as Val;
+use Aenet\NFe\Common\Flags;
+
+//antes de iniciar o processo, verifica se já existe outro processo
+//em andamento, com a verificação do arquivo de controle Flag, se não conseguir
+//criar o arquivo de controle, é porque existe outro job_status em andamento
+$jobname = 'job_status';
+if (!Flags::set($jobname)) {
+    //encerra prematuramente o job
+    die;
+}
 
 //instancia o controller dos cadastros de clientes
 $cad = new CadastroController();
@@ -39,4 +49,6 @@ $stdClient = json_decode(json_encode($clients[$n]));
 //usando os dados do cliente indicado
 $stProc = new StatusProcess($stdClient);
 $stProc->updateAll();
+//como o job encerrou remover o arquivo de controle antes de sair;
+Flags::reset($jobname);
 exit;
