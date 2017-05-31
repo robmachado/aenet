@@ -49,11 +49,11 @@ class CancelaProcess extends BaseProcess
                 return false;
             }
             $dh = new \DateTime($ret->retEvento->infEvento->dhRegEvento);
-            //se não for cStat 101 ou 155 (fora do prazo)
+            //se não for cStat 135, 101 ou 151 ou 155 (fora do prazo)
             //deve ser algum erro
             $evStat = $ret->retEvento->infEvento->cStat;
             $status = 1;
-            if ($evStat != 101 && $evStat != 151 && $evStat != 155) {
+            if ($evStat != 101 && $evStat != 135 && $evStat != 151 && $evStat != 155) {
                 $status = 8;
                 $xml = $response;
                 if ($evStat == 420 || $evStat == 573) {

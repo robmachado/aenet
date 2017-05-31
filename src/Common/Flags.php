@@ -34,14 +34,14 @@ class Flags
     {
         if (self::find($jobname)) {
             self::$filesystem->delete("flag_$jobname");
-        }    
+        }
         return true;
     }
     
     /**
      * Procura pelo arquivo de controle do job
      * se não for encontrado retorna false, e se for encontrado retorna true
-     * NOTA: irá retornar false caso o tempo de criação do arquivo supere o 
+     * NOTA: irá retornar false caso o tempo de criação do arquivo supere o
      * limite estabelecido
      * @param string $jobname
      * @return boolean
@@ -76,12 +76,11 @@ class Flags
         $min = (int) $interval->format('%i');
         if ($min > self::$timelimit) {
             //o tempo expirou, o arquivo de controle foi criado a mais tempo
-            //que o limite setado, isso não pode ser considerado como 
+            //que o limite setado, isso não pode ser considerado como
             //algo commum em principio, mas esse tempo pode e deve ser ajustado
             //conforme o processo for melhorado
             return true;
         }
         return false;
     }
-    
 }
