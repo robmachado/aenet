@@ -1,4 +1,5 @@
 <?php
+
 namespace Aenet\NFe\Models;
 
 use Illuminate\Database\Eloquent\Model as Eloquent;
