@@ -7,6 +7,6 @@ nbproject
 storage/images/*.jpg
 local
 vendor
-*.log
+storage/*.log
 *.pdf
 *~
