@@ -11,15 +11,21 @@ use Aenet\NFe\Controllers\AenetController;
 use Aenet\NFe\Controllers\CadastroController;
 use Aenet\NFe\Processes\EmailProcess;
 use Aenet\NFe\Common\Flags;
+use Aenet\NFe\Controllers\MonitorController;
 
 //antes de iniciar o processo, verifica se já existe outro processo
 //em andamento, com a verificação do arquivo de controle Flag, se não conseguir
 //criar o arquivo de controle, é porque existe outro job_email em andamento
 $jobname = 'job_email';
+$mon = new MonitorController();
+$idjob = $mon->insert($jobname);
 if (!Flags::set($jobname)) {
+    //indicar a dtFim do job na tabela monitor
+    $mon->update($idjob);
     //encerra prematuramente o job
     die;
 }
+
 
 $cad = new CadastroController();
 $ae = new AenetController();
@@ -48,6 +54,8 @@ foreach ($nfes as $nfe) {
     //apenas um log será criado
     $ep->send($id, $xml, $pdf, $addresses);
 }
+//indicar a dtFim do job na tabela monitor
+$mon->update($idjob);
 //como o job encerrou remover o arquivo de controle antes de sair;
 Flags::reset($jobname);
 exit;

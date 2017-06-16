@@ -12,12 +12,17 @@ use Aenet\NFe\Controllers\CadastroController;
 use Aenet\NFe\Controllers\InutilizaController;
 use Aenet\NFe\Processes\InutilizaProcess;
 use Aenet\NFe\Common\Flags;
+use Aenet\NFe\Controllers\MonitorController;
 
 //antes de iniciar o processo, verifica se já existe outro processo
 //em andamento, com a verificação do arquivo de controle Flag, se não conseguir
 //criar o arquivo de controle, é porque existe outro job_inutiliza em andamento
 $jobname = 'job_inutiliza';
+$mon = new MonitorController();
+$idjob = $mon->insert($jobname);
 if (!Flags::set($jobname)) {
+    //indicar a dtFim do job na tabela monitor
+    $mon->update($idjob);
     //encerra prematuramente o job
     die;
 }
@@ -49,6 +54,8 @@ foreach ($nfes as $nfe) {
     }
     $inp->inutiliza($id, $nSerie, $nIni, $nFin, $xJust, $sequencial);
 }
+//indicar a dtFim do job na tabela monitor
+$mon->update($idjob);
 //como o job encerrou remover o arquivo de controle antes de sair;
 Flags::reset($jobname);
 exit;

@@ -12,6 +12,7 @@ use Aenet\NFe\Controllers\CancelaController;
 use Aenet\NFe\Controllers\CadastroController;
 use Aenet\NFe\Processes\CancelaProcess;
 use Aenet\NFe\Common\Flags;
+use Aenet\NFe\Controllers\MonitorController;
 
 $cad = new CadastroController();
 $canc = new CancelaController();
@@ -20,7 +21,12 @@ $canc = new CancelaController();
 //em andamento, com a verificação do arquivo de controle Flag, se não conseguir
 //criar o arquivo de controle, é porque existe outro job_cancela em andamento
 $jobname = 'job_cancela';
+$mon = new MonitorController();
+$idjob = $mon->insert($jobname);
+
 if (!Flags::set($jobname)) {
+    //indicar a dtFim do job na tabela monitor
+    $mon->update($idjob);
     //encerra prematuramente o job
     die;
 }
@@ -48,6 +54,8 @@ foreach ($nfes as $nfe) {
     }
     $cancp->cancela($id, $chave, $xJust, $nProt);
 }
+//indicar a dtFim do job na tabela monitor
+$mon->update($idjob);
 //como o job encerrou remover o arquivo de controle antes de sair;
 Flags::reset($jobname);
 exit;
