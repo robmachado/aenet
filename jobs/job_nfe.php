@@ -38,7 +38,7 @@ foreach ($nfes as $nfe) {
     $std = json_decode(json_encode($nfe));
     $id = $std->id_nfes_aenet;
     $id_empresa = $std->id_empresa;
-    $txt = $std->arquivo_nfe_txt;
+    $txt = str_replace("\r", "", $std->arquivo_nfe_txt);
     $recibo = $std->recibo;
     $xml  = base64_decode($std->arquivo_nfe_xml);
     if ($id_empresa != $oldid_empresa) {
