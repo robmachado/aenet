@@ -17,9 +17,11 @@ class MonitorController extends BaseController
     
     public function inicialize($job)
     {
+        $dt = new\DateTime();
+        $dt->setTimezone(new DateTimeZone('America/Sao_Paulo'));
         $mon = new Monitor();
         $mon->job = $job;
-        $mon->dtInicio = date('Y-m-d H:i:s');
+        $mon->dtInicio = $dt->format('Y-m-d H:i:s');
         $mon->comments = '';
         $mon->save();
         return $mon->id;
@@ -27,7 +29,9 @@ class MonitorController extends BaseController
     
     public function finalize($id, $comments)
     {
-        $dtFim = date('Y-m-d H:i:s');
+        $dt = new\DateTime();
+        $dt->setTimezone(new DateTimeZone('America/Sao_Paulo'));
+        $dtFim = $dt->format('Y-m-d H:i:s');
         Monitor::where('id', $id)->update(['comments' => $comments, 'dtFim' => $dtFim]);
     }
     
@@ -44,6 +48,7 @@ class MonitorController extends BaseController
     public function clear()
     {
         $dt = new DateTime();
+        $dt->setTimezone(new DateTimeZone('America/Sao_Paulo'));
         $di = new DateInterval('P1D');
         $di->invert = 1;
         $dt->add($di);
