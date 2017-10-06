@@ -15,26 +15,30 @@ class MonitorController extends BaseController
         parent::__construct();
     }
     
-    public function insert($job)
+    public function inicialize($job)
     {
         $mon = new Monitor();
         $mon->job = $job;
         $mon->dtInicio = date('Y-m-d H:i:s');
+        $mon->comments = '';
         $mon->save();
         return $mon->id;
     }
     
-    public function update($id)
+    public function finalize($id, $comments)
     {
         $dtFim = date('Y-m-d H:i:s');
-        Monitor::where('id', $id)->update(['dtFim' => $dtFim]);
+        Monitor::where('id', $id)->update(['comments' => $comments, 'dtFim' => $dtFim]);
     }
     
-    public function pendent($job)
+    public function hasPendent($job)
     {
         $resp = Monitor::where('job', $job)
             ->whereNull('dtFim')->get()->toArray();
-        return $resp[count($resp)-1];
+        if (!empty($resp)) {
+            return $resp[0]['id'];
+        }
+        return 0;
     }
     
     public function clear()

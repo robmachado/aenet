@@ -10,6 +10,7 @@ class Monitor extends Eloquent
     protected $table = 'monitor';
     protected $fillable = [
         'job',
+        'comments',
         'dtInicio',
         'dtFim'
     ];
