@@ -178,7 +178,7 @@ class DFeProcess extends BaseProcess
     protected function pprocEv(stdClass $std, $numnsu, $content, $tipo)
     {
         //salva NSU
-        $this->saveNSU($dom, $numnsu, $content, $tipo);
+        $this->saveNSU($std, $numnsu, $content, $tipo);
         //salva Evento
         $dtEv = new DateTime($std->evento->infEvento->dhEvento);
         $dtReg = new DateTime($std->retEvento->infEvento->dhRegEvento);
