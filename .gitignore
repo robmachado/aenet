@@ -4,9 +4,9 @@
 .idea
 .env
 nbproject
-storage/images/*.jpg
 local
 vendor
 storage/*.log
+storage/images/*.jpg
 *.pdf
 *~
