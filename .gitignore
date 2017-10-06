@@ -4,6 +4,7 @@
 .idea
 .env
 nbproject
+composer.lock
 local
 vendor
 storage/*.log
