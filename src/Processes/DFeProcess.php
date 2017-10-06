@@ -189,7 +189,7 @@ class DFeProcess extends BaseProcess
         $ev->chNFe = $std->retEvento->infEvento->chNFe;
         $ev->tpEvento = $std->retEvento->infEvento->tpEvento;
         $ev->nSeqEvento = $std->retEvento->infEvento->nSeqEvento;
-        $ev->xEvento = $std->retEvento->infEvento->xEvento;
+        $ev->xEvento = !empty($std->retEvento->infEvento->xEvento) ? $std->retEvento->infEvento->xEvento : '';
         $ev->dhEvento = $dtEv->format('Y-m-d H:i:s');
         $ev->dhRecbto = $dtReg->format('Y-m-d H:i:s');
         $ev->nProt = $std->retEvento->infEvento->nProt;
