@@ -42,7 +42,6 @@ class StatusProcess extends BaseProcess
 
     public function updateAll()
     {
-        throw new \Exception('Teste de envio');
         $agora = date('Y-m-d H:i:s');
         $std = [];
         foreach ($this->auth as $uf => $sefaz) {
