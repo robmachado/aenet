@@ -185,7 +185,7 @@ class DFeProcess extends BaseProcess
         $ev = new Event();
         $ev->id_empresa = $this->cad->id_empresa;
         $ev->nsu = $numnsu;
-        $ev->cnpj = $std->retEvento->infEvento->CNPJDest;
+        $ev->cnpj = !empty($std->evento->infEvento->CNPJ) ? $std->evento->infEvento->CNPJ : '';
         $ev->chNFe = $std->retEvento->infEvento->chNFe;
         $ev->tpEvento = $std->retEvento->infEvento->tpEvento;
         $ev->nSeqEvento = $std->retEvento->infEvento->nSeqEvento;
