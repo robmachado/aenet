@@ -27,7 +27,7 @@ class AlertFailProcess
 
             //Recipients
             $mail->setFrom($std->user, 'AENET ALERT');
-            //$mail->addAddress('flavio@aenet.com.br', 'Flavio');  // Add a recipient
+            $mail->addAddress('flavio@aenet.com.br', 'Flavio');  // Add a recipient
             $mail->addAddress('linux.rlm@gmail.com'); // Name is optional
             //Content
             $mail->isHTML(true); // Set email format to HTML
