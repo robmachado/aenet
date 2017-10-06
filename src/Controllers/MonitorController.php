@@ -6,6 +6,7 @@ namespace Aenet\NFe\Controllers;
 use Aenet\NFe\Controllers\BaseController;
 use DateTime;
 use DateInterval;
+use DateTimeZone;
 use Aenet\NFe\Models\Monitor;
 
 class MonitorController extends BaseController
@@ -17,7 +18,7 @@ class MonitorController extends BaseController
     
     public function inicialize($job)
     {
-        $dt = new\DateTime();
+        $dt = new DateTime();
         $dt->setTimezone(new DateTimeZone('America/Sao_Paulo'));
         $mon = new Monitor();
         $mon->job = $job;
@@ -29,7 +30,7 @@ class MonitorController extends BaseController
     
     public function finalize($id, $comments)
     {
-        $dt = new\DateTime();
+        $dt = new DateTime();
         $dt->setTimezone(new DateTimeZone('America/Sao_Paulo'));
         $dtFim = $dt->format('Y-m-d H:i:s');
         Monitor::where('id', $id)->update(['comments' => $comments, 'dtFim' => $dtFim]);
