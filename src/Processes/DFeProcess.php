@@ -49,7 +49,7 @@ class DFeProcess extends BaseProcess
             if (empty($resp)) {
                 $this->logger->error("Exception: Não houve resposta do sefazDistDfe verificar ambiente");
                 return false;
-            } 
+            }
             //extrair e salvar os retornos
             $dom = new \DOMDocument();
             $dom->loadXML($resp);
@@ -77,7 +77,7 @@ class DFeProcess extends BaseProcess
                 $nodom->loadXML($content);
                 //processa o conteudo do NSU
                 $this->$processo($nodom, $numnsu, $content, $tipo);
-                $nsuproc++; 
+                $nsuproc++;
             }
             sleep(5);
         }

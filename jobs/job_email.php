@@ -36,9 +36,9 @@ $idjob = $mon->inicialize($jobname);
 try {
     $cad = new CadastroController();
     $ae = new AenetController();
-    //busca por registros com status = 100 ou 150 
+    //busca por registros com status = 100 ou 150
     //com arquivo_nfe_pdf NOT NULL e
-    //nfe_email_enviado 
+    //nfe_email_enviado
     $nfes = $ae->emailAll(); //retorna um array
     $oldid_empresa = 0;
     $client = null;
@@ -64,23 +64,23 @@ try {
     }
     $comments = "SUCESSO #$contador emails enviados.";
 } catch (\Exception $e) {
-    $comments = 'Exception: ' 
+    $comments = 'Exception: '
         . $e->getMessage()
         . " " . $e->getFile()
         . " linha #" . $e->getLine()
         . " " . date('Y-m-d H:i:s');
     $logger->error($comments);
     AlertFailProcess::sendAlert(
-        'ERROR '.$jobname
-        , "<h2>Exception</h2><p>"
+        'ERROR '.$jobname,
+        "<h2>Exception</h2><p>"
         . $e->getMessage()
         . "</p><br/><p>Script: "
         . $e->getFile()
         . "</p><br/><p>Linha: "
         . $e->getLine()
         . "</p><br/>" . date('Y-m-d H:i:s')
-    );    
-}    
+    );
+}
 //indicar a dtFim do job na tabela monitor
 $mon->finalize($idjob, $comments);
 die;

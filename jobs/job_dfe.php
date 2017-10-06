@@ -48,15 +48,15 @@ try {
         $comments = "SUCESSO $nsuproc NSU processados.";
     }
 } catch (\Exception $e) {
-    $comments = 'Exception: ' 
+    $comments = 'Exception: '
         . $e->getMessage()
         . " " . $e->getFile()
         . " linha #" . $e->getLine()
         . " " . date('Y-m-d H:i:s');
     $logger->error($comments);
     AlertFailProcess::sendAlert(
-        'ERROR '.$jobname
-        , "<h2>Exception</h2><p>"
+        'ERROR '.$jobname,
+        "<h2>Exception</h2><p>"
         . $e->getMessage()
         . "</p><br/><p>Script: "
         . $e->getFile()
@@ -64,7 +64,7 @@ try {
         . $e->getLine()
         . "</p><br/>" . date('Y-m-d H:i:s')
     );
-}    
+}
 //indicar a dtFim do job na tabela monitor
 $mon->finalize($idjob, $comments);
 die;

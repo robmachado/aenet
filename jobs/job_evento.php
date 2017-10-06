@@ -66,23 +66,23 @@ try {
         $contador++;
     }
     $comments = "SUCESSO #$contador eventos enviados.";
-} catch (\Exception $e) {    
-    $comments = 'Exception: ' 
+} catch (\Exception $e) {
+    $comments = 'Exception: '
         . $e->getMessage()
         . " " . $e->getFile()
         . " linha #" . $e->getLine()
         . " " . date('Y-m-d H:i:s');
     $logger->error($comments);
     AlertFailProcess::sendAlert(
-        'ERROR '.$jobname
-        , "<h2>Exception</h2><p>"
+        'ERROR '.$jobname,
+        "<h2>Exception</h2><p>"
         . $e->getMessage()
         . "</p><br/><p>Script: "
         . $e->getFile()
         . "</p><br/><p>Linha: "
         . $e->getLine()
         . "</p><br/>" . date('Y-m-d H:i:s')
-    );    
+    );
 }
 //indicar a dtFim do job na tabela monitor
 $mon->finalize($idjob, $comments);

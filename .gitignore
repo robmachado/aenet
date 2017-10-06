@@ -8,6 +8,7 @@ composer.lock
 local
 vendor
 storage/*.log
+storage/flag_*
 storage/images/*.jpg
 *.pdf
 *~

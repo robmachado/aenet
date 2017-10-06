@@ -16,8 +16,6 @@ use Aenet\NFe\Controllers\MonitorController;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 
-
-
 //antes de iniciar o processo, verifica se já existe outro processo
 //em andamento, com a verificação do arquivo de controle Flag, se não conseguir
 //criar o arquivo de controle, é porque existe outro job_cancela em andamento
@@ -66,15 +64,15 @@ try {
     }
     $comments = "SUCESSO #$contador cancelamentos efetuados.";
 } catch (\Exception $e) {
-    $comments = 'Exception: ' 
+    $comments = 'Exception: '
         . $e->getMessage()
         . " " . $e->getFile()
         . " linha #" . $e->getLine()
         . " " . date('Y-m-d H:i:s');
     $logger->error($comments);
     AlertFailProcess::sendAlert(
-        'ERROR '.$jobname
-        , "<h2>Exception</h2><p>"
+        'ERROR '.$jobname,
+        "<h2>Exception</h2><p>"
         . $e->getMessage()
         . "</p><br/><p>Script: "
         . $e->getFile()
@@ -82,7 +80,7 @@ try {
         . $e->getLine()
         . "</p><br/>" . date('Y-m-d H:i:s')
     );
-}    
+}
 //indicar a dtFim do job na tabela monitor
 $mon->finalize($idjob, $comments);
 die;

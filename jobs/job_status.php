@@ -40,7 +40,7 @@ $idjob = $mon->inicialize($jobname);
 try {
     //instancia o controller dos cadastros de clientes
     $cad = new CadastroController();
-    //verifica e atualiza a validade dos certificados dos clientes 
+    //verifica e atualiza a validade dos certificados dos clientes
     //no cadastro antes de prosseguir
     $cad->validateCertNull();
     //puxa todos os cadastros de clientes com certificados válidos
@@ -49,8 +49,8 @@ try {
     if (count($clients) == 0) {
         die;
     }
-    //gera um numero aleatório para pegar um dos clientes cadastrados 
-    //como fonte de dados para a busca dos status da SEFAZ, isso é 
+    //gera um numero aleatório para pegar um dos clientes cadastrados
+    //como fonte de dados para a busca dos status da SEFAZ, isso é
     //feito para não sobrecarregar um unico certificado com muitas buscas
     //e evitar o bloqueio por excesso de buscas
     $n = rand(0, count($clients)-1);
@@ -63,23 +63,23 @@ try {
     $stProc->updateAll();
     $comments = 'SUCESSO';
 } catch (\Exception $e) {
-    $comments = 'Exception: ' 
+    $comments = 'Exception: '
         . $e->getMessage()
         . " " . $e->getFile()
         . " linha #" . $e->getLine()
         . " " . date('Y-m-d H:i:s');
     $logger->error($comments);
     AlertFailProcess::sendAlert(
-        'ERROR '.$jobname
-        , "<h2>Exception</h2><p>"
+        'ERROR '.$jobname,
+        "<h2>Exception</h2><p>"
         . $e->getMessage()
         . "</p><br/><p>Script: "
         . $e->getFile()
         . "</p><br/><p>Linha: "
         . $e->getLine()
-        . "</p><br/>" . date('Y-m-d H:i:s')    
+        . "</p><br/>" . date('Y-m-d H:i:s')
     );
-}    
+}
 //indicar a dtFim do job na tabela monitor
 $mon->finalize($idjob, $comments);
 die;

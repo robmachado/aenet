@@ -36,7 +36,7 @@ $idjob = $mon->inicialize($jobname);
 try {
     $cad = new CadastroController();
     $ae = new AenetController();
-    //busca os registros com status = 100 ou 150 
+    //busca os registros com status = 100 ou 150
     //e arquivo_nfe_pdf NULL
     $nfes = $ae->danfeAll(); //retorna um array
     $oldid_empresa = 0;
@@ -60,15 +60,15 @@ try {
     }
     $comments = "SUCESSO #$contador DANFEs gerados.";
 } catch (\Exception $e) {
-    $comments = 'Exception: ' 
+    $comments = 'Exception: '
         . $e->getMessage()
         . " " . $e->getFile()
         . " linha #" . $e->getLine()
         . " " . date('Y-m-d H:i:s');
     $logger->error($comments);
     AlertFailProcess::sendAlert(
-        'ERROR '.$jobname
-        , "<h2>Exception</h2><p>"
+        'ERROR '.$jobname,
+        "<h2>Exception</h2><p>"
         . $e->getMessage()
         . "</p><br/><p>Script: "
         . $e->getFile()
@@ -76,7 +76,7 @@ try {
         . $e->getLine()
         . "</p><br/>" . date('Y-m-d H:i:s')
     );
-}    
+}
 //indicar a dtFim do job na tabela monitor
 $mon->finalize($idjob, $comments);
 die;
