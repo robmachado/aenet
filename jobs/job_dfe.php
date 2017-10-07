@@ -43,7 +43,7 @@ try {
         $dfe = new DFeProcess($client);
         //trazer os NSUs deste cliente para a base de dados
         $nsuproc = $dfe->search();
-        //manifestar com ciencia da operção os resNFe localizados
+        //manifestar com ciencia da opereção os resNFe localizados
         $dfe->manifestaAll();
         $comments = "SUCESSO $nsuproc NSU processados.";
     }

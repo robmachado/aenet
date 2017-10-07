@@ -20,7 +20,7 @@ class NsusController extends BaseController
     
     public function getPendents($id_empresa)
     {
-        return Nsu::where('id_empresa', 28)
+        return Nsu::where('id_empresa', $id_empresa)
             ->where('manifestar', '1')
             ->orderBy('nsu')
             ->get()
