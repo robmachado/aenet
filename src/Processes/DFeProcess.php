@@ -99,7 +99,7 @@ class DFeProcess extends BaseProcess
             $nsu->chNFe = preg_replace('/[^0-9]/', '', $std->NFe->infNFe->attributes->Id);
             $nsu->xNome = $std->NFe->infNFe->emit->xNome;
             $nsu->dhEmi = $dhEmi;
-            $nsu->nProt = $std->NFe->protNFe->infProt->nProt;
+            $nsu->nProt = $std->protNFe->infProt->nProt;
         } elseif ($tipo == 'resNFe') {
             $dt = new DateTime($std->dhEmi);
             $nsu->cnpj = $std->CNPJ;
