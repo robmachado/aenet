@@ -66,7 +66,7 @@ try {
         }
         $contador++;
     }
-    $comments = "SUCESSO #$contador NFe enviadas.";
+    $comments = "SUCESSO #$contador NFe processadas.";
 } catch (\Exception $e) {
     $comments = 'Exception: '
         . $e->getMessage()
