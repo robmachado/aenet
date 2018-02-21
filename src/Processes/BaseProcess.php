@@ -65,9 +65,8 @@ class BaseProcess
         //carrega a classe de comunicação
         $this->tools = new Tools($this->config, $certificate);
         $this->tools->model('55');
-        $soap = new SoapCurl();
-        $soap->disableSecurity(true);
-        $soap->setDebugMode(false);
-        $this->tools->loadSoapClass($soap);
+        $this->tools->soap->disableSecurity(true);
+        $this->tools->soap->setDebugMode(false);
+
     }
 }

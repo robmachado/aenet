@@ -19,6 +19,8 @@ class Cadastro extends Eloquent
         'crtpass',
         'crtvalid_to',
         'tpAmb',
+        'schema',
+        'version',
         'logo',
         'contingency',
         'emailfrom',

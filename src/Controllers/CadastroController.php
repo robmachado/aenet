@@ -40,7 +40,7 @@ class CadastroController extends BaseController
             'crtvalid_to',
             '>=',
             $dt->format('Y-m-d H:i:s')
-        )->get()->toArray();
+        )->get();
     }
     
     /**
