@@ -40,9 +40,7 @@ class CadastroController extends BaseController
             'crtvalid_to',
             '>=',
             $dt->format('Y-m-d H:i:s')
-        )
-            ->get()
-            ->toArray();
+        )->get()->toArray();
     }
     
     /**
@@ -57,7 +55,7 @@ class CadastroController extends BaseController
     }
     
     /**
-     * Faz a veriicação da data de valide e verifica o funcionamento do PFX
+     * Faz a veriicação da data de validade e verifica o funcionamento do PFX
      * @param Cadastro $client
      */
     protected function updateValidateCertNull($client)
