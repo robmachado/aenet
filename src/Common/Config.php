@@ -29,7 +29,12 @@ class Config
         $tokenIBPT = '',
         $CSC = '',
         $CSCid = '',
-        $aProxyConf = []
+        $aProxyConf = [
+            "proxyIp" => "",
+            "proxyPort" => "",
+            "proxyUser" => "",
+            "proxyPass" => ""
+        ]
     ) {
         $this->tpAmb = $tpAmb;
         $this->razaosocial = $razaosocial;
