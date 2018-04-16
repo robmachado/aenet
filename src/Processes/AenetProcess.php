@@ -114,7 +114,8 @@ class AenetProcess extends BaseProcess
             $astd = [
                 'lote' => $lote,
                 'recibo' => $recibo,
-                'data_envio' => date('Y-m-d H:i:s')
+                'data_envio' => date('Y-m-d'),
+                'data_envio_h'=> date('H:i:s')
             ];
             $this->aenet->update($id, $astd);
         } catch (\Exception $e) {
