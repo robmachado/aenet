@@ -67,6 +67,5 @@ class BaseProcess
         $this->tools->model('55');
         $this->tools->soap->disableSecurity(true);
         $this->tools->soap->setDebugMode(false);
-
     }
 }

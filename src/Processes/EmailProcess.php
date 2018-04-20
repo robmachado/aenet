@@ -43,7 +43,8 @@ class EmailProcess extends BaseProcess
             //grava os dados na tabela
             $astd = [
                 'nfe_email_enviado' => 1,
-                'data_email' => date('Y-m-d H:i:s')
+                'data_email' => date('Y-m-d'),
+                'data_email_h' => date('H:i:s')
             ];
             $this->aenet->update($id, $astd);
         } catch (\Exception $e) {

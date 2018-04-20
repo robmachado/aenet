@@ -37,7 +37,8 @@ class DanfeProcess extends BaseProcess
             $pdf = $danfe->render();
             $astd = [
                 'arquivo_nfe_pdf' => base64_encode($pdf),
-                'data_danfe' => date('Y-m-d H:i:s'),
+                'data_danfe' => date('Y-m-d'),
+                'data_danfe_h' => date('H:i:s'),
                 'nfe_pdf_gerado' => '1'
             ];
             $this->aenet->update($id, $astd);
