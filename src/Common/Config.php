@@ -36,6 +36,10 @@ class Config
             "proxyPass" => ""
         ]
     ) {
+        $schemes = 'PL_009_V4';
+        if ($versao == '3.10') {
+            $schemes = 'PL_008i2';
+        }
         $this->tpAmb = $tpAmb;
         $this->razaosocial = $razaosocial;
         $this->siglaUF = $siglaUF;

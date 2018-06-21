@@ -41,7 +41,10 @@ class BaseProcess
             $cad->fantasia,
             $cad->uf,
             $cad->cnpj,
-            $cad->tpAmb
+            $cad->tpAmb,
+            '',
+            isset($cad->layout) ? $cad->layout : '4.00'
+                
         );
         $this->config = "{$config}";
         $this->storage = realpath(__DIR__ .'/../../storage');
