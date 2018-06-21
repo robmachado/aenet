@@ -54,6 +54,9 @@ try {
         if ($id_empresa != $oldid_empresa) {
             //pega os dados do cliente dessa NFe
             $client = json_decode(json_encode($cad->get($id_empresa)[0]));
+            if (empty($client)) {
+                continue;
+            }
             $oldid_empresa = $id_empresa;
             $aep = new AenetProcess($client);
         }

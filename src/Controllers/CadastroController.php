@@ -15,15 +15,19 @@ class CadastroController extends BaseController
     }
     
     /**
-     * Retorna os dados do cadastro com um id especifico em um array
+     * Retorna os dados do cadastro VALIDO com um id
+     * especifico em um array
      * @param int $id
      * @return array
      */
     public function get($id)
     {
+        $dt = new DateTime();
         return json_decode(
             json_encode(
-                Cadastro::where('id_empresa', $id)->get()->toArray()
+                Cadastro::where('id_empresa', $id)
+                    ->where('crtvalid_to', '>=', $dt->format('Y-m-d H:i:s'))
+                    ->get()->toArray()
             )
         );
     }

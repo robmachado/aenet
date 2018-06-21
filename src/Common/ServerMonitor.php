@@ -12,7 +12,7 @@ class ServerMonitor
     public $osname = '';
     /**
      * @var string
-     */    
+     */
     public $hostname = '';
     /**
      * @var string
@@ -28,11 +28,11 @@ class ServerMonitor
     public $kernel = '';
     /**
      * @var string
-     */    
+     */
     public $ostype = '';
     /**
      * @var int
-     */    
+     */
     public $servercores = 1;
     /**
      * @var array
@@ -52,7 +52,7 @@ class ServerMonitor
     public $freeservermemory = 0;
     /**
      * @var float
-     */    
+     */
     public $memoryusage = 0;
     /**
      * @var float
@@ -63,7 +63,7 @@ class ServerMonitor
      */
     public $swapusage = 0;
     /**
-     * @var float 
+     * @var float
      */
     public $diskusage = 0;
     /**
@@ -122,27 +122,27 @@ class ServerMonitor
      */
     protected function systemCores()
     {
-        switch($this->os) {
-            case('Linux'):
+        switch ($this->os) {
+            case ('Linux'):
                 $cmd = "cat /proc/cpuinfo | grep processor | wc -l";
                 break;
-            case('Freebsd'):
+            case ('Freebsd'):
                 $cmd = "sysctl -a | grep 'hw.ncpu' | cut -d ':' -f2";
                 break;
         }
         $cpuCoreNo = intval(trim(shell_exec($cmd)));
         $this->servercores = empty($cpuCoreNo) ? 1 : $cpuCoreNo;
-   }
+    }
    
    /**
     * Get system load as percentage
-    * NOTE: This search must be done with a minimum interval of 15 minutes 
+    * NOTE: This search must be done with a minimum interval of 15 minutes
     * @return array
     */
-   public function systemLoad()
-   {
+    public function systemLoad()
+    {
         $rs = sys_getloadavg();
-        foreach($rs as $key => $value) {
+        foreach ($rs as $key => $value) {
             $this->load[$key] = round(($value*100)/$this->servercores, 2);
         }
         return $this->load;
@@ -171,7 +171,7 @@ class ServerMonitor
                     $www_unique_count ++;
                 }
             }
-            unset ($results);
+            unset($results);
             $this->httpconnections = count($unique);
             return $this->httpconnections;
         }
@@ -216,7 +216,7 @@ class ServerMonitor
     private function formatBytes($size, $precision = 2)
     {
         $base = log($size, 1024);
-        $suffixes = array('B', 'kB', 'MB', 'GB', 'TB', 'PT');   
+        $suffixes = array('B', 'kB', 'MB', 'GB', 'TB', 'PT');
         return round(pow(1024, $base - floor($base)), $precision) .' '. $suffixes[floor($base)];
     }
     
@@ -226,8 +226,8 @@ class ServerMonitor
      */
     public function diskUsage()
     {
-        $disktotal = disk_total_space ('/');
-        $diskfree = disk_free_space  ('/');
+        $disktotal = disk_total_space('/');
+        $diskfree = disk_free_space('/');
         $diskuse = round(100-(($diskfree/$disktotal)*100), 2);
         $this->diskusage = $diskuse;
         return $diskuse;
@@ -242,10 +242,10 @@ class ServerMonitor
         $uptimestring = file_get_contents('/proc/uptime');
         $ticks = explode(" ", $uptimestring);
         $min = $ticks[0]/60;
-        $hours = $min/60; 
-        $this->uptimedays = floor($hours/24); 
-        $this->uptimehours = floor($hours-($days*24)); 
-        $this->uptimeminutes = floor($min-($days*60*24)-($hours*60)); 
+        $hours = $min/60;
+        $this->uptimedays = floor($hours/24);
+        $this->uptimehours = floor($hours-($days*24));
+        $this->uptimeminutes = floor($min-($days*60*24)-($hours*60));
     }
     
     /**

@@ -26,9 +26,11 @@ class AlertFailProcess
             $mail->Port = $std->port; // TCP port to connect to
 
             //Recipients
-            $mail->setFrom($std->user, 'AENET ALERT');
-            $mail->addAddress('flavio@aenet.com.br', 'Flavio');  // Add a recipient
-            $mail->addAddress('linux.rlm@gmail.com'); // Name is optional
+            $mail->setFrom($std->user, 'AENET ALERT - '. $_ENV['HOST_NAME']);
+            !empty($_ENV['ALERT_DEST_1']) ? $mail->addAddress($_ENV['ALERT_DEST_1']) : '';
+            !empty($_ENV['ALERT_DEST_2']) ? $mail->addAddress($_ENV['ALERT_DEST_2']): '';
+            !empty($_ENV['ALERT_DEST_3']) ? $mail->addAddress($_ENV['ALERT_DEST_3']) : '';
+            
             //Content
             $mail->isHTML(true); // Set email format to HTML
             $mail->Subject = $subject;
