@@ -72,13 +72,18 @@ class CancelaProcess extends BaseProcess
                 //sucesso então protocolar
                 $xml = $this->cmpt->toAuthorize($request, $response);
             }
+            $protocolnumber = !empty($ret->retEvento->infEvento->nProt)
+                ? $ret->retEvento->infEvento->nProt
+                : '';
             $astd = [
                 'status' => $status,
                 'motivo' => $evStat
                     . ' - '
                     . $ret->retEvento->infEvento->xMotivo,
                 'xml' => base64_encode($xml),
-                'data' => $dh->format('Y-m-d H:i:s')
+                'data' => $dh->format('Y-m-d H:i:s'),
+                'data_h' => $dh->format('H:i:s'),
+                'protocolo' => $protocolnumber
             ];
             $this->canc->update($id, $astd);
         } catch (\Exception $e) {
