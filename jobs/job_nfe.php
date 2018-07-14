@@ -55,12 +55,18 @@ try {
             //pega os dados do cliente dessa NFe
             $client = json_decode(json_encode($cad->get($id_empresa)[0]));
             if (empty($client)) {
+                $error = "Certificado Vencido ou Inválido";
+                $astd = [
+                    'status_nfe' => 9, //erro 9 esse registro será ignorado
+                    'motivo' => $error
+                ];
+                $ae->update($id, $astd);
                 $logger->error(
-                    "Certificado Vencido ou Inválido cadastro $id_empresa"
+                    "$error cadastro $id_empresa"
                 );
                 AlertFailProcess::sendAlert(
                     'ERROR '.$jobname,
-                    "<h2>Empresa $id_empresa</h2><p>Certificado vencido ou inválido</p>"
+                    "<h2>Empresa $id_empresa</h2><p>$error</p>"
                 );
                 continue;
             }
