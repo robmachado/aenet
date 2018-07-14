@@ -55,6 +55,13 @@ try {
             //pega os dados do cliente dessa NFe
             $client = json_decode(json_encode($cad->get($id_empresa)[0]));
             if (empty($client)) {
+                $logger->error(
+                    "Certificado Vencido ou Inválido cadastro $id_empresa"
+                );
+                AlertFailProcess::sendAlert(
+                    'ERROR '.$jobname,
+                    "<h2>Empresa $id_empresa</h2><p>Certificado vencido ou inválido</p>"
+                );
                 continue;
             }
             $oldid_empresa = $id_empresa;
