@@ -53,11 +53,11 @@ class StatusProcess extends BaseProcess
                     $std[$sigla] = new \stdClass();
                     $std[$sigla]->uf = $sigla;
                     $std[$sigla]->status_1 = 1;
-                    $std[$sigla]->error_msg_1 = $std1->xMotivo;
+                    $std[$sigla]->error_msg_1 = !empty($std1->xMotivo) ? $std1->xMotivo : '' ;
                     $std[$sigla]->updated_at_1 = $agora;
                     $std[$sigla]->status_2 = 1;
                     $std[$sigla]->updated_at_2 = $agora;
-                    $std[$sigla]->error_msg_2 = $std2->xMotivo;
+                    $std[$sigla]->error_msg_2 = !empty($std2->xMotivo) ? $std2->xMotivo : '';
                     if ($std1->cStat != 107) {
                         $std[$sigla]->status_1 = 0;
                     }
@@ -70,10 +70,10 @@ class StatusProcess extends BaseProcess
                 $std[$sefaz]->uf = $sefaz;
                 $std[$sefaz]->status_1 = 1;
                 $std[$sefaz]->updated_at_1 = $agora;
-                $std[$sefaz]->error_msg_1 = $std1->xMotivo;
+                $std[$sefaz]->error_msg_1 = !empty($std1->xMotivo) ? $std1->xMotivo : '';
                 $std[$sefaz]->status_2 = 1;
                 $std[$sefaz]->updated_at_2 = $agora;
-                $std[$sefaz]->error_msg_2 = $std2->xMotivo;
+                $std[$sefaz]->error_msg_2 = !empty($std2->xMotivo) ? $std2->xMotivo : '';
                 if ($std1->cStat != 107) {
                     $std[$sefaz]->status_1 = 0;
                 }
@@ -90,11 +90,11 @@ class StatusProcess extends BaseProcess
             $std[$svc] = new \stdClass();
             $std[$svc]->uf = $svc;
             $std[$svc]->status_1 = 1;
-            $std[$svc]->error_msg_1 = $std1->xMotivo;
+            $std[$svc]->error_msg_1 = !empty($std1->xMotivo) ? $std1->xMotivo : '';
             $std[$svc]->updated_at_1 = $agora;
             $std[$svc]->status_2 = 1;
             $std[$svc]->updated_at_2 = $agora;
-            $std[$svc]->error_msg_2 = $std2->xMotivo;
+            $std[$svc]->error_msg_2 = !empty($std2->xMotivo) ? $std2->xMotivo : '';
             if ($std1->cStat != 107) {
                 $std[$svc]->status_1 = 0;
             }
