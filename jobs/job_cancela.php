@@ -55,7 +55,11 @@ try {
         $chave = $std->nfe_chave_acesso;
         if ($id_empresa != $oldid_empresa) {
             //pega os dados do cliente dessa NFe
-            $client = json_decode(json_encode($cad->get($id_empresa)[0]));
+            $cads = $cad->get($id_empresa);
+            if (empty($cads)) {
+                throw new \Exception("O cliente [$id_empresa] está com o certificado vencido ou não foi encontrado.");
+            }
+            $client = json_decode(json_encode($cads[0]));
             $oldid_empresa = $id_empresa;
             $cancp = new CancelaProcess($client);
         }

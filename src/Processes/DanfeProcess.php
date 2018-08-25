@@ -28,12 +28,11 @@ class DanfeProcess extends BaseProcess
      */
     public function render($id, $xml)
     {
-        $logopath = $this->storage."/images/logo_".$this->cad->id_empresa.".jpg";
-        $logopath = $this->saveLogo($logopath);
         try {
+            $logo =  $this->loadLogo();
             $pdf = '';
-            $danfe = new Danfe($xml, 'P', 'A4', $logopath, 'I', '');
-            $danfe->montaDANFE();
+            $danfe = new Danfe($xml, 'P', 'A4', $logo, 'I', '');
+            $danfe->monta();
             $pdf = $danfe->render();
             $astd = [
                 'arquivo_nfe_pdf' => base64_encode($pdf),
@@ -50,6 +49,43 @@ class DanfeProcess extends BaseProcess
         return false;
     }
     
+    /**
+     * Carrega o logo da base de dados em uma string para inclusão 
+     * direta no PDF
+     * @return string
+     */
+    protected function loadLogo()
+    {
+        $image = $this->cad->logo;
+        if (empty($image)) {
+            return '';
+        }
+        //verifica string do logo
+        if ($image !== base64_encode(base64_decode($image))) {
+            //imagem invalida corrompida
+            $this->logger->error("Exception: ["
+                . $this->cad->id_empresa
+                . "] Imagem do Logo é inválida ou está corrompida.");
+            return '';
+        }
+        $img = gzdecode(base64_decode($image));
+        $ids = [
+            "png" => [8, "\x89\x50\x4E\x47\x0D\x0A\x1A\x0A"],
+            "jpg" => [3, "\xFF\xD8\xFF"]
+        ];
+        if (substr($img, 0, 3) !== $ids['jpg'][1] //não é jpg
+            && substr($img, 0, 8) !== $ids['png'][1] //não é png
+        ) {
+            //imagem invalida
+            $this->logger->error("Exception: ["
+                . $this->cad->id_empresa
+                . "] Imagem do Logo é inválida! Deve ser JPG ou PNG.");
+            return '';
+        }
+        return 'data://text/plain;base64,'.base64_encode($img);
+    }
+
+
     protected function saveLogo($logopath)
     {
         $image = $this->cad->logo;
