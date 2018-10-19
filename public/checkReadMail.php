@@ -3,6 +3,7 @@ error_reporting(0);
 ini_set('display_errors', 'Off');
 require_once '/var/www/aenet/bootstrap.php';
 
+use Aenet\NFe\DBase\Connection;
 use Aenet\NFe\Models\MailLog;
 
 function get_client_ip()
@@ -24,14 +25,23 @@ function get_client_ip()
         $ipaddress = 'UNKNOWN';
     return $ipaddress;
 }
+ 
+$k = !empty($_GET['k']) ? $_GET['k'] : 0;
 
-if (!empty($_GET['k']) && is_numeric($_GET['k']) && $_GET['k'] > 0) {
-    $log = new MailLog();
-    $log->id_nfes_aenet = $id;
-    $log->data = date('Y-m-d H:i:s');
-    $log->ip = get_client_ip();
-    $log->save();
+if (!empty($k) && is_numeric($k) && $k > 0) {
+    try {
+        $conn = new Connection();
+        $conn->connect();
+        $log = new MailLog();
+        $log->id_nfes_aenet = $k;
+        $log->data = date('Y-m-d H:i:s');
+        $log->ip = get_client_ip();
+        $log->save();
+    } catch (\Exception $e) {
+        //echo $e->getMessage();
+    }
 }
+
 
 // imprime imagem de 1px
 header("Content-type: image/jpeg");
@@ -41,3 +51,5 @@ header("Cache-Control: no-cache");
 header("Cache-Control: post-check=0, pre-check=0");
 header("Pragma: no-cache");
 echo base64_decode("R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==");
+
+ 
