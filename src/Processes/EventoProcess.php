@@ -8,6 +8,10 @@ use NFePHP\NFe\Tools;
 use NFePHP\NFe\Complements;
 use NFePHP\NFe\Common\Standardize;
 use stdClass;
+use Aenet\NFe\Models\Aenet;
+use Aenet\NFe\Models\Cadastro;
+use Aenet\NFe\Controllers\SmtpController;
+use NFePHP\Mail\Mail;
 
 class EventoProcess extends BaseProcess
 {
@@ -57,6 +61,9 @@ class EventoProcess extends BaseProcess
             } else {
                 //sucesso então protocolar
                 $xml = $this->cmpt->toAuthorize($request, $response);
+                //enviar email ao destinatário
+                //$this->sendMail($chave, $xml);
+                
             }
             $astd = [
                 'status' => $status,
@@ -77,5 +84,35 @@ class EventoProcess extends BaseProcess
             $this->evt->update($id, $astd);
             return false;
         }
+    }
+    
+    public function sendMail($chave, $xml)
+    {
+        $nfe = Aenet::where('nfe_chave_acesso', $chave)->first();
+        $address = !empty($nfe->email_destinatario) ? $nfe->email_destinatario : '';
+        if (empty($address)) {
+            return false;
+        }
+        $xmlnfe = $nfe->arquivo_nfe_xml;
+        if (empty($xmlnfe)) {
+            return false;
+        }
+        $std = $this->nfestd->toStd(base64_decode($nfe->arquivo_nfe_xml));
+        //criar o DACCE
+        $aEnd = array(
+            'razao' => $std->emit->xNome,
+            'logradouro' => $std->emit->enderEmit->xLgr,
+            'numero' => $std->emit->enderEmit->nro,
+            'complemento' => !empty($std->emit->enderEmit->compl) ? $std->emit->enderEmit->compl : '',
+            'bairro' => $std->emit->enderEmit->xBairro,
+            'CEP' => $std->emit->enderEmit->CEP,
+            'municipio' => $std->emit->enderEmit->xMun,
+            'UF' => $std->emit->enderEmit->UF,
+            'telefone' => !empty($std->emit->enderEmit->fone) ? $std->emit->enderEmit->fone : '',
+            'email' => '' 
+        );
+        $dacce = new Dacce($xml, 'P', 'A4', '', 'I', $aEnd);
+        //$dacce->render()
+        //$teste = $dacce->printDACCE($id.'.pdf', 'I');
     }
 }

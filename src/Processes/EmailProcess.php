@@ -57,11 +57,11 @@ class EmailProcess extends BaseProcess
         $this->aenet = new AenetController();
     }
     
-    
     private function template($id)
     {
-        $ip = $_SERVER['SERVER_ADDR'];
-        $url = "http://$ip/checkReadMail.php?k=$id";
+        //$ip = $_SERVER['SERVER_ADDR'];
+        $ip = getenv('HOST_IP');
+        $url = "http://" . $ip . "/checkReadMail.php?k=". $id;
         $this->htmlTemplate = str_replace('{image}', "<img src=\"$url\"><img>", $this->htmlTemplate);
     }
 
