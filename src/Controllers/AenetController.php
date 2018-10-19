@@ -59,6 +59,11 @@ class AenetController extends BaseController
         return Aenet::where('id_nfes_aenet', $id)->get()->toArray();
     }
     
+    public function find($field, $value)
+    {
+        return Aenet::where($field, $value)->get()->toArray();
+    }
+    
     public function update($id, $astd)
     {
         Aenet::where('id_nfes_aenet', $id)

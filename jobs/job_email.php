@@ -60,6 +60,9 @@ try {
             $client = json_decode(json_encode($cads[0]));
             $oldid_empresa = $id_empresa;
             $ep = new EmailProcess($client);
+            if (!empty($client->emailfrom)) {
+                $addresses[] = $client->emailfrom;
+            }
         }
         //em caso de erro nada será gravado na base
         //apenas um log será criado

@@ -2,6 +2,11 @@
 require_once '../bootstrap.php';
 
 use Aenet\NFe\Common\ServerMonitor;
+use Aenet\NFe\Models\Monitor;
+use Aenet\NFe\DBase\Connection;
+
+$conn = new Connection();
+$conn->connect();
 
 $monitor = new ServerMonitor();
 
@@ -14,7 +19,15 @@ $swap = "<small><p>SWAP Total: $monitor->totalswap<br>Swap Usado: $monitor->swap
 $uptime = "<small><p>Uptime: $monitor->uptimedays dias, $monitor->uptimehours horas e $monitor->uptimeminutes minutos</p></small>";
 
 $descriptions = "<h3>Sistema</h3><small><p>$monitor->ostype $monitor->osname $monitor->osrelease $monitor->osversion $monitor5->kernel $monitor->servercores<p></small>";
-
+/*
+$inut = Monitor::where('job', 'job_inutiliza')->latest('dtInicio')->first()->toArray();
+if (empty($inut)) {
+    $inutText = 'CRON JOB está Inoperante';
+} else {
+    if ($inut['dtInicio'] < date())
+    $inutText = '<p><b>Inicio</b></p><p>['.$inut['dtInicio'].']</p><p><b>Fim</b></p><p>['. $inut['dtFim'].']</p>';
+}
+*/
 /*
 echo "<pre>";
 print_r($load);
@@ -60,14 +73,31 @@ $template = "<!DOCTYPE html>
             </div>
             <div class=\"col-sm\">
             </div>
-        </div>    
+        </div>
+        <div class=\"row\">
+            <div class=\"col-sm\">
+                <h3>NFe</h3>
+            </div>
+            <div class=\"col-sm\">
+                <h3>Danfe</h3>
+            </div>
+            <div class=\"col-sm\">
+                <h3>Email</h3>
+            </div>
+            <div class=\"col-sm\">
+                <h3>Cancela</h3>
+            </div>
+            <div class=\"col-sm\">
+                <h3>Inutiliza</h3>
+            </div>
+            <div class=\"col-sm\">
+                <h3>DFe</h3>
+            </div>
+        </div    
     </div>
     <script src=\"GaugeMeter.js\"></script>
     <script>
         $(\".GaugeMeter\").gaugeMeter();
-    </script>
-    <script type=\"text/javascript\">
-        
     </script>
 </body>
 </html>";

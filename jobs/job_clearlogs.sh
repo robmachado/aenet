@@ -9,3 +9,4 @@ echo "" > /var/www/aenet/storage/job_mail.log
 echo "" > /var/www/aenet/storage/job_evento.log
 echo "" > /var/www/aenet/storage/job_cancela.log
 echo "" > /var/www/aenet/storage/job_inutiliza.log
+echo "" > /var/www/aenet/storage/job_truncate_monitor.log
