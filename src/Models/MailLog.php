@@ -14,4 +14,3 @@ class MailLog extends Eloquent
         'ip'
     ];
 }
-

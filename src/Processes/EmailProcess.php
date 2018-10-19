@@ -98,5 +98,4 @@ class EmailProcess extends BaseProcess
         }
         return true;
     }
-
 }

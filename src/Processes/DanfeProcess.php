@@ -50,7 +50,7 @@ class DanfeProcess extends BaseProcess
     }
     
     /**
-     * Carrega o logo da base de dados em uma string para inclusão 
+     * Carrega o logo da base de dados em uma string para inclusão
      * direta no PDF
      * @return string
      */

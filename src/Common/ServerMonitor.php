@@ -157,7 +157,12 @@ class ServerMonitor
         if (function_exists('exec')) {
             $www_total_count = 0;
             $unique = [];
-            @exec('netstat -an | egrep \':80|:443\' | awk \'{print $5}\' | grep -v \':::\*\' |  grep -v \'0.0.0.0\'', $results);
+            $command = 'netstat -an '
+                . '| egrep \':80|:443\' '
+                . '| awk \'{print $5}\' '
+                . '| grep -v \':::\*\' '
+                . '|  grep -v \'0.0.0.0\'';
+            @exec($command, $results);
             foreach ($results as $result) {
                 $array = explode(':', $result);
                 $www_total_count ++;

@@ -48,7 +48,7 @@ class CadastroController extends BaseController
     }
     
     /**
-     * Atualiza os dados quando a data de validade do 
+     * Atualiza os dados quando a data de validade do
      * certificado estiver NULL
      */
     public function validateCertNull()
@@ -60,7 +60,7 @@ class CadastroController extends BaseController
     }
     
     /**
-     * Faz a verificação da data de validade e 
+     * Faz a verificação da data de validade e
      * verifica o funcionamento do PFX
      * @param Cadastro $client
      */
