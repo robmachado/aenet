@@ -73,5 +73,4 @@ class EmailCCeProcess extends BaseProcess
         }
         return true;
     }
-    
 }

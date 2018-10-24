@@ -63,7 +63,6 @@ class EventoProcess extends BaseProcess
                 $xml = $this->cmpt->toAuthorize($request, $response);
                 //enviar email ao destinatário
                 //$this->sendMail($chave, $xml);
-                
             }
             $astd = [
                 'status' => $status,
@@ -109,7 +108,7 @@ class EventoProcess extends BaseProcess
             'municipio' => $std->emit->enderEmit->xMun,
             'UF' => $std->emit->enderEmit->UF,
             'telefone' => !empty($std->emit->enderEmit->fone) ? $std->emit->enderEmit->fone : '',
-            'email' => '' 
+            'email' => ''
         );
         $dacce = new Dacce($xml, 'P', 'A4', '', 'I', $aEnd);
         //$dacce->render()
