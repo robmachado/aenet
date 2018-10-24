@@ -34,7 +34,7 @@ class BaseProcess
      */
     protected $storage;
     
-    public function __construct(stdClass $cad, $pathlog)
+    public function __construct(stdClass $cad, $pathlog, $init = true)
     {
         $this->cad = $cad;
         $config = new Config(
@@ -51,7 +51,9 @@ class BaseProcess
         $this->logger->pushHandler(
             new StreamHandler($this->storage . '/' . $pathlog, Logger::WARNING)
         );
-        $this->loadTools();
+        if ($init) {
+            $this->loadTools();
+        }
     }
     
     protected function loadTools()
