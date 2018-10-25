@@ -49,6 +49,9 @@ try {
         $std = json_decode(json_encode($evt));
         $id = $std->id;
         $id_empresa = $std->id_empresa;
+        if ($cad->checkInactivity($id_empresa)) {
+            continue;
+        }
         $xml = base64_decode($std->xml);
         if ($id_empresa != $oldid_empresa) {
             //pega os dados do cliente dessa NFe

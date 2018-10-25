@@ -55,6 +55,9 @@ try {
         $nFin = $std->num_final;
         $xJust = $std->justificativa;
         $sequencial = $std->sequencial;
+        if ($cad->checkInactivity($id_empresa)) {
+            continue;
+        }
         if ($id_empresa != $oldid_empresa) {
             //pega os dados do cliente dessa NFe
             $cads = $cad->get($id_empresa);

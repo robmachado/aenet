@@ -47,6 +47,9 @@ try {
         $addresses = explode(';', $std->email_destinatario);
         $xml = base64_decode($std->xml);
         $pdf = base64_decode($std->arquivo_evento_pdf);
+        if ($cad->checkInactivity($id_empresa)) {
+            continue;
+        }
         if ($id_empresa != $oldid_empresa) {
             //pega os dados do cliente dessa NFe
             $cads = $cad->get($id_empresa);

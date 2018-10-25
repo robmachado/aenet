@@ -47,6 +47,9 @@ try {
         $id = $std->id_nfes_aenet;
         $id_empresa = $std->id_empresa;
         $xml = base64_decode($std->arquivo_nfe_xml);
+        if ($cad->checkInactivity($id_empresa)) {
+            continue;
+        }
         if ($id_empresa != $oldid_empresa) {
             //pega os dados do cliente dessa NFe
             $cads = $cad->get($id_empresa);

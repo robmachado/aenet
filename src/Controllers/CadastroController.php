@@ -33,8 +33,23 @@ class CadastroController extends BaseController
     }
     
     /**
+     * Verifica se está marcado como inativo
+     * isso deve impedir quelquer processamento
+     * @param int $id
+     * @return boolean
+     */
+    public function checkInactivity($id)
+    {
+        $cad = Cadastro::where('id_empresa', 28)
+            ->select('inactive')
+            ->first();
+        return $cad->inactive;
+    }
+    
+    /**
      * Retorna todos os registros do cadastro
-     * com certificado dentro da validade
+     * com certificado dentro da validade e com 
+     * o campo INACTIVE = false
      * @return array
      */
     public function getAllValid()
@@ -44,7 +59,9 @@ class CadastroController extends BaseController
             'crtvalid_to',
             '>=',
             $dt->format('Y-m-d H:i:s')
-        )->get();
+        )
+        ->where('inactive', '=', false)
+        ->get();
     }
     
     /**

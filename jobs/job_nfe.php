@@ -51,6 +51,9 @@ try {
         $txt = str_replace("\r", "", $std->arquivo_nfe_txt);
         $recibo = $std->recibo;
         $xml  = base64_decode($std->arquivo_nfe_xml);
+        if ($cad->checkInactivity($id_empresa)) {
+            continue;
+        }
         if ($id_empresa != $oldid_empresa) {
             //pega os dados do cliente dessa NFe
             $client = json_decode(json_encode($cad->get($id_empresa)[0]));

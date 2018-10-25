@@ -56,6 +56,9 @@ try {
         $xCorrecao = $std->justificativa;
         $nSeqEvento = $std->sequencial;
         $chave = $std->nfe_chave_acesso;
+        if ($cad->checkInactivity($id_empresa)) {
+            continue;
+        }
         if ($id_empresa != $oldid_empresa) {
             //pega os dados do cliente dessa NFe
             $cads = $cad->get($id_empresa);
