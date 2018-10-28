@@ -40,7 +40,7 @@ class CadastroController extends BaseController
      */
     public function checkInactivity($id)
     {
-        $cad = Cadastro::where('id_empresa', 28)
+        $cad = Cadastro::where('id_empresa', $id)
             ->select('inactive')
             ->first();
         return $cad->inactive;
