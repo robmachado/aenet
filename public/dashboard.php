@@ -2,8 +2,8 @@
 require_once '../bootstrap.php';
 
 use Aenet\NFe\Common\ServerMonitor;
-use Aenet\NFe\Models\Monitor;
-use Aenet\NFe\DBase\Connection;
+//use Aenet\NFe\Models\Monitor;
+//use Aenet\NFe\DBase\Connection;
 
 //$conn = new Connection();
 //$conn->connect();
@@ -16,14 +16,14 @@ use Aenet\NFe\DBase\Connection;
 //$load = round($monitor->load[2],1);
 //$disk = $monitor->diskusage;
 //$swap = "<small><p>SWAP Total: $monitor->totalswap<br>Swap Usado: $monitor->swapusage</p></small>";
-//$uptime = "<small><p>Uptime: $monitor->uptimedays dias, $monitor->uptimehours horas e $monitor->uptimeminutes minutos</p></small>";
+$uptime = "<small><p>Uptime: $monitor->uptimedays dias, $monitor->uptimehours horas e $monitor->uptimeminutes minutos</p></small>";
 //$descriptions = "<h3>Sistema</h3><small><p>$monitor->ostype $monitor->osname $monitor->osrelease $monitor->osversion $monitor5->kernel $monitor->servercores<p></small>";
 $memoryinfo = '';
 $memory = '';
 $load = '';
 $disk = '';
 $swap = '';
-$uptime = '';
+//$uptime = '';
 $descriptions = '';
 /*
 $inut = Monitor::where('job', 'job_inutiliza')->latest('dtInicio')->first()->toArray();
