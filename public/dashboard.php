@@ -5,21 +5,26 @@ use Aenet\NFe\Common\ServerMonitor;
 use Aenet\NFe\Models\Monitor;
 use Aenet\NFe\DBase\Connection;
 
-$conn = new Connection();
-$conn->connect();
+//$conn = new Connection();
+//$conn->connect();
 
-$monitor = new ServerMonitor();
+//$monitor = new ServerMonitor();
 
-$memoryinfo = "<small><p>Memoria Total: $monitor->totalservermemory<br>Memoria Livre: $monitor->freeservermemory <br>PHP Alocada: $monitor->phpmemoryallocate<br>PHP Usada: $monitor->phpmemoryusage<br>PHP Peak: $monitor->phppeakmemoryusage</p></small>";
-echo $memoryinfo;
-die;
-$memory = round($monitor->memoryusage,0);
-$load = round($monitor->load[2],1);
-$disk = $monitor->diskusage;
-$swap = "<small><p>SWAP Total: $monitor->totalswap<br>Swap Usado: $monitor->swapusage</p></small>";
-$uptime = "<small><p>Uptime: $monitor->uptimedays dias, $monitor->uptimehours horas e $monitor->uptimeminutes minutos</p></small>";
-$descriptions = "<h3>Sistema</h3><small><p>$monitor->ostype $monitor->osname $monitor->osrelease $monitor->osversion $monitor5->kernel $monitor->servercores<p></small>";
+//$memoryinfo = "<small><p>Memoria Total: $monitor->totalservermemory<br>Memoria Livre: $monitor->freeservermemory <br>PHP Alocada: $monitor->phpmemoryallocate<br>PHP Usada: $monitor->phpmemoryusage<br>PHP Peak: $monitor->phppeakmemoryusage</p></small>";
 
+//$memory = round($monitor->memoryusage,0);
+//$load = round($monitor->load[2],1);
+//$disk = $monitor->diskusage;
+//$swap = "<small><p>SWAP Total: $monitor->totalswap<br>Swap Usado: $monitor->swapusage</p></small>";
+//$uptime = "<small><p>Uptime: $monitor->uptimedays dias, $monitor->uptimehours horas e $monitor->uptimeminutes minutos</p></small>";
+//$descriptions = "<h3>Sistema</h3><small><p>$monitor->ostype $monitor->osname $monitor->osrelease $monitor->osversion $monitor5->kernel $monitor->servercores<p></small>";
+$memoryinfo = '';
+$memory = '';
+$load = '';
+$disk = '';
+$swap = '';
+$uptime = '';
+$descriptions = '';
 /*
 $inut = Monitor::where('job', 'job_inutiliza')->latest('dtInicio')->first()->toArray();
 if (empty($inut)) {
