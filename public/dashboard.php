@@ -8,7 +8,7 @@ use Aenet\NFe\Common\ServerMonitor;
 //$conn = new Connection();
 //$conn->connect();
 
-//$monitor = new ServerMonitor();
+$monitor = new ServerMonitor();
 
 //$memoryinfo = "<small><p>Memoria Total: $monitor->totalservermemory<br>Memoria Livre: $monitor->freeservermemory <br>PHP Alocada: $monitor->phpmemoryallocate<br>PHP Usada: $monitor->phpmemoryusage<br>PHP Peak: $monitor->phppeakmemoryusage</p></small>";
 
