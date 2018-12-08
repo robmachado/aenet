@@ -27,7 +27,7 @@ try {
             } elseif ($certificate->isExpired() === true) {
                 echo '0|CERTIFICADO EXPIRADO EM: ' . $certificate->getValidTo()->format('d/m/Y H:m:s');
             } else {
-                echo '1|CERTIFICADO VALIDO';
+                echo '1|CERTIFICADO VALIDO|' . $certificate->getValidTo()->format('Y-m-d');
             }
         } else {
             echo '0|PARAMETROS INVALIDOS';
