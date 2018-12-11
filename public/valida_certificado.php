@@ -4,7 +4,7 @@ ini_set('display_errors', 'Off');
 require_once '/var/www/aenet/bootstrap.php';
 
 /**
- * Service para validação de certificados
+ * Service para validação de certificados S
  **/
 
 use NFePHP\Common\Certificate;
