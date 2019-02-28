@@ -32,11 +32,14 @@ if (!empty($k) && is_numeric($k) && $k > 0) {
     try {
         $conn = new Connection();
         $conn->connect();
-        $log = new MailCCeLog();
-        $log->id_aenet_evento = $k;
-        $log->data = date('Y-m-d H:i:s');
-        $log->ip = get_client_ip();
-        $log->save();
+        $res = MailCCeLog::where('id_aenet_evento', $k)->first();
+        if (empty($res)) {
+            $log = new MailCCeLog();
+            $log->id_aenet_evento = $k;
+            $log->data = date('Y-m-d H:i:s');
+            $log->ip = get_client_ip();
+            $log->save();
+        }   
     } catch (\Exception $e) {
         //echo $e->getMessage();
     }

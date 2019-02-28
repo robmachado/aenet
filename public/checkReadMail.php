@@ -32,11 +32,14 @@ if (!empty($k) && is_numeric($k) && $k > 0) {
     try {
         $conn = new Connection();
         $conn->connect();
-        $log = new MailLog();
-        $log->id_nfes_aenet = $k;
-        $log->data = date('Y-m-d H:i:s');
-        $log->ip = get_client_ip();
-        $log->save();
+        $res = MailLog::where('id_nfes_aenet', $k)->first();
+        if (empty($res)) {
+            $log = new MailLog();
+            $log->id_nfes_aenet = $k;
+            $log->data = date('Y-m-d H:i:s');
+            $log->ip = get_client_ip();
+            $log->save();
+        }    
     } catch (\Exception $e) {
         //echo $e->getMessage();
     }

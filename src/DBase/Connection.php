@@ -14,27 +14,27 @@ class Connection
     /**
      * @var string
      */
-    private $driver    = 'mysql';
+    private $driver = 'mysql';
     /**
      * @var string
      */
-    private $host      = '';
+    private $host = '';
     /**
      * @var string
      */
-    private $database  = '';
+    private $database = '';
     /**
      * @var string
      */
-    private $username  = '';
+    private $username = '';
     /**
      * @var string
      */
-    private $password  = '';
+    private $password = '';
     /**
      * @var string
      */
-    private $charset   = 'utf8';
+    private $charset = 'utf8';
     /**
      * @var string
      */
@@ -42,7 +42,7 @@ class Connection
     /**
      * @var string
      */
-    private $prefix    = '';
+    private $prefix = '';
     
     /**
      * Constructor uses .ENV file for database parameters
