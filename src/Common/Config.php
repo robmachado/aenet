@@ -24,7 +24,7 @@ class Config
         $siglaUF,
         $cnpj,
         $tpAmb = 2,
-        $schemes = 'PL_009_V4',
+        $schemes = 'PL_009_V4_00_v1.20',
         $versao = '4.00',
         $tokenIBPT = '',
         $CSC = '',
@@ -36,10 +36,6 @@ class Config
             "proxyPass" => ""
         ]
     ) {
-        $schemes = 'PL_009_V4';
-        if ($versao == '3.10') {
-            $schemes = 'PL_008i2';
-        }
         $this->tpAmb = $tpAmb;
         $this->razaosocial = $razaosocial;
         $this->siglaUF = $siglaUF;

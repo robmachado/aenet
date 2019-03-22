@@ -48,7 +48,7 @@ class CadastroController extends BaseController
     
     /**
      * Retorna todos os registros do cadastro
-     * com certificado dentro da validade e com 
+     * com certificado dentro da validade e com
      * o campo INACTIVE = false
      * @return array
      */

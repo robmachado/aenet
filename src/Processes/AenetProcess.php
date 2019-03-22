@@ -50,7 +50,7 @@ class AenetProcess extends BaseProcess
         //o status retornado a 0.
         try {
             $astd = [];
-            $xml = Convert::parse($txt);
+            $xml = Convert::parse($txt, 'LOCAL_V12');
         } catch (\Exception $e) {
             $error = $e->getMessage();
             $astd = [
