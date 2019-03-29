@@ -24,7 +24,7 @@ class Config
         $siglaUF,
         $cnpj,
         $tpAmb = 2,
-        $schemes = 'PL_009_V4_00_v1.20',
+        $schemes = 'PL_009_V4',
         $versao = '4.00',
         $tokenIBPT = '',
         $CSC = '',
