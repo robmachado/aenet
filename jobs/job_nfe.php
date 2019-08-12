@@ -104,6 +104,7 @@ try {
         . "</p><br/>" . date('Y-m-d H:i:s')
     );
 }
+
 //indicar a dtFim do job na tabela monitor
 $mon->finalize($idjob, $comments);
 die;

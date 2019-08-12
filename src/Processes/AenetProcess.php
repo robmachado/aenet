@@ -51,6 +51,16 @@ class AenetProcess extends BaseProcess
         try {
             $astd = [];
             $xml = Convert::parse($txt, 'LOCAL_V12');
+        } catch (\Throwable $error) {
+            $error = 'TXT incorreto';
+            $astd = [
+                'status_nfe' => 9, //erro 9 esse registro será ignorado
+                'motivo' => $error
+            ];
+            $this->aenet->update($id, $astd);
+            $trace = json_encode($error->getTrace(), JSON_PRETTY_PRINT);
+            $this->logger->error("ERROR: $id - $error {$trace}");
+            return false;
         } catch (\Exception $e) {
             $error = $e->getMessage();
             $astd = [

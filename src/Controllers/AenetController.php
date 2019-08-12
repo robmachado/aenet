@@ -16,6 +16,7 @@ class AenetController extends BaseController
     public function nfeAll()
     {
         return Aenet::where('status_nfe', 0)
+            ->where('arquivo_nfe_txt', '<>', '')
             ->orderBy('id_empresa')
             ->get()
             ->toArray();
