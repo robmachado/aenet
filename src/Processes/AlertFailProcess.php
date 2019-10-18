@@ -10,7 +10,7 @@ class AlertFailProcess
     public static function sendAlert($subject, $content)
     {
         $smtp = new SmtpController();
-        
+
         $config = $smtp->get();
         $std = json_decode(json_encode($config[0]));
         $mail = new PHPMailer(true);
@@ -28,9 +28,11 @@ class AlertFailProcess
             //Recipients
             $mail->setFrom($std->user, 'AENET ALERT - '. $_ENV['HOST_NAME']);
             !empty($_ENV['ALERT_DEST_1']) ? $mail->addAddress($_ENV['ALERT_DEST_1']) : '';
-            !empty($_ENV['ALERT_DEST_2']) ? $mail->addAddress($_ENV['ALERT_DEST_2']): '';
+            !empty($_ENV['ALERT_DEST_2']) ? $mail->addAddress($_ENV['ALERT_DEST_2']) : '';
             !empty($_ENV['ALERT_DEST_3']) ? $mail->addAddress($_ENV['ALERT_DEST_3']) : '';
-            
+            !empty($_ENV['ALERT_DEST_4']) ? $mail->addAddress($_ENV['ALERT_DEST_4']) : '';
+            !empty($_ENV['ALERT_DEST_5']) ? $mail->addAddress($_ENV['ALERT_DEST_5']) : '';
+
             //Content
             $mail->isHTML(true); // Set email format to HTML
             $mail->Subject = $subject;
