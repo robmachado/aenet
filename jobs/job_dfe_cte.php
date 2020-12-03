@@ -4,10 +4,10 @@ ini_set('display_errors', 'On');
 require_once '/var/www/aenet/bootstrap.php';
 
 /**
- * Processamento de busca dos documentos destinados DFe
+ * Processamento de busca dos documentos destinados CTe
  * para cada cliente cadastrado com certificados válidos
  */
-use Aenet\NFe\Processes\DFeProcess;
+use Aenet\NFe\Processes\DFeProcessCTe;
 use Aenet\NFe\Controllers\CadastroController;
 use Aenet\NFe\Processes\AlertFailProcess;
 use Aenet\NFe\Controllers\MonitorController;
@@ -17,7 +17,7 @@ use Monolog\Handler\StreamHandler;
 //antes de iniciar o processo, verifica se já existe outro processo
 //em andamento, com a verificação do arquivo de controle Flag, se não conseguir
 //criar o arquivo de controle, é porque existe outro job_dfe em andamento
-$jobname = 'job_dfe_nfe';
+$jobname = 'job_dfe_cte';
 $mon = new MonitorController();
 //remove registros iniciados a mais de um dia
 $mon->clear();
@@ -33,17 +33,16 @@ $logger->pushHandler(
 );
 //indicar inicio de novo job
 $idjob = $mon->inicialize($jobname);
+$comments = 'Inicalizada busca CTe destinados';
 try {
     $cad = new CadastroController();
     $clients = $cad->getAllValid();
     foreach ($clients as $c) {
         //para cada cliente registrado iniciar um novo processo DFe
         $client = json_decode(json_encode($c));
-        $dfe = new DFeProcess($client);
+        $dfe = new DFeProcessCTe($client);
         //trazer os NSUs deste cliente para a base de dados
         $nsuproc = $dfe->search();
-        //manifestar com ciencia da opereção os resNFe localizados
-        $dfe->manifestaAll();
         $comments = "SUCESSO $nsuproc NSU processados.";
     }
 } catch (\Exception $e) {

@@ -2,7 +2,7 @@
 
 namespace Aenet\NFe\Processes;
 
-use PHPMailer;
+use PHPMailer\PHPMailer\PHPMailer;
 use Aenet\NFe\Controllers\SmtpController;
 
 class AlertFailProcess

@@ -21,7 +21,7 @@ class DFeProcess extends BaseProcess
 
     public function __construct(stdClass $cad)
     {
-        parent::__construct($cad, 'job_dfe.log');
+        parent::__construct($cad, 'job_dfe_nfe.log');
         $this->nsus = new NsusController();
     }
     
@@ -29,7 +29,7 @@ class DFeProcess extends BaseProcess
     {
         $ultNSU = $this->nsus->getLastNSU($this->cad->id_empresa);
         $maxNSU = $ultNSU;
-        $limit = 10;
+        $limit = 11;
         $iCount = 0;
         $nsuproc = 0;
         //executa a busca de DFe em loop
@@ -133,6 +133,15 @@ class DFeProcess extends BaseProcess
     {
         //salva NSU
         $this->saveNSU($std, $numnsu, $content, $tipo);
+        //patrick 2019-11-11 registro 34977 cliente 40 é a transportadora
+        //da mercadoria apenas
+        if ($std->NFe->infNFe->dest->CNPJ != $this->cad->cnpj) {
+            //essa nfe não é destinada ao cliente
+            //pode ser a transportadora ou dos autorizados a 
+            //receber o documento
+            //portanto não gravar o XML 
+            return true;
+        }
         //cria um novo registro de NFe tabela dfe_nfes
         $dt = new DateTime($std->NFe->infNFe->ide->dhEmi);
         $nf = new NFe();

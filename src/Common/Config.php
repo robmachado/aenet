@@ -24,8 +24,8 @@ class Config
         $siglaUF,
         $cnpj,
         $tpAmb = 2,
-        $schemes = 'PL_009_V4',
-        $versao = '4.00',
+        $schemes,
+        $versao,
         $tokenIBPT = '',
         $CSC = '',
         $CSCid = '',
@@ -51,7 +51,7 @@ class Config
     public function __toString()
     {
         $conf = [
-            'atualizacao' => date('Y-=m-d H:i:s'),
+            'atualizacao' => date('Y-m-d H:i:s'),
             'tpAmb' => $this->tpAmb,
             'razaosocial' => $this->razaosocial,
             'siglaUF' => $this->siglaUF,

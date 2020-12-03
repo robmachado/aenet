@@ -48,14 +48,26 @@ nano job_dfe
 Insira os comandos
 
 ```bash
-# Tarefa de busca de documentos destinados
+# Tarefa de busca de documentos destinados NFe
 # Essa tarefa será executada
 # 1   = ao primeiro 1 minuto,
-# */4 = a cada 4 horas,
+# 6,10,14,18 = a cada 4 horas,
 # *   = todos os dias,
 # *   = todos os meses,
 # 1-5 = mas apenas de segunda a sexta-feira
-1 */4 * * 1-5 root php /var/www/aenet/jobs/job_dfe.php &> /dev/null
+1 6,10,14,18 * * 1-5 root php /var/www/aenet/jobs/job_dfe.php &> /dev/null
+```
+
+
+```bash
+# Tarefa de busca de documentos destinados CTe
+# Essa tarefa será executada
+# 1   = ao primeiro 1 minuto,
+# 8,12,16,20 = a cada 4 horas,
+# *   = todos os dias,
+# *   = todos os meses,
+# 1-5 = mas apenas de segunda a sexta-feira
+30 4,8,12,16,20 * * 1-5 root php /var/www/aenet/jobs/job_dfe_cte.php &> /dev/null
 ```
 
 ## Tarefa de envio das NFe
