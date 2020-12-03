@@ -15,7 +15,8 @@ use DateTime;
 class DFeProcessCTe extends BaseProcess
 {
     protected $type = [
-        '110110 ' => 'Carta de Correção',
+        '110180' => 'Comprovante de Entrega',
+        '110110' => 'Carta de Correção',
         '110111' => 'Cancelamento',
         '110113' => 'EPEC',
         '110160' => 'Registros do Multimodal',
