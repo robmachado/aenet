@@ -24,7 +24,7 @@ class AenetProcess extends BaseProcess
      * @var Standardize
      */
     protected $nfestd;
-    
+
     /**
      * Constructor
      * @param stdClass $cad
@@ -36,7 +36,7 @@ class AenetProcess extends BaseProcess
         $this->cmpt = new Complements();
         $this->nfestd = new Standardize();
     }
-    
+
     /**
      * Converts, sign, valid, send and autorize XML
      * @param int $id
@@ -51,15 +51,15 @@ class AenetProcess extends BaseProcess
         try {
             $astd = [];
             $xml = Convert::parse($txt, 'LOCAL_V12');
-        } catch (\Throwable $error) {
-            $error = 'TXT incorreto';
+        } catch (\Throwable $e) {
+            $error = 'TXT incorreto! ';
             $astd = [
                 'status_nfe' => 9, //erro 9 esse registro será ignorado
                 'motivo' => $error
             ];
             $this->aenet->update($id, $astd);
-            $trace = json_encode($error->getTrace(), JSON_PRETTY_PRINT);
-            $this->logger->error("ERROR: $id - $error {$trace}");
+            $trace = json_encode($e->getTrace(), JSON_PRETTY_PRINT);
+            $this->logger->error("ERROR: $id - $error {$e->getCode()} {$e->getMessage()}  {$trace}");
             return false;
         } catch (\Exception $e) {
             $error = $e->getMessage();
@@ -71,7 +71,7 @@ class AenetProcess extends BaseProcess
             $this->aenet->update($id, $astd);
             return false;
         }
-        
+
         //tenta assinar a NFe se falhar grava ERRO e retorna
         //esse registro será bloqueado até que novo TXT seja inserido e
         //o status retornado a 0.
@@ -100,7 +100,7 @@ class AenetProcess extends BaseProcess
             $this->aenet->update($id, $astd);
             return false;
         }
-        
+
         //tenta enviar para a SEFAZ se falhar grava o ERRO e retorna
         try {
             $astd = [];
@@ -142,7 +142,7 @@ class AenetProcess extends BaseProcess
         //busca o protocolo
         return $this->consulta($id, $recibo, $xmlsigned);
     }
-    
+
     public function consulta($id, $recibo, $xml)
     {
         //tenta buscar o recibo

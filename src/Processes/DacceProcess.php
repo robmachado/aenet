@@ -32,9 +32,9 @@ class DacceProcess extends BaseProcess
         try {
             $logo =  $this->loadLogo();
             $pdf = '';
-            $dacce = new Dacce($xml, 'P', 'A4', $logo, 'S', $aEmit);
-            $dacce->monta('P', 'A4', 'C');
-            $pdf = $dacce->printDACCE('', 'S');
+            $daevento = new Daevento($xml, $aEmit);
+            $daevento->creditsIntegratorFooter('AENET Sistemas - http://www.aenet.com.br');
+            $pdf = $daevento->render($logo);
             $astd = [
                 'arquivo_evento_pdf' => base64_encode($pdf),
                 'pdf_gerado' => '1'

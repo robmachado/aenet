@@ -31,9 +31,10 @@ class DanfeProcess extends BaseProcess
         try {
             $logo =  $this->loadLogo();
             $pdf = '';
-            $danfe = new Danfe($xml, 'P', 'A4', $logo, 'I', '');
-            $danfe->monta();
-            $pdf = $danfe->render();
+            $danfe = new Danfe($xml);
+            $danfe->debugMode(false);
+            $danfe->creditsIntegratorFooter('AENET Sistemas - http://www.aenet.com.br');
+            $pdf = $danfe->render($logo);
             $astd = [
                 'arquivo_nfe_pdf' => base64_encode($pdf),
                 'data_danfe' => date('Y-m-d'),
