@@ -4,7 +4,7 @@ namespace Aenet\NFe\Processes;
 
 use Aenet\NFe\Processes\BaseProcess;
 use Aenet\NFe\Controllers\EventoController;
-use NFePHP\DA\NFe\Dacce;
+use NFePHP\DA\NFe\Daevento;
 use stdClass;
 
 class DacceProcess extends BaseProcess
@@ -33,7 +33,7 @@ class DacceProcess extends BaseProcess
             $logo =  $this->loadLogo();
             $pdf = '';
             $daevento = new Daevento($xml, $aEmit);
-            $daevento->creditsIntegratorFooter('AENET Sistemas - http://www.aenet.com.br');
+            $daevento->creditsIntegratorFooter('AENET Sistemas - http://www.aenet.com.br', false);
             $pdf = $daevento->render($logo);
             $astd = [
                 'arquivo_evento_pdf' => base64_encode($pdf),
