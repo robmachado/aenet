@@ -52,7 +52,7 @@ class AenetProcess extends BaseProcess
             $astd = [];
             $xml = Convert::parse($txt, 'LOCAL_V12');
         } catch (\Throwable $e) {
-            $error = "TXT incorreto! {$e->getMessage}";
+            $error = "TXT incorreto! vide LOG para detalhes.";
             $astd = [
                 'status_nfe' => 9, //erro 9 esse registro será ignorado
                 'motivo' => $error
