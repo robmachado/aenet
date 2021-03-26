@@ -16,11 +16,11 @@ $logger = new Logger('Aenet');
 $logger->pushHandler(
     new StreamHandler(__DIR__ . "/../storage/$jobname.log", Logger::WARNING)
 );
-$resp = shell_exec('service cron stop');
+//$resp = shell_exec('service cron stop');
 $logger->error($resp);
 Monitor::truncate();
-$resp = shell_exec('service cron start');
-$resp = shell_exec('service cron status');
+//$resp = shell_exec('service cron start');
+//$resp = shell_exec('service cron status');
 $logger->error($resp);
 die;
 

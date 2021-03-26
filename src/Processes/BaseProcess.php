@@ -24,7 +24,7 @@ class BaseProcess
     protected $config;
 
     /**
-     * @var NFePHP\NFe\Tools | NFePHP\CTe\Tools
+     * @var NFePHP\NFe\Tools 
      */
     protected $tools;
 
