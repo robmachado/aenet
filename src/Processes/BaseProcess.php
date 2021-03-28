@@ -41,7 +41,7 @@ class BaseProcess
     public function __construct(stdClass $cad, $pathlog, $init = true)
     {
         $this->cad = $cad;
-        if ($pathlog == 'job_dfe_nfe.log') {
+        if (strpos($pathlog, 'nfe') != false) {
             $type = 'nfe';
             $config = new Config(
                 $cad->fantasia,

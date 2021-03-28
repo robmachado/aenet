@@ -50,7 +50,9 @@ class AenetProcess extends BaseProcess
         //o status retornado a 0.
         try {
             $astd = [];
+            //$txt = str_replace('/', '', $txt);
             $xml = Convert::parse($txt, 'LOCAL_V12');
+            //$this->aenet->update($id, ['arquivo_nfe_xml' => $xml[0]]);
         } catch (\Throwable $e) {
             $error = "TXT incorreto! vide LOG para detalhes.";
             $astd = [
@@ -61,7 +63,7 @@ class AenetProcess extends BaseProcess
             $trace = json_encode($e->getTrace(), JSON_PRETTY_PRINT);
             $this->logger->error("ERROR: $id - $error {$e->getCode()} {$e->getMessage()}  {$trace}");
             return false;
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
             $error = $e->getMessage();
             $astd = [
                 'status_nfe' => 9, //erro 9 esse registro será ignorado
@@ -77,7 +79,8 @@ class AenetProcess extends BaseProcess
         //o status retornado a 0.
         try {
             $astd = [];
-            $xmlsigned = $this->tools->signNFe($xml[0]);
+            $xmltext = $xml[0];
+            $xmlsigned = $this->tools->signNFe($xmltext);
             $dom = new \DOMDocument('1.0', 'UTF-8');
             $dom->preserveWhiteSpace = false;
             $dom->formatOutput = false;
@@ -90,7 +93,7 @@ class AenetProcess extends BaseProcess
             ];
             $this->aenet->update($id, $astd);
             $dom = null;
-        } catch (\Exception $e) {
+        } catch (\Thowable $e) {
             $error = str_replace(["'", '"'], "", $e->getMessage());
             $astd = [
                 'status_nfe' => 9, //erro 9 esse registro será ignorado
@@ -128,7 +131,7 @@ class AenetProcess extends BaseProcess
                 'data_envio_h'=> date('H:i:s')
             ];
             $this->aenet->update($id, $astd);
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
             $error = $e->getMessage();
             $astd = [
                 'status_nfe' => 9,
