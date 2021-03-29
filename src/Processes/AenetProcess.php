@@ -54,7 +54,7 @@ class AenetProcess extends BaseProcess
             $xml = Convert::parse($txt, 'LOCAL_V12');
             //$this->aenet->update($id, ['arquivo_nfe_xml' => $xml[0]]);
         } catch (\Throwable $e) {
-            $error = "TXT incorreto! vide LOG para detalhes.";
+            $error = "{$e->getMessage()}";
             $astd = [
                 'status_nfe' => 9, //erro 9 esse registro será ignorado
                 'motivo' => $error
