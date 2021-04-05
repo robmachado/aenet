@@ -10,7 +10,6 @@ class AlertFailProcess
     public static function sendAlert($subject, $content)
     {
         $smtp = new SmtpController();
-
         $config = $smtp->get();
         $std = json_decode(json_encode($config[0]));
         $mail = new PHPMailer(true);
