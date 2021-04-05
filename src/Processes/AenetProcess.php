@@ -53,7 +53,7 @@ class AenetProcess extends BaseProcess
             //$txt = str_replace('/', '', $txt);
             $xml = Convert::parse($txt, 'LOCAL_V12');
             //$this->aenet->update($id, ['arquivo_nfe_xml' => $xml[0]]);
-        } catch (\Throwable $e) {
+        } catch (\Exception $e) {
             $error = "{$e->getMessage()}";
             $astd = [
                 'status_nfe' => 9, //erro 9 esse registro será ignorado
@@ -61,7 +61,7 @@ class AenetProcess extends BaseProcess
             ];
             $this->aenet->update($id, $astd);
             $trace = json_encode($e->getTrace(), JSON_PRETTY_PRINT);
-            $this->logger->error("ERROR: $id - $error {$e->getCode()} {$e->getMessage()}  {$trace}");
+            $this->logger->error("Exception Convert: $id - $error {$e->getCode()} {$e->getMessage()}  {$trace}");
             return false;
         } catch (\Throwable $e) {
             $error = $e->getMessage();
@@ -69,7 +69,7 @@ class AenetProcess extends BaseProcess
                 'status_nfe' => 9, //erro 9 esse registro será ignorado
                 'motivo' => $error
             ];
-            $this->logger->error("Exception: $id - $error");
+            $this->logger->error("Error Convert: $id - $error");
             $this->aenet->update($id, $astd);
             return false;
         }
@@ -99,7 +99,7 @@ class AenetProcess extends BaseProcess
                 'status_nfe' => 9, //erro 9 esse registro será ignorado
                 'motivo' => $error,
             ];
-            $this->logger->error("Exception: $id - $error");
+            $this->logger->error("Exception Signature: $id - $error");
             $this->aenet->update($id, $astd);
             return false;
         }
