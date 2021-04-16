@@ -17,7 +17,7 @@
         "nfephp-org/sped-nfe" : "dev-master",
         "nfephp-org/sped-da" : "dev-master",
         "nfephp-org/sped-mail": "^0.1",
-        "illuminate/database": "^5.4",
+        "illuminate/database": "^6.20.14",
         "vlucas/phpdotenv": "^2.4@dev",
         "monolog/monolog": "^2.0@dev",
         "phpmailer/phpmailer": "^6.1"
@@ -30,7 +30,7 @@
     "autoload": {
         "psr-4": {
           "Aenet\\NFe\\": "src/"
-        } 
+        }
     },
     "autoload-dev": {
         "psr-4": {
