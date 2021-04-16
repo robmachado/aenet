@@ -197,3 +197,21 @@ Insira os comandos
 5 0 1 * * root /var/www/aenet/jobs/job_clearlogs.sh &> /dev/null
 ```
 
+## Job manifesta
+
+```bash
+nano job_clearlogs
+```
+
+Insira os comandos
+
+```bash
+# Tarefa de limpeza dos arquivos de log
+# Essa tarefa será executada
+# 0/10  = a cada 10 minutos
+# 4-22  = totas as horas,
+# *     = todos os dias,
+# *     = todos os meses,
+# 1-6   = de segunda a sábado
+0/10 4-22 * * 1-6 root /var/www/aenet/jobs/job_manifesta.sh &> /dev/null
+```

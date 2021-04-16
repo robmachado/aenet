@@ -41,27 +41,15 @@ class BaseProcess
     public function __construct(stdClass $cad, $pathlog, $init = true)
     {
         $this->cad = $cad;
-        if (strpos($pathlog, 'nfe') != false) {
-            $type = 'nfe';
-            $config = new Config(
-                $cad->fantasia,
-                $cad->uf,
-                $cad->cnpj,
-                $cad->tpAmb,
-                'PL_009_V4',
-                isset($cad->layout) ? $cad->layout : '4.00'
-            );
-        } else {
-            $type = 'cte';
-            $config = new Config(
-                $cad->fantasia,
-                $cad->uf,
-                $cad->cnpj,
-                $cad->tpAmb,
-                'PL_CTe_300a',
-                '3.00'
-            );
-        }
+        $type = 'nfe';
+        $config = new Config(
+            $cad->fantasia,
+            $cad->uf,
+            $cad->cnpj,
+            $cad->tpAmb,
+            'PL_009_V4',
+            isset($cad->layout) ? $cad->layout : '4.00'
+        );
         $this->config = "{$config}";
         $this->storage = realpath(__DIR__ . '/../../storage');
         $this->logger = new Logger('Aenet');
@@ -83,18 +71,10 @@ class BaseProcess
         $certificate->chainKeys = new CertificationChain(
             $this->cad->crtchain
         );
-        if ($type == 'nfe') {
-            //carrega a classe de comunicação
-            $this->tools = new \NFePHP\NFe\Tools($this->config, $certificate);
-            $this->tools->model('55');
-            //$this->tools->soap->disableSecurity(true);
-            //$this->tools->soap->setDebugMode(false);
-        } else {
-            //carrega a classe de comunicação
-            $this->tools = new \NFePHP\CTe\Tools($this->config, $certificate);
-            $this->tools->model('57');
-            //$this->tools->soap->disableSecurity(true);
-            //$this->tools->soap->setDebugMode(false);
-        }    
+       //carrega a classe de comunicação
+        $this->tools = new \NFePHP\NFe\Tools($this->config, $certificate);
+        $this->tools->model('55');
+        //$this->tools->soap->disableSecurity(true);
+        //$this->tools->soap->setDebugMode(false);
     }
 }

@@ -15,6 +15,11 @@ class NFe extends Eloquent
         'cnpj',
         'xNome',
         'dhEmi',
-        'content'
+        'content',
+        'situacao',
+        'manifestar',
+        'justificativa',
+        'resultado',
+        'evento'
     ];
 }
