@@ -1,0 +1,10 @@
+
+ALTER TABLE `dfe_nfes` ADD `manifestar` INT NULL AFTER `situacao`, ADD `justificativa` VARCHAR(250) NULL AFTER `manifestar`, ADD `resultado` VARCHAR(250) NULL AFTER `justificativa`, ADD `evento` LONGTEXT NULL AFTER `resultado`;
+
+
+//ALTER TABLE `dfe_nfes` CHANGE `justificativa` `justificaitiva` VARCHAR(250) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL COMMENT 'indicar justificativa caso operação não realizada, minim 15 caracteres max 250 caracteres';
+
+
+ALTER TABLE `aenet_nfe`.`dfe_nfes` ADD INDEX `k_empresa_chave` (`id_empresa`, `chNFe`);
+
+ALTER TABLE `aenet_nfe`.`dfe_nfes` ADD UNIQUE `k_empresa_manifestar` (`id_empresa`, `manifestar`);
