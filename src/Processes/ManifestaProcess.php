@@ -75,6 +75,11 @@ class ManifestaProcess extends BaseProcess
             $this->man->update($id, $astd);
         } catch (\Exception $e) {
             $error = $e->getMessage();
+            $astd = [
+                'manifestar' => 8,
+                'resultado' => str_replace("'", "", substr($error, 0, 249)),
+                'evento' => null
+            ];
             $this->logger->error("Exception Manifesta: $id - $error");
             return false;
         }

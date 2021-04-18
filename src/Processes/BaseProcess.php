@@ -74,7 +74,5 @@ class BaseProcess
        //carrega a classe de comunicação
         $this->tools = new \NFePHP\NFe\Tools($this->config, $certificate);
         $this->tools->model('55');
-        //$this->tools->soap->disableSecurity(true);
-        //$this->tools->soap->setDebugMode(false);
     }
 }
